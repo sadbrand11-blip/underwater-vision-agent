@@ -26,6 +26,12 @@ Research knowledge cards are short attributed summaries; full papers and dataset
 are not bundled. Dependencies retain their own licenses, including PyTorch,
 Torchvision, scikit-learn, OpenCV, Flask, Transformers, LangGraph and MCP.
 
+TorchVision is used for the detector architecture and COCO initialization.
+Its original BSD 3-Clause copyright and conditions are retained in
+[`licenses/TORCHVISION_BSD3.txt`](licenses/TORCHVISION_BSD3.txt), copied from
+the [official v0.17.0 license](https://github.com/pytorch/vision/blob/v0.17.0/LICENSE).
+MIT covers this project's contributions; it does not remove upstream notices.
+
 ## Test fixtures
 
 Key-shaped strings in redaction tests are deliberately fabricated fixtures.

@@ -84,6 +84,22 @@ def test_missing_model_raises():
         UnavailableDetector().predict(np.zeros((16,16,3),dtype=np.uint8))
 
 
+def test_optional_embedding_dependencies_are_explicitly_unavailable(tmp_path,monkeypatch):
+    import builtins
+    from optical_agent.rag_engine import LocalEncoder, RagUnavailable
+    (tmp_path/'model.safetensors').write_bytes(b'fixture; never loaded')
+    original=builtins.__import__
+    for missing in ('torch','transformers'):
+        def blocked(name,*args,**kwargs):
+            if name==missing:
+                raise ImportError('Optional dependency absent')
+            return original(name,*args,**kwargs)
+        with monkeypatch.context() as scoped:
+            scoped.setattr(builtins,'__import__',blocked)
+            with pytest.raises(RagUnavailable,match='dependencies unavailable'):
+                LocalEncoder(tmp_path)
+
+
 def test_cached_checkpoint_without_torch_still_allows_quality(client,tmp_path,monkeypatch):
     model=tmp_path/'cached.pt'
     model.write_bytes(b'0'*1_000_001)

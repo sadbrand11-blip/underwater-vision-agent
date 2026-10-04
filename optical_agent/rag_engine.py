@@ -101,12 +101,18 @@ def build_chunks(root, manifest_path='knowledge/sources_v2.json'):
 
 class LocalEncoder:
     def __init__(self, model_path=None, device='cpu'):
-        import torch
-        from transformers import AutoModel, AutoTokenizer
         self.path = Path(model_path or DATA_ROOT / 'models/bge-small-zh-v1.5')
         weights = self.path / 'model.safetensors'
         if not weights.is_file():
             raise RagUnavailable('本地Embedding模型缺失；请先运行 prepare_rag.py，网页不会自动下载。')
+        try:
+            import torch
+            from transformers import AutoModel, AutoTokenizer
+        except ImportError as exc:
+            raise RagUnavailable(
+                'Local Embedding dependencies unavailable; install the optional Torch/Transformers dependencies. '
+                'TF-IDF remains available.'
+            ) from exc
         self.model_hash = file_hash(weights)
         self.asset_hash = fingerprint({p.name:file_hash(p) for p in sorted(self.path.iterdir())
             if p.is_file() and p.suffix in {'.json','.txt','.safetensors'}})

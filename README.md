@@ -13,7 +13,7 @@ No cloud LLM was called to make this recording.*
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
     I[Image + task] --> G[Goal contract]
     G --> P[Initial plan]
     P --> A[Choose action]

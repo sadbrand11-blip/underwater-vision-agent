@@ -9,9 +9,10 @@ private development Git directory. No paid model calls or training were performe
 | Check | Actual result |
 |---|---|
 | Fresh Python 3.11 lightweight environment | 6 public-entry tests passed; Torch and LangGraph absent before optional installation |
-| Final public bootstrap regression | 7 passed, including a cached checkpoint without Torch dependencies |
+| Final public bootstrap regression | 8 passed, including a cached checkpoint without Torch and explicit optional Embedding dependency failures |
 | Full Python regression with existing optional LangGraph environment | 257 passed, 4 skipped |
 | Actual MCP SDK / subprocess suite | 17 passed, 1 skipped |
+| Fresh public CPU environment with both optional SDKs | 261 passed, 2 skipped; Torch 2.2.0+cpu, LangGraph 1.2.12, MCP 2.3.0, Pydantic 2.13.5 |
 | Existing web component checks | 12 conversation +6 memory +4 LangGraph scenarios passed |
 | Browser verification | Actual exposure, correction and pipe-analysis paths visible at `/showcase` |
 | Credentials / path audit | Whitelist export and pattern scan; fabricated redaction fixtures explicitly allowlisted |
@@ -64,3 +65,29 @@ public delivery choice, not a new held-out retrieval acceptance result.
 Checks reduce known disclosure and reproducibility risks; they are not a claim
 of comprehensive external security or annotation review. Public clone and asset
 download verification are recorded in the delivery summary after publication.
+
+## Anonymous publication verification
+
+Anonymous clone, new-data-root exposure assessment/correction, explicit unavailable
+detection, anonymous Release download, checkpoint SHA256 verification and actual
+CPU pipe analysis all passed. The real analysis again returned zero pipe
+candidates and unreliable status, with six tool calls and no paid LLM requests.
+
+The first GitHub CI lightweight job passed. Its combined optional-runtime job
+failed during installation: the inherited LangGraph lock pinned Pydantic 2.10.6,
+while MCP 2.3.0 requires at least 2.12.0. The public configuration now pins 2.13.5
+and retains the core Requests version. The initial failure remains in Actions
+history; compatibility updates live on `main`, preserving the initial source tag.
+
+The fresh combined environment initially reported 259 passed, two skipped and
+one failure: missing optional Transformers raised an unclassified import error.
+The encoder now checks model availability before imports and reports missing
+dependencies as `RagUnavailable`; TF-IDF does not require them. The focused
+rerun passed 72 tests with two skips, followed by the full **261 passed, two
+skipped** run in 172.73 seconds. The final skips are the Windows symbolic-link
+permission case and the intentionally absent private historical commit.
+
+Changing the homepage also changes the public corpus hash. Its consistency guard
+correctly blocked new sessions until the release hash was regenerated. The
+updated snapshot has 119 chunks and retains the guard; current measurements and
+reliability requirements were not relaxed.
