@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .venv/
+.local-data/
 work/
 models/*_raw.pt
 .env

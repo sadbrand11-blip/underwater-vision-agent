@@ -1,16 +1,16 @@
 [
   {
-    "id": "readme",
-    "title": "当前系统操作与能力边界",
-    "path": "README.md",
-    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/README.md",
-    "verified_at": "2026-09-28"
+    "id": "project_capabilities",
+    "title": "项目能力、默认模型与可靠性边界",
+    "path": "knowledge/PROJECT_CAPABILITIES.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/PROJECT_CAPABILITIES.md",
+    "verified_at": "2026-10-04"
   },
   {
     "id": "results",
     "title": "水下视觉模型的初步实验结果",
-    "path": "UNDERWATER_RESULTS.md",
-    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/UNDERWATER_RESULTS.md",
+    "path": "docs/reports/UNDERWATER_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/docs/reports/UNDERWATER_RESULTS.md",
     "verified_at": "2026-09-28"
   },
   {
@@ -51,8 +51,8 @@
   {
     "id": "vision_results_v040",
     "title": "0.4.0视觉实验实测结果与采用门槛",
-    "path": "VISION_RESULTS.md",
-    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/VISION_RESULTS.md",
+    "path": "docs/reports/VISION_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/docs/reports/VISION_RESULTS.md",
     "verified_at": "2026-10-01"
   }
 ]

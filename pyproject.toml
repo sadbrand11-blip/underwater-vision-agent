@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "underwater-optical-agent"
-version = "0.5.3"
+version = "0.5.4"
 description = "Local underwater vision tools with bounded cloud orchestration"
 requires-python = ">=3.10"
 dependencies = [

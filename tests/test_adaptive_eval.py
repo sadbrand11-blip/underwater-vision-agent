@@ -24,8 +24,8 @@ QUALITY = {'types':['quality'],'classes':'all','policy':'never','image':'origina
 class AdaptiveEvaluationTests(unittest.TestCase):
     def test_network_stops_span_disjoint_invocations_and_publisher_rejects_changes(self):
         from pathlib import Path
-        from evaluate_adaptive import run_history
-        from report_adaptive import verify_pins
+        from optical_agent.experiments.evaluate_adaptive import run_history
+        from optical_agent.experiments.report_adaptive import verify_pins
         from optical_agent.independent_eval import digest
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)
@@ -71,7 +71,7 @@ class AdaptiveEvaluationTests(unittest.TestCase):
     def test_run_wide_terminal_stop_applies_to_disjoint_split_before_budget(self):
         import io
         from pathlib import Path
-        import evaluate_adaptive
+        from optical_agent.experiments import evaluate_adaptive
         with tempfile.TemporaryDirectory() as folder:
             root=Path(folder)
             (root/'eval').mkdir()
@@ -79,8 +79,8 @@ class AdaptiveEvaluationTests(unittest.TestCase):
             stopped=root/'runs/adaptive_eval/stopped'
             stopped.mkdir(parents=True)
             (stopped/'terminal_stop.json').write_text('{"reason":"authentication_error"}',encoding='utf8')
-            with (patch.object(evaluate_adaptive,'__file__',str(root/'evaluate_adaptive.py')),
-                 patch('sys.argv',['evaluate_adaptive.py','--backend','live','--run-id','stopped','--phase','fix1','--split','demo']),
+            with (patch.object(evaluate_adaptive,'PROJECT_ROOT',root),
+                 patch('sys.argv',['optical_agent/experiments/evaluate_adaptive.py','--backend','live','--run-id','stopped','--phase','fix1','--split','demo']),
                  patch.object(evaluate_adaptive,'inputs',return_value=({},{})),
                  patch.object(evaluate_adaptive,'freeze',return_value={}),
                  patch.object(evaluate_adaptive,'load_local_env'),

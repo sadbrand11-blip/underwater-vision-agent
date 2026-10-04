@@ -1,0 +1,158 @@
+[
+  {
+    "case": "exposure",
+    "engine": "native",
+    "core_sha256": "23779c0b9ee6d6f9798e7b3ae8ceb1cc8209c25e931eabc525a06a9d1f2d819c",
+    "requests_sha256": "304cb0b131716f251f4563887dd340b3f9dac368b29434dba728673a145e56bf"
+  },
+  {
+    "case": "correction",
+    "engine": "native",
+    "core_sha256": "66cbbe95e8e0aa02b16e653438c1dccc40659ee09c7312d9369620b9e1ab85bc",
+    "requests_sha256": "2c3bbf65104438c7ed32e4782ee8698510b89259dc9d5c8f4547862ea7b93680"
+  },
+  {
+    "case": "detection",
+    "engine": "native",
+    "core_sha256": "3999031a0a57de6a37eefcf19e1504d5e1646e5b7049ad7fd13785bac67e9800",
+    "requests_sha256": "e2732c94be62f98694aa3e4599bbc4c4f4f63d040cd36cbd629ee6806b5262e5"
+  },
+  {
+    "case": "normal_condition",
+    "engine": "native",
+    "core_sha256": "9493484d262129e2fbc2f8464dfa21384793dfb62c6323c72d01ee37d9a96f23",
+    "requests_sha256": "062cb7a3577c9b56d1aa6aee51c209144ce87f6a2e80689f3d81f5d28e29f4c8"
+  },
+  {
+    "case": "dark_condition",
+    "engine": "native",
+    "core_sha256": "a0fc5e3780bb4431ceb54bb564efa8101aa73a851d32fd07c9accec324090037",
+    "requests_sha256": "668c32580e94c254314372ecade65c0c8a7666c50438f2bcf34c43d218797fa1"
+  },
+  {
+    "case": "black_condition",
+    "engine": "native",
+    "core_sha256": "e59eac5ee49dcd2aaafaddbd4f584af4609cee50333968a32d63efee86e75ac4",
+    "requests_sha256": "05821ab5128d22f69ec145b3c34d2305d8f688fbb635cfd2466112beadbd1aee"
+  },
+  {
+    "case": "followup_cache",
+    "engine": "native",
+    "core_sha256": "b36bbd90e69314bf39bc26f646c6fad699a346925cfe835df5c159cc35ae9485",
+    "requests_sha256": "88784f7adf40420244504d0651ffb972b9d90ae8b03e32d14e3aff43c8c98163"
+  },
+  {
+    "case": "candidate_decline",
+    "engine": "native",
+    "core_sha256": "c4c5b85052b3762a201d90c02244ee1808f8f1d71792b6465d7b0b6da2f8b13d",
+    "requests_sha256": "c36a36b701e472c46922846b7df7f4e62c5e5bf9ae1c4e5bc8cf5b28e057defb"
+  },
+  {
+    "case": "premature_finish",
+    "engine": "native",
+    "core_sha256": "0dce212c7d4700cc18774df022d3781c9fc80d723abda6cb254c7156cc9cad00",
+    "requests_sha256": "963d2560a47e646c51e4b8d91bc86f7551ea37eb707019b41cd9b58636b37a89"
+  },
+  {
+    "case": "fabrication",
+    "engine": "native",
+    "core_sha256": "bf6f1751b8578a2250ec8dc9268312e7a1f8bd4169336065b38a7edeefab063e",
+    "requests_sha256": "d36c24bfced558fd45613883c0797be5f880efd7d1f0f53eb9990368b891c536"
+  },
+  {
+    "case": "format_failure",
+    "engine": "native",
+    "core_sha256": "bf6f1751b8578a2250ec8dc9268312e7a1f8bd4169336065b38a7edeefab063e",
+    "requests_sha256": "994fb94a97a2a66c553fb2d3fe4578856772444b0b31617bd9d92245a6b2b6a7"
+  },
+  {
+    "case": "model_budget",
+    "engine": "native",
+    "core_sha256": "840f257ed9d7e4f86d310a0dd95f209045eba825b26008fe084210d0c7bc2629",
+    "requests_sha256": "eaebd97d85a7bfc60b36ed5a45ca192f4ac8f89ddc6029cf0b3a5ccf973f9994"
+  },
+  {
+    "case": "tool_budget",
+    "engine": "native",
+    "core_sha256": "a9e3c87dd86bcf25e6f7202fabb9d0b8867874e82cc1caa571fdb75debebedeb",
+    "requests_sha256": "6c75cbc845367f9aedb4dfaaa6d4a1f9c1080b78e67a2771da27debef48ee722"
+  },
+  {
+    "case": "exposure",
+    "engine": "langgraph",
+    "core_sha256": "23779c0b9ee6d6f9798e7b3ae8ceb1cc8209c25e931eabc525a06a9d1f2d819c",
+    "requests_sha256": "304cb0b131716f251f4563887dd340b3f9dac368b29434dba728673a145e56bf"
+  },
+  {
+    "case": "correction",
+    "engine": "langgraph",
+    "core_sha256": "66cbbe95e8e0aa02b16e653438c1dccc40659ee09c7312d9369620b9e1ab85bc",
+    "requests_sha256": "2c3bbf65104438c7ed32e4782ee8698510b89259dc9d5c8f4547862ea7b93680"
+  },
+  {
+    "case": "detection",
+    "engine": "langgraph",
+    "core_sha256": "3999031a0a57de6a37eefcf19e1504d5e1646e5b7049ad7fd13785bac67e9800",
+    "requests_sha256": "e2732c94be62f98694aa3e4599bbc4c4f4f63d040cd36cbd629ee6806b5262e5"
+  },
+  {
+    "case": "normal_condition",
+    "engine": "langgraph",
+    "core_sha256": "9493484d262129e2fbc2f8464dfa21384793dfb62c6323c72d01ee37d9a96f23",
+    "requests_sha256": "062cb7a3577c9b56d1aa6aee51c209144ce87f6a2e80689f3d81f5d28e29f4c8"
+  },
+  {
+    "case": "dark_condition",
+    "engine": "langgraph",
+    "core_sha256": "a0fc5e3780bb4431ceb54bb564efa8101aa73a851d32fd07c9accec324090037",
+    "requests_sha256": "668c32580e94c254314372ecade65c0c8a7666c50438f2bcf34c43d218797fa1"
+  },
+  {
+    "case": "black_condition",
+    "engine": "langgraph",
+    "core_sha256": "e59eac5ee49dcd2aaafaddbd4f584af4609cee50333968a32d63efee86e75ac4",
+    "requests_sha256": "05821ab5128d22f69ec145b3c34d2305d8f688fbb635cfd2466112beadbd1aee"
+  },
+  {
+    "case": "followup_cache",
+    "engine": "langgraph",
+    "core_sha256": "b36bbd90e69314bf39bc26f646c6fad699a346925cfe835df5c159cc35ae9485",
+    "requests_sha256": "88784f7adf40420244504d0651ffb972b9d90ae8b03e32d14e3aff43c8c98163"
+  },
+  {
+    "case": "candidate_decline",
+    "engine": "langgraph",
+    "core_sha256": "c4c5b85052b3762a201d90c02244ee1808f8f1d71792b6465d7b0b6da2f8b13d",
+    "requests_sha256": "c36a36b701e472c46922846b7df7f4e62c5e5bf9ae1c4e5bc8cf5b28e057defb"
+  },
+  {
+    "case": "premature_finish",
+    "engine": "langgraph",
+    "core_sha256": "0dce212c7d4700cc18774df022d3781c9fc80d723abda6cb254c7156cc9cad00",
+    "requests_sha256": "41079116901415a1eef49ba544d4ea95e31869a207829239382d30bbfd76c03e"
+  },
+  {
+    "case": "fabrication",
+    "engine": "langgraph",
+    "core_sha256": "bf6f1751b8578a2250ec8dc9268312e7a1f8bd4169336065b38a7edeefab063e",
+    "requests_sha256": "4280c60a948d91c259faf939202242e4200e18ccc219d314286b771b6028001d"
+  },
+  {
+    "case": "format_failure",
+    "engine": "langgraph",
+    "core_sha256": "bf6f1751b8578a2250ec8dc9268312e7a1f8bd4169336065b38a7edeefab063e",
+    "requests_sha256": "151385590a2cf83e0f9869f8f72c0ae999d8ae748c2943ec07b254ffb246be43"
+  },
+  {
+    "case": "model_budget",
+    "engine": "langgraph",
+    "core_sha256": "840f257ed9d7e4f86d310a0dd95f209045eba825b26008fe084210d0c7bc2629",
+    "requests_sha256": "eaebd97d85a7bfc60b36ed5a45ca192f4ac8f89ddc6029cf0b3a5ccf973f9994"
+  },
+  {
+    "case": "tool_budget",
+    "engine": "langgraph",
+    "core_sha256": "a9e3c87dd86bcf25e6f7202fabb9d0b8867874e82cc1caa571fdb75debebedeb",
+    "requests_sha256": "6c75cbc845367f9aedb4dfaaa6d4a1f9c1080b78e67a2771da27debef48ee722"
+  }
+]

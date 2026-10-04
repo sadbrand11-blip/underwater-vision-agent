@@ -48,16 +48,16 @@ UIEB 官方规定学术、非商业使用且禁止重新分发，因此数据图
 在项目目录运行；使用已安装的本地 Python/CUDA 环境。
 
 ```powershell
-python download_vision_data.py
-python prepare_vision_data.py
-python prepare_vision_data.py --quarantine-invalid
-python evaluate_vision_exposure.py search
-python train_vision_detectors.py
-python evaluate_vision_exposure.py select
-python reconcile_vision_calibration.py
-python evaluate_vision_detectors.py
-python evaluate_vision_exposure.py test
-python report_vision.py
+python -m optical_agent.experiments download_vision_data
+python -m optical_agent.experiments prepare_vision_data
+python -m optical_agent.experiments prepare_vision_data --quarantine-invalid
+python -m optical_agent.experiments evaluate_vision_exposure search
+python -m optical_agent.experiments train_vision_detectors
+python -m optical_agent.experiments evaluate_vision_exposure select
+python -m optical_agent.experiments reconcile_vision_calibration
+python -m optical_agent.experiments evaluate_vision_detectors
+python -m optical_agent.experiments evaluate_vision_exposure test
+python -m optical_agent.experiments report_vision
 ```
 
 已有完整模型和逐图缓存会复用。已开始的模型不会无记录地覆盖；已有测试冻结后禁止改变校准和数据。重新开展实验应使用新版本目录和运行编号，不能删除失败记录只留最好结果。
@@ -65,7 +65,7 @@ python report_vision.py
 上面是入口顺序，不是本次失败与恢复的逐位重放。设施模型实际使用的训练源码另存于 `vision_v040/training_source_before_calibration_revalidation.py`。机器人最后恢复在冻结前使用以下命令，从已保留的重试第2轮最佳权重继续；不应在当前冻结目录覆盖执行：
 
 ```powershell
-python train_vision_detectors.py --branch robot --strategy improved --epochs 4 --resume D:\CodexData\optical_agent\vision_v040\models\aborted_empty_roi_robot_improved.pt
+python -m optical_agent.experiments train_vision_detectors --branch robot --strategy improved --epochs 4 --resume D:\CodexData\optical_agent\vision_v040\models\aborted_empty_roi_robot_improved.pt
 ```
 
 第一次增强策略试跑和中间重试的完整源码快照没有全部保留，不能保证逐位重放这两次失败。其权重、历史与日志均保留；初始中止历史和部分权重内嵌状态仍写着 `running`，最终完成以侧边历史、校准文件和对应哈希为依据。补充说明不改写原始文件。
@@ -78,7 +78,7 @@ python train_vision_detectors.py --branch robot --strategy improved --epochs 4 -
 
 ## 怎样读成绩
 
-结果见 [视觉实验报告](../VISION_RESULTS.md)。先看采用门槛，再看逐类召回、误报和拒识。验证通过不自动代表测试有效，更不代表可靠部署。
+结果见 [视觉实验报告](reports/VISION_RESULTS.md)。先看采用门槛，再看逐类召回、误报和拒识。验证通过不自动代表测试有效，更不代表可靠部署。
 
 机器人框分数不是导航安全概率。校准不足时框只能是候选；全黑、全白或严重信息丢失仍输出质量失败。没有跨曝光帧时，可靠性属于单帧内部规则检查，不是多帧一致性验证。
 
@@ -92,6 +92,6 @@ python train_vision_detectors.py --branch robot --strategy improved --epochs 4 -
 
 **这条网页路径使用Gamma，不含CLAHE；报告中的端到端校正表使用完整局部校正。** 配置名相同不表示执行方法相同，应查看工具记录和参数。模型不存在显示不可用；会话内换模型会停止旧缓存复用，要求新建会话。
 
-修订入口标识为 `v040_delivery_r1`。九个冻结核心源码及单帧实验结果未改写；交付保护在独立模块中实现，完整核验见 [VISION_VERIFICATION.json](../VISION_VERIFICATION.json)。MOUD诊断图和部分依赖没有进入原预冻结清单，后补出处记录也不声称它们曾预冻结。
+修订入口标识为 `v040_delivery_r1`。九个冻结核心源码及单帧实验结果未改写；交付保护在独立模块中实现，完整核验见 [VISION_VERIFICATION.json](reports/VISION_VERIFICATION.json)。MOUD诊断图和部分依赖没有进入原预冻结清单，后补出处记录也不声称它们曾预冻结。
 
 旧 0.2.4 正式 Agent Eval 和 0.3.0 动态调度报告保持原样。本轮是一次固定种子的视觉实验，不能据此宣布新的 Agent 正式验收完成。

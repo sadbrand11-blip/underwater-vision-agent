@@ -173,8 +173,8 @@ def latency(retriever, cases, repeats=5):
 
 
 def freeze_files(repo):
-    paths=[repo/'evaluate_rag.py',repo/'prepare_rag.py',repo/'prepare_rag_corpus.py',repo/'publish_rag.py',
-           repo/'knowledge/corpus_layout.json',repo/'build_rag_questions.py',repo/'optical_agent/rag.py',
+    paths=[repo/'optical_agent/experiments/evaluate_rag.py',repo/'optical_agent/experiments/prepare_rag.py',repo/'optical_agent/experiments/prepare_rag_corpus.py',repo/'optical_agent/experiments/publish_rag.py',
+           repo/'knowledge/corpus_layout.json',repo/'optical_agent/experiments/build_rag_questions.py',repo/'optical_agent/rag.py',
            repo/'optical_agent/rag_engine.py',repo/'optical_agent/rag_eval.py',repo/'eval/rag_questions.json']
     for name in CORPORA:
         paths.append(DATA_ROOT/(name.lower()+'_chunks.json'))

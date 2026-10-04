@@ -192,7 +192,7 @@ def version_metadata(root):
         commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True).strip()
     except (OSError, subprocess.CalledProcessError):
         commit = None
-    files = ['runtime.py', 'tasks.py', 'tools.py', 'llm.py', 'independent_eval.py', 'request_budget.py', 'reports.py']
+    files = sorted(p.relative_to(root/'optical_agent').as_posix() for p in (root/'optical_agent').rglob('*.py'))
     return {'code_commit': commit,
             'source_sha256': {f: digest((root / 'optical_agent' / f).read_bytes()) for f in files},
             'prompt_sha256': digest({'intent': INTENT_SYSTEM, 'dispatch': SYSTEM, 'tools': get_tool_descriptions()})}

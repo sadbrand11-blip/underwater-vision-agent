@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from download_vision_data import validate_members
+from optical_agent.experiments.download_vision_data import validate_members
 from quality import ExposureProfile, UNDERWATER_QUALITY_CONFIG, assess, correct_exposure
 from agent import OpticalAgent, _high_confidence
 from optical_agent.vision_data import assign_groups, audit_manifest, subset, validate_boxes, SODD_CLASSES
@@ -13,8 +13,8 @@ from optical_agent.vision_router import DetectorRouter, ModelUnavailableError, G
 from optical_agent.tools import ToolContext
 from optical_agent.adaptive_tools import AdaptiveState, execute
 from optical_agent.adaptive_goals import Goal, parse_goal
-from train_vision_detectors import fixed_report, calibration
-from evaluate_vision_detectors import new_fp, detector_gate, verify_dataset_sources
+from optical_agent.experiments.train_vision_detectors import fixed_report, calibration
+from optical_agent.experiments.evaluate_vision_detectors import new_fp, detector_gate, verify_dataset_sources
 
 
 def row(name,dataset='uieb',pixel=None,phash=0,split=None,group=None):
@@ -212,7 +212,7 @@ def test_macro_gain_cannot_hide_single_class_regression():
 
 
 def test_pre_test_freeze_detects_modified_image_or_annotation(monkeypatch):
-    monkeypatch.setattr('evaluate_vision_detectors.digest',lambda p:'changed')
+    monkeypatch.setattr('optical_agent.experiments.evaluate_vision_detectors.digest',lambda p:'changed')
     with pytest.raises(ValueError,match='source changed'):
         verify_dataset_sources({'records':[{'path':'image','file_sha256':'original'}], 'annotation_hashes':{}})
     with pytest.raises(ValueError,match='COCO annotation'):

@@ -1,7 +1,7 @@
 {
-  "version": "0.5.3-public.1",
+  "version": "0.5.4-public.1",
   "mode": "tfidf",
-  "corpus": "public-sanitized-v1",
+  "corpus": "public-sanitized-v2",
   "thresholds": {
     "tfidf": 0.15,
     "dense": 0.75
@@ -13,6 +13,6 @@
     }
   },
   "historical_benchmark_applies": false,
-  "corpus_hash": "021c281e9ec991e161faa997c202e7b879b1a884772eb355e7297d0f409b008f",
-  "chunk_count": 119
+  "corpus_hash": "e009ccf4fc8b37d217f1e3371b751e38c9157585086d1f68fcc48d797cea61a2",
+  "chunk_count": 106
 }

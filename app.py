@@ -26,6 +26,7 @@ from optical_agent.adaptive_fixture import AdaptiveScriptedClient
 from optical_agent.state import SessionStore
 from optical_agent.memory import MemoryStore, MemoryUnavailable
 from optical_agent import __version__
+from optical_agent.ui_capabilities import probe_capabilities
 from importlib.util import find_spec
 
 
@@ -241,7 +242,8 @@ def knowledge_search():
 @app.get('/agent')
 def conversation():
     return render_template('conversation.html', cloud_configured=CloudClient().configured,
-                           langgraph_available=find_spec('langgraph') is not None)
+                           langgraph_available=find_spec('langgraph') is not None,
+                           capabilities=probe_capabilities(MODEL, DATA_ROOT/'models/bge-small-zh-v1.5', experimental=False))
 
 
 @app.get('/memory')

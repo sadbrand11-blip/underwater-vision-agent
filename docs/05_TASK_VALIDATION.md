@@ -54,7 +54,7 @@ flowchart LR
 运行：
 
 ```powershell
-python demo_task_validation.py
+python -m optical_agent.experiments demo_task_validation
 ```
 
 这个脚本使用预设模型响应、合成图片和检测夹具，刻意模拟一次过早结束。曝光计算和完成校验真实执行，不发起 API 请求，也不评价真实模型精度。

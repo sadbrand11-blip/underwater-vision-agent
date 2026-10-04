@@ -87,7 +87,7 @@ MCP 服务通过输入、输出管道通信，没有网页地址或新的端口�
 运行自己的本地图片：
 
 ```powershell
-& 'D:\CodexData\optical_agent\mcp\venv\Scripts\python.exe' -u -X utf8 -B demo_mcp.py --image 'D:\CodexData\optical_agent\你的图片.jpg' --method local_bounded
+& 'D:\CodexData\optical_agent\mcp\venv\Scripts\python.exe' -u -X utf8 -B -m optical_agent.experiments demo_mcp --image 'D:\CodexData\optical_agent\你的图片.jpg' --method local_bounded
 ```
 
 默认示例要求可评估、适合候选流程的输入；若图像质量失败，程序会明确停止而非假装生成候选。此时可直接使用 MCP 的曝光工具检查失败原因。
@@ -98,4 +98,4 @@ MCP 服务通过输入、输出管道通信，没有网页地址或新的端口�
 
 ## 验证范围
 
-见 [MCP 验证报告](../MCP_RESULTS.md)。结果说明协议接入与现有计算一致，不代表真实 LLM 的工具选择能力或视觉精度提升。native、LangGraph、RAG、长期记忆以及旧正式评测入口保留。
+见 [MCP 验证报告](reports/MCP_RESULTS.md)。结果说明协议接入与现有计算一致，不代表真实 LLM 的工具选择能力或视觉精度提升。native、LangGraph、RAG、长期记忆以及旧正式评测入口保留。

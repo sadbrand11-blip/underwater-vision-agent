@@ -52,6 +52,6 @@
 
 ## 离线演示与验证
 
-运行`python demo_memory.py --output-dir D:\CodexData\optical_agent\memory\runs\my_demo`。它启动两个实际Python进程，使用既有SODD测试索引6、7及现有检测器，离线规则调度。第二个进程读取偏好/历史，同时重新检测另一张图片。输出目录必须是D盘memory内的新子目录；不会覆盖已有演示或修改个人记忆。
+运行`python -m optical_agent.experiments demo_memory --output-dir D:\CodexData\optical_agent\memory\runs\my_demo`。它启动两个实际Python进程，使用既有SODD测试索引6、7及现有检测器，离线规则调度。第二个进程读取偏好/历史，同时重新检测另一张图片。输出目录必须是D盘memory内的新子目录；不会覆盖已有演示或修改个人记忆。
 
-查看[本轮检查结果](../MEMORY_RESULTS.md)。这个演示验证工程机制，不验证真实LLM使用历史的质量，也没有测量识别精度改善。
+查看[本轮检查结果](reports/MEMORY_RESULTS.md)。这个演示验证工程机制，不验证真实LLM使用历史的质量，也没有测量识别精度改善。

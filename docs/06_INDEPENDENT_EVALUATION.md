@@ -13,7 +13,7 @@
 在项目目录运行：
 
 ```powershell
-python demo_independent_eval.py
+python -m optical_agent.experiments demo_independent_eval
 ```
 
 这是故障注入演示：故意让解析器把比较任务当作曝光评估，随后用正确解析执行同一问题。
@@ -50,20 +50,20 @@ python demo_independent_eval.py
 
 ## 运行和查看真实评测
 
-本轮结果见 [中文报告](../INDEPENDENT_EVALUATION_RESULTS.md)。原始脱敏记录保存在 `runs/agent_eval/<运行编号>/`，与网页会话日志分开，且不提交Git。
+本轮结果见 [中文报告](reports/INDEPENDENT_EVALUATION_RESULTS.md)。原始脱敏记录保存在 `runs/agent_eval/<运行编号>/`，与网页会话日志分开，且不提交Git。
 
 ```powershell
 # 离线工程检查，不消耗API，不代表LLM准确率
-python evaluate_orchestration.py --task-file eval/agent_tasks_v2.json --backend scripted --split dev --run-id offline-check --phase offline
+python -m optical_agent.experiments evaluate_orchestration --task-file eval/agent_tasks_v2.json --backend scripted --split dev --run-id offline-check --phase offline
 
 # 真实评测会产生API费用。须配置本地.env，并为同一阶段保留同一个运行编号。
-python evaluate_orchestration.py --task-file eval/agent_tasks_v2.json --backend live --vision fixture --split dev --run-id your-authorized-run --phase before --max-http-attempts 120
+python -m optical_agent.experiments evaluate_orchestration --task-file eval/agent_tasks_v2.json --backend live --vision fixture --split dev --run-id your-authorized-run --phase before --max-http-attempts 120
 
 # 指定失败案例和同类成功案例复测；仍使用同一运行编号
-python evaluate_orchestration.py --task-file eval/agent_tasks_v2.json --backend live --vision fixture --split dev --task-ids dev_02 dev_04 --run-id your-authorized-run --phase fix1 --max-http-attempts 120
+python -m optical_agent.experiments evaluate_orchestration --task-file eval/agent_tasks_v2.json --backend live --vision fixture --split dev --task-ids dev_02 dev_04 --run-id your-authorized-run --phase fix1 --max-http-attempts 120
 
 # 当前真实图片小批次：SODD测试索引6、7、8、9、10，分别对应五类任务
-python evaluate_orchestration.py --task-file eval/agent_tasks_v2.json --backend live --vision sodd --split dev --task-ids dev_01 dev_02 dev_03 dev_04 dev_06 --run-id your-authorized-run --phase after --max-http-attempts 120
+python -m optical_agent.experiments evaluate_orchestration --task-file eval/agent_tasks_v2.json --backend live --vision sodd --split dev --task-ids dev_01 dev_02 dev_03 dev_04 dev_06 --run-id your-authorized-run --phase after --max-http-attempts 120
 ```
 
 开发和真实图片使用不同视觉后端，不能互相当作前后改善对照。`paired_comparison` 只比较相同题目、视觉后端、图片内容及重复编号。

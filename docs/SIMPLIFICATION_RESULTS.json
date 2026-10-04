@@ -1,0 +1,201 @@
+{
+  "version": "0.5.4",
+  "scope": "offline engineering equivalence; no new LLM or vision accuracy evaluation",
+  "paid_api_requests": 0,
+  "training_runs": 0,
+  "parity": [
+    {
+      "repo": "public",
+      "baseline_commit": "9faf88f5ca8c6bdd25e13c00c8c7aab5ee44647e",
+      "cases_matched": 26,
+      "request_and_core_differences": 0,
+      "paid_api_requests": 0,
+      "timings": {
+        "native": {
+          "before_mean_ms": 59.2853025002114,
+          "after_mean_ms": 59.43303999938507
+        },
+        "langgraph": {
+          "before_mean_ms": 107.1799999986979,
+          "after_mean_ms": 107.74130500121828
+        }
+      }
+    },
+    {
+      "repo": "private",
+      "baseline_commit": "80c630d508e3f9d6eb91cff8fa4781462ba10c9a",
+      "cases_matched": 26,
+      "request_and_core_differences": 0,
+      "paid_api_requests": 0,
+      "timings": {
+        "native": {
+          "before_mean_ms": 59.0114975002507,
+          "after_mean_ms": 59.610399999473884
+        },
+        "langgraph": {
+          "before_mean_ms": 110.47158000073978,
+          "after_mean_ms": 121.42424999947252
+        }
+      }
+    }
+  ],
+  "processing_timings": [
+    {
+      "repo": "public",
+      "stage": "baseline",
+      "engine": "native",
+      "samples": 40,
+      "mean_ms": 59.2853025002114,
+      "p95_ms": 100.04329499643063
+    },
+    {
+      "repo": "public",
+      "stage": "baseline",
+      "engine": "langgraph",
+      "samples": 40,
+      "mean_ms": 107.1799999986979,
+      "p95_ms": 141.4575550039443
+    },
+    {
+      "repo": "public",
+      "stage": "refactored",
+      "engine": "native",
+      "samples": 40,
+      "mean_ms": 59.43303999938507,
+      "p95_ms": 102.77687000307196
+    },
+    {
+      "repo": "public",
+      "stage": "refactored",
+      "engine": "langgraph",
+      "samples": 40,
+      "mean_ms": 107.74130500121828,
+      "p95_ms": 141.48450999928158
+    },
+    {
+      "repo": "private",
+      "stage": "baseline",
+      "engine": "native",
+      "samples": 40,
+      "mean_ms": 59.0114975002507,
+      "p95_ms": 101.54859000540455
+    },
+    {
+      "repo": "private",
+      "stage": "baseline",
+      "engine": "langgraph",
+      "samples": 40,
+      "mean_ms": 110.47158000073978,
+      "p95_ms": 162.48621499980794
+    },
+    {
+      "repo": "private",
+      "stage": "refactored",
+      "engine": "native",
+      "samples": 40,
+      "mean_ms": 59.610399999473884,
+      "p95_ms": 100.31881999930192
+    },
+    {
+      "repo": "private",
+      "stage": "refactored",
+      "engine": "langgraph",
+      "samples": 40,
+      "mean_ms": 121.42424999947252,
+      "p95_ms": 163.53857499998406
+    }
+  ],
+  "startup": [
+    {
+      "version": "0.5.3",
+      "repetitions": 5,
+      "measure": "fresh CPU process launch to first HTTP 200 /health, no weights or key",
+      "latencies_ms": [
+        2534.210300000268,
+        2483.2497000024887,
+        2505.244500003755,
+        2493.7540000028093,
+        2510.233300003165
+      ],
+      "mean_ms": 2505.338360002497,
+      "p95_ms": 2529.4149000008474
+    },
+    {
+      "version": "0.5.4",
+      "repetitions": 5,
+      "measure": "fresh CPU process launch to first HTTP 200 /health, no weights or key",
+      "latencies_ms": [
+        2511.966799997026,
+        2504.749100000481,
+        2530.253500000981,
+        2504.320699998061,
+        2503.130600001896
+      ],
+      "mean_ms": 2510.884139999689,
+      "p95_ms": 2526.59616000019
+    }
+  ],
+  "root_python_files": {
+    "public": {
+      "before": 43,
+      "after": 11
+    },
+    "private": {
+      "before": 42,
+      "after": 10
+    }
+  },
+  "public_readme_words": {
+    "before": 721,
+    "after": 409
+  },
+  "experiment_commands": 32,
+  "python_tests": {
+    "public": {
+      "passed": 292,
+      "skipped": 2
+    },
+    "private": {
+      "passed": 283,
+      "skipped": 3
+    }
+  },
+  "ui_checks": {
+    "public": 27,
+    "private": 27
+  },
+  "clean_cpu_bootstrap": {
+    "passed": 8,
+    "torch": false,
+    "api_key": false,
+    "detector_weights": false
+  },
+  "gif": {
+    "version": "0.5.4",
+    "frames": 4,
+    "duration_seconds": 18,
+    "width": 960,
+    "height": 540,
+    "bytes": 576272,
+    "sha256": "81ffdc25a87b5d1f144c376e442dc97c932632330ac20819cea989c6b2d725dc",
+    "scheduler": "offline scripted",
+    "visual_tools": "actual SODD six-class checkpoint",
+    "input": "licensed SODD sample, simulated brightness x0.6",
+    "paid_api_requests": 0,
+    "actual_pipeline_tools": 6,
+    "candidate_count": 0,
+    "reliability": "unreliable"
+  },
+  "public_corpus": {
+    "name": "public-sanitized-v2",
+    "chunks": 106,
+    "sha256": "e009ccf4fc8b37d217f1e3371b751e38c9157585086d1f68fcc48d797cea61a2"
+  },
+  "private_c1_sha256": "474e7effaa82044d2e4f138dc31951f432261d9fbf663b5ce96ea4958000653d",
+  "limitations": [
+    "fixture processing times are not real detector latency",
+    "five repeats are not five independent tasks",
+    "historical scores were not rerun or relabelled",
+    "public-sanitized-v2 has no new Recall/MRR claim"
+  ]
+}

@@ -1,115 +1,60 @@
 # Underwater Vision Agent
 
-**Local underwater exposure analysis and bounded correction, with evidence-checked object recognition.**
+**Local underwater exposure assessment, bounded correction and evidence-checked object recognition.**
 
-[中文操作指南](docs/QUICK_START_ZH.md) · [Evaluation details](docs/EVALUATION.md) · [MIT](LICENSE) · [Data attribution](THIRD_PARTY_NOTICES.md)
+[中文指南](docs/QUICK_START_ZH.md) · [Architecture](docs/ARCHITECTURE.md) · [MIT](LICENSE) · [Attribution](THIRD_PARTY_NOTICES.md)
 
-![Public demo: offline scripted scheduling with real local visual tools](assets/demo.gif)
+![Offline scripted scheduling with actual local visual tools](assets/demo.gif)
 
-*The GIF uses a scripted scheduler and the actual SODD detector. Brightness ×0.6 is
-a simulated perturbation. An “unreliable” conclusion is intentionally retained.
-No cloud LLM was called to make this recording.*
+*Offline scripted scheduler, actual SODD detector. The dark input uses simulated brightness ×0.6. Unreliable results are retained; this recording made no cloud LLM calls.*
 
-## Architecture
+## Quick Start
 
-```mermaid
-flowchart TD
-    I[Image + task] --> G[Goal contract]
-    G --> P[Initial plan]
-    P --> A[Choose action]
-    A --> T[Local visual tools]
-    T --> O[Measured observations]
-    O --> A
-    O --> R[Revise plan when warranted]
-    R --> A
-    A --> V[Program completion verifier]
-    V -->|missing evidence| A
-    V -->|complete| F[Report + reliability reasons]
-    K[Local RAG] -. cited knowledge .-> A
-    M[Preferences + analysis history] -. planning references .-> G
-    F -. completed summaries .-> M
-    MCP[Optional stdio MCP] --> T
-```
-
-The **native runtime is the default**. An optional LangGraph runtime exposes the
-same stages as graph nodes. An immutable goal contract, tool prerequisites,
-bounded candidates and a program verifier constrain both runtimes. Measurements,
-boxes and reliability states come from executed tools. RAG and historical memory
-cannot substitute for evidence from the current image.
-
-## Evidence, with scope
-
-These are separate historical experiments, **not one current-version success
-score**. Full reports retain failures and denominators.
-
-| Experiment | Result | Scope |
-|---|---:|---|
-| [Legacy formal Agent Eval](FORMAL_EVALUATION_RESULTS.md) | **59/60 complete (98.3%)** | 0.2.3 behavior; 20 held-out tasks ×3 runs; 78 turns |
-| [Adaptive visual development demo](ADAPTIVE_EVALUATION_RESULTS.md) | **3/6 complete**; fixed workflow **6/6** | 0.3.0; three inputs ×2; includes simulated perturbations |
-| [Frozen-corpus RAG](RAG_RESULTS.md) | Delivered Recall@3: **35.0% TF-IDF → 47.5% Hybrid** | 0.5.0 C1; 40 answerable +10 no-answer held-out questions |
-| [MCP protocol parity](MCP_RESULTS.md) | **3 tools; 9/9 direct-call checks** | 0.5.3; actual stdio client, not an accuracy benchmark |
-
-Repeated runs are not independent tasks. Labels were not externally reviewed by
-humans; same-model-family audits are provisional. Retrieval results do not measure
-LLM answer quality or detector accuracy. The public knowledge corpus has a new
-identity and defaults to TF-IDF; the historical RAG scores belong to frozen C1.
-
-## Quick Start — no key, no weights, CPU
-
-Tested with **Python 3.11**. On Windows PowerShell:
+Python 3.11, CPU. The default demo needs no API key or detector weights. In Windows PowerShell:
 
 ```powershell
 git clone https://github.com/sadbrand11-blip/underwater-vision-agent.git
 cd underwater-vision-agent
 python -m venv D:\CodexData\optical_agent\public\venv
-D:\CodexData\optical_agent\public\venv\Scripts\python.exe -m pip install -r requirements-demo.txt
-D:\CodexData\optical_agent\public\venv\Scripts\python.exe run_demo.py
+$agentPython = "D:\CodexData\optical_agent\public\venv\Scripts\python.exe"
+& $agentPython -m pip install -r requirements-demo.txt
+& $agentPython run_demo.py
 ```
 
-Open **http://127.0.0.1:7860/showcase**. Choose **Assess exposure only** or
-**Correct exposure only**, then click **Run local tools**. A licensed sample is
-included; you can also upload your own image. The default scheduler is explicitly
-offline and scripted. Missing detector weights mean **detection unavailable**, not
-“no objects.” Use `--port 7861` if another local instance uses 7860.
+Open **http://127.0.0.1:7860/showcase**, choose exposure assessment or correction, and run the local tools. Use the included licensed sample or upload an image. Missing detection resources are reported as unavailable. Use `--port 7861` when 7860 is occupied.
 
-Downloads, weights, logs and memory default to `D:\CodexData\optical_agent\public`.
-For other platforms, set `OPTICAL_AGENT_DATA_ROOT` to your data directory **before
-launching**, create a normal venv there, and use its Python executable.
+For actual recognition, install the optional CPU detector and start with `--with-detector`; the launcher verifies the released checkpoint's SHA256. See the [Chinese guide](docs/QUICK_START_ZH.md) for exact commands, supported classes and other platforms.
 
-### Optional actual object detection
+The `/agent` workbench supports image tasks, follow-up questions and expandable evidence. Its offline mode supports example tasks; free-text cloud scheduling requires a locally configured key and may incur charges. Image processing stays local. Downloads, caches and memory use the configured data directory on D drive.
 
-```powershell
-D:\CodexData\optical_agent\public\venv\Scripts\python.exe -m pip install -r requirements-detector.txt --index-url https://download.pytorch.org/whl/cpu
-D:\CodexData\optical_agent\public\venv\Scripts\python.exe run_demo.py --with-detector
+## Architecture
+
+```mermaid
+flowchart TD
+    G[Understand task] --> A[Choose action]
+    A --> T[Run visual tools]
+    T --> O[Observe evidence]
+    O --> A
+    O --> V[Program verifier]
+    V -->|missing evidence| A
+    V -->|complete| R[Result and reliability]
 ```
 
-The launcher downloads the MIT checkpoint from the public
-[Release](https://github.com/sadbrand11-blip/underwater-vision-agent/releases/tag/v0.5.3-public.1),
-checks its size and SHA256, and loads it on CPU. Six supported classes:
-`propeller`, `pipe_type2`, `red_fin`, `net`, `qr_codes`, `pipe`.
-The pipe preset filters to `pipe` + `pipe_type2`. Model output remains candidate
-evidence; the program makes the reliability decision.
+Native is the default runtime. RAG and local memory supply context; optional LangGraph exposes the same stages, and MCP publishes three visual tools. Measurements and reliability come from executed tools. [Detailed architecture](docs/ARCHITECTURE.md).
 
-### Optional cloud and interfaces
+## Versioned evidence
 
-The Chinese `/agent` workbench supports free-text tasks. Copy `.env.example` to
-`.env`, configure the local key, and explicitly select cloud mode there. Never
-commit the populated file. Cloud scheduling sends text and structured results;
-image processing stays local. It may incur provider charges.
+| Experiment | Result | Version and sample |
+|---|---|---|
+| [Formal Agent Eval](docs/reports/FORMAL_EVALUATION_RESULTS.md) | 59/60 complete | 0.2.3 behavior; 20 tasks ×3 |
+| [Adaptive development](docs/reports/ADAPTIVE_EVALUATION_RESULTS.md) | 3/6; fixed workflow 6/6 | 0.3.0; three inputs ×2 |
+| [RAG](docs/reports/RAG_RESULTS.md) | Recall@3: TF-IDF 35.0%, Hybrid 47.5% | 0.5.0 C1; 40 answerable +10 unknown |
+| [MCP parity](docs/reports/MCP_RESULTS.md) | Three tools, 9/9 checks | 0.5.3; actual stdio calls |
 
-See [optional modes](docs/OPTIONAL_MODES.md) for local Embedding/Hybrid,
-LangGraph and the three-tool MCP server. They are not required for Quick Start.
+These historical results retain their original scope. Repetitions share tasks; labels lack external human review. The public corpus is independently versioned. [Evaluation details](docs/EVALUATION.md).
 
-## Limits and reproducibility
+## Boundaries and docs
 
-- Enhancement cannot establish the true texture of a fully clipped region.
-- Candidate scores and more boxes do not establish improved recognition accuracy.
-- Single-frame checks are not cross-exposure consensus or safety certification.
-- The default model's domain is the SODD pool dataset; open-water transfer is unproven.
-- Robot detection and other experimental weights are not part of this public release.
-- No camera or human review queue is required. Failed quality is a valid reported result.
+Enhancement cannot establish lost texture. Candidate boxes and scores need program checks. Open-water transfer remains unproven; the default six-class detector was trained on SODD pool images.
 
-[Public verification](docs/PUBLIC_VERIFICATION.md) documents the clean-environment
-checks and sanitized export. [Version history](docs/VERSION_HISTORY.md) preserves
-the original development narrative; historical scripts may require external data.
-The lightweight demo is the supported public entry point.
+[Optional modes](docs/OPTIONAL_MODES.md) · [Experiment commands](docs/CLI_MIGRATION.md) · [0.5.4 verification](docs/SIMPLIFICATION.md) · [History](docs/VERSION_HISTORY.md)

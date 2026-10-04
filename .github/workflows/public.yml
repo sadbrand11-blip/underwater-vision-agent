@@ -29,3 +29,4 @@ jobs:
       - run: node tests/check_conversation_ui.cjs
       - run: node tests/check_memory_ui.cjs
       - run: node tests/check_langgraph_ui.cjs
+      - run: node tests/check_simplification_ui.cjs

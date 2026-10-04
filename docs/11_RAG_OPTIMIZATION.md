@@ -28,16 +28,16 @@
 
 本轮C1保留集：TF-IDF实际Recall@3为35%，Embedding为45%，Hybrid为47.5%；Hybrid对照增益12.5个百分点，MRR@10为0.4875，无答案返回0/10，CPU热查询P95约26ms。相同旧问题对照：Hybrid从C0的25%提升到C1的43.3%；这个提升同时包含结构化分段、版本过滤和开发阈值校准。单独加六份知识卡没有提高旧题Recall@3，但提供新文献题的可答证据。
 
-47.5%说明仍有大量缺项；不是正式问答质量验收，也不是识别精度提高。详见 [实验报告](../RAG_RESULTS.md) 和 [逐题失败表](../RAG_CASES.csv)。
+47.5%说明仍有大量缺项；不是正式问答质量验收，也不是识别精度提高。详见 [实验报告](reports/RAG_RESULTS.md) 和 [逐题失败表](reports/RAG_CASES.csv)。
 
 ## 第一次下载项目后的准备
 
 本机已准备好。不必重新下载。另一台电脑需要完整Git历史，并安装项目依赖；模型、原文及索引继续只写到D盘。
 
 ```powershell
-python prepare_rag.py --assets all
-python evaluate_rag.py snapshot
-python evaluate_rag.py prepare
+python -m optical_agent.experiments prepare_rag --assets all
+python -m optical_agent.experiments evaluate_rag snapshot
+python -m optical_agent.experiments evaluate_rag prepare
 python app.py
 ```
 
@@ -46,9 +46,9 @@ python app.py
 索引坏了不会默默重建。确认D盘下索引对应的语料/模型指纹目录后，先将该目录改名备份，再运行`prepare`。不要改已冻结实验的文件；新实验使用新的运行编号。
 
 ```powershell
-python evaluate_rag.py freeze --run-id my_rag_replication
-python evaluate_rag.py dev --run-id my_rag_replication
-python evaluate_rag.py test --run-id my_rag_replication
+python -m optical_agent.experiments evaluate_rag freeze --run-id my_rag_replication
+python -m optical_agent.experiments evaluate_rag dev --run-id my_rag_replication
+python -m optical_agent.experiments evaluate_rag test --run-id my_rag_replication
 ```
 
 没有调用云端模型。原始脱敏记录在 `D:\CodexData\optical_agent\rag\runs`；仓库只公开代码、标签、研究卡与必要摘要。

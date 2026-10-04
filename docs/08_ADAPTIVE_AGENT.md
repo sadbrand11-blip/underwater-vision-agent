@@ -64,10 +64,10 @@ LLM只能选择存在的图片、观察和引用。最终测量、框、类别�
 
 ```powershell
 # 零HTTP请求检查输入、题目和图片前提
-python evaluate_adaptive.py --backend live --preflight --run-id my-adaptive-run --phase before
+python -m optical_agent.experiments evaluate_adaptive --backend live --preflight --run-id my-adaptive-run --phase before
 # 小批开发；随后再运行相同编号的真实视觉演示
-python evaluate_adaptive.py --backend live --run-id my-adaptive-run --phase before --split dev
-python evaluate_adaptive.py --backend live --run-id my-adaptive-run --phase before --split demo --resume
+python -m optical_agent.experiments evaluate_adaptive --backend live --run-id my-adaptive-run --phase before --split dev
+python -m optical_agent.experiments evaluate_adaptive --backend live --run-id my-adaptive-run --phase before --split demo --resume
 ```
 
 这些命令会使用你本地的 API。每个运行编号独立保存不可重置的120次HTTP上限，重试也计入。中断记录保留失败，继续运行不覆盖已有成功或失败；配置、代码、题目、权重、知识或图片哈希变化会阻止恢复。仅有一个 `fix1` 开发修复阶段，复测另存，同编号仍共用原计数器。
@@ -76,4 +76,4 @@ python evaluate_adaptive.py --backend live --run-id my-adaptive-run --phase befo
 
 固定 Workflow 使用同一工具和类别过滤：可校正时固定尝试两种方法，然后比较；没有LLM或规划修订成本。其限定中文解析是规则实现，不能据此比较一般中文理解能力。处理顺序为动态在先、固定在后，耗时还可能受模型预热影响。
 
-真实结果、失败记录与对照见 [本轮评测报告](../ADAPTIVE_EVALUATION_RESULTS.md)。保留原 [0.2.4正式报告](../FORMAL_EVALUATION_RESULTS.md)，本轮不属于新的正式验收，不重新训练检测器。
+真实结果、失败记录与对照见 [本轮评测报告](reports/ADAPTIVE_EVALUATION_RESULTS.md)。保留原 [0.2.4正式报告](reports/FORMAL_EVALUATION_RESULTS.md)，本轮不属于新的正式验收，不重新训练检测器。

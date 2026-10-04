@@ -19,7 +19,7 @@ they have not received external human annotation review. Those audits are
 provisional. Repetition measures variability but does not increase task diversity.
 
 The default model's older 40-image SODD pilot had 67.8% raw recall and 55.9%
-accepted-result recall; see UNDERWATER_RESULTS.md. This is distinct from Agent
+accepted-result recall; see the [underwater pilot](reports/UNDERWATER_RESULTS.md). This is distinct from Agent
 scheduling and RAG retrieval. It is not a claim about unseen underwater domains.
 
 Original Chinese reports and aggregate machine-readable summaries remain in this
@@ -27,6 +27,6 @@ snapshot. Raw session traces, private memory, datasets and frozen embedding
 assets are excluded. Downloading the full source does not recreate historical
 cloud experiments automatically, and no new paid requests were made for export.
 
-The public corpus identity is separate from frozen C1. Homepage edits, attribution
-and sanitation change corpus hashes. Current default TF-IDF is a lightweight
+The public corpus identity is separate from frozen C1. Its sources are stable
+knowledge cards and versioned reports; the homepage is excluded. Current default TF-IDF is a lightweight
 delivery configuration, not a newly benchmarked RAG winner.

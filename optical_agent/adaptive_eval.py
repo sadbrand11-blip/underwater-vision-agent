@@ -196,8 +196,8 @@ def score(expected, result, state, start_candidate=None, original_hash=None):
 
 def freeze(root, tasks, inputs, client):
     filenames = ['agent.py', 'quality.py', 'detector.py', 'data.py', 'metrics.py', 'models/sodd_detector.pt',
-                 'evaluate_adaptive.py', 'eval/adaptive_tasks.json']
-    filenames += [str(p.relative_to(root)).replace('\\', '/') for p in (root / 'optical_agent').glob('*.py')]
+                 'optical_agent/experiments/evaluate_adaptive.py', 'eval/adaptive_tasks.json']
+    filenames += [str(p.relative_to(root)).replace('\\', '/') for p in (root / 'optical_agent').rglob('*.py')]
     filenames += [str(p.relative_to(root)).replace('\\', '/') for p in (root / 'knowledge').rglob('*') if p.is_file()]
     # RAG sources can include README and reports; hash the actual declared source contents too.
     filenames += [x['path'] for x in json.loads((root / 'knowledge/sources.json').read_text(encoding='utf-8'))]

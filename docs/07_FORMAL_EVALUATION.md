@@ -15,7 +15,7 @@
 
 ## 2. 先读报告
 
-打开仓库根目录的 [FORMAL_EVALUATION_RESULTS.md](../FORMAL_EVALUATION_RESULTS.md)，看验收状态、三轮成绩和失败表。详细公开摘要在 [eval/formal_summary.json](../eval/formal_summary.json)。
+打开仓库根目录的 [FORMAL_EVALUATION_RESULTS.md](reports/FORMAL_EVALUATION_RESULTS.md)，看验收状态、三轮成绩和失败表。详细公开摘要在 [eval/formal_summary.json](../eval/formal_summary.json)。
 
 原始记录在本地 `runs/agent_eval/运行编号/`，被Git忽略，包含：
 
@@ -52,13 +52,13 @@
 在项目目录打开终端。以下预检不发送云端请求，也不生成正式验收成绩：
 
 ```powershell
-python evaluate_orchestration.py --mode formal --backend live --vision sodd --preflight --run-id formal-20260930-v023 --max-http-attempts 600
+python -m optical_agent.experiments evaluate_orchestration --mode formal --backend live --vision sodd --preflight --run-id formal-20260930-v023 --max-http-attempts 600
 ```
 
 正式运行会产生付费API调用。默认上限仍为120，本次已明确授权600次：
 
 ```powershell
-python evaluate_orchestration.py --mode formal --backend live --vision sodd --run-id formal-20260930-v023 --max-http-attempts 600
+python -m optical_agent.experiments evaluate_orchestration --mode formal --backend live --vision sodd --run-id formal-20260930-v023 --max-http-attempts 600
 ```
 
 中断后，在冻结内容未变化时，追加`--resume`。程序跳过已完成或失败记录，保留中断案例为失败，只继续未开始案例。不能以同一编号重跑挑选最佳成绩。认证、余额错误和损坏进度停止批次。
@@ -66,7 +66,7 @@ python evaluate_orchestration.py --mode formal --backend live --vision sodd --ru
 读取已有记录生成公开报告，无API调用：
 
 ```powershell
-python summarize_formal_eval.py formal-20260930-v023
+python -m optical_agent.experiments summarize_formal_eval formal-20260930-v023
 ```
 
 报告生成器先核对冻结文件、图片与标注、账本、逐轮题目和标签，再重放已保存的检测观察，重新计算质量、评分与GT框匹配。不会重新执行神经网络或发送云端请求。损坏记录拒绝发布。

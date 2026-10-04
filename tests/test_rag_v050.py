@@ -113,7 +113,7 @@ class RagTests(unittest.TestCase):
 
     def test_checkout_newlines_reconstruct_release_bytes(self):
         import subprocess
-        from prepare_rag_corpus import render
+        from optical_agent.experiments.prepare_rag_corpus import render
         repo=Path(__file__).resolve().parents[1]
         layout=json.loads((repo/'knowledge/corpus_layout.json').read_text(encoding='utf8'))
         baseline=subprocess.run(['git','cat-file','-e',layout['base_commit']],cwd=repo,capture_output=True)

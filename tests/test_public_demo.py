@@ -73,7 +73,7 @@ def test_public_routes_and_corpus(client):
     assert client.get('/agent').status_code==200
     health=client.get('/health').json
     assert not health['model_present']
-    assert health['rag_release']['corpus']=='public-sanitized-v1'
+    assert health['rag_release']['corpus']=='public-sanitized-v2'
     response=client.post('/api/knowledge/search',json={'query':'管道 检测 候选 准确率','modes':['tfidf']})
     assert response.status_code==200
     assert response.json['comparisons']['tfidf']['available']

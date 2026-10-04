@@ -104,7 +104,7 @@ class LocalEncoder:
         self.path = Path(model_path or DATA_ROOT / 'models/bge-small-zh-v1.5')
         weights = self.path / 'model.safetensors'
         if not weights.is_file():
-            raise RagUnavailable('本地Embedding模型缺失；请先运行 prepare_rag.py，网页不会自动下载。')
+            raise RagUnavailable('本地Embedding模型缺失；请先运行 python -m optical_agent.experiments prepare_rag，网页不会自动下载。')
         try:
             import torch
             from transformers import AutoModel, AutoTokenizer

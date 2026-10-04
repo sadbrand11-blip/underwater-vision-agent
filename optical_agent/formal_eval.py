@@ -14,6 +14,7 @@ import platform
 import sys
 
 from metrics import match_counts
+from optical_agent.paths import code_files
 from optical_agent.independent_eval import (aggregate_cases, digest, score_turn,
                                             version_metadata, write_json)
 from optical_agent.llm import CloudClient
@@ -53,7 +54,7 @@ def file_hash(path):
 def collect_bindings(root, task_file, cases, detector, dataset, image_loader, retriever, client):
     """Offline preflight: load every source/label, hash actual inference configuration."""
     root = Path(root)
-    files = set(root.glob('*.py')) | set((root / 'optical_agent').glob('*.py'))
+    files = set(code_files(root))
     files.update([Path(task_file), root / 'pyproject.toml', root / 'knowledge' / 'sources.json'])
     for source in json.loads((root / 'knowledge' / 'sources.json').read_text(encoding='utf-8')):
         files.add(root / source['path'])

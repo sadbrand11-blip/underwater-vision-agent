@@ -1,11 +1,11 @@
 # 第一步：看懂一次工具调用
 
-运行 `python demo_agent.py`，打开 `runs/tool_layer_demo.json`。默认例子只做真实质量计算和校正，不需要密钥或检测权重。
+运行 `python -m optical_agent.experiments demo_agent`，打开 `runs/tool_layer_demo.json`。默认例子只做真实质量计算和校正，不需要密钥或检测权重。
 
 你会看到三次操作：评估原图 → 创建校正图 → 评估校正图。要加入真实目标检测，可以运行：
 
 ```powershell
-python demo_agent.py --image D:\my_underwater_image.jpg --output runs\my_tool_demo.json
+python -m optical_agent.experiments demo_agent --image D:\my_underwater_image.jpg --output runs\my_tool_demo.json
 ```
 
 | 概念 | 在项目中的含义 |
