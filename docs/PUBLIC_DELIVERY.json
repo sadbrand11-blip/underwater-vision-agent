@@ -1,0 +1,82 @@
+{
+  "delivery": "v0.5.3-public.1",
+  "date": "2026-10-04",
+  "repository": "https://github.com/sadbrand11-blip/underwater-vision-agent",
+  "visibility": "public",
+  "fresh_source_history": true,
+  "initial_tag_commit": "822ac5301f1d3872b1fb86c215ea49c39bd2770d",
+  "tested_code_commit": "1064be5f8c191f2c67f36e1ef958c85feb58cce4",
+  "release": "https://github.com/sadbrand11-blip/underwater-vision-agent/releases/tag/v0.5.3-public.1",
+  "license": {
+    "project_source_and_checkpoint": "MIT",
+    "example_image_pixels": "CC-BY-4.0",
+    "torchvision_notice": "licenses/TORCHVISION_BSD3.txt"
+  },
+  "checkpoint": {
+    "asset": "sodd_detector.pt",
+    "bytes": 76122802,
+    "sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a",
+    "in_git_history": false,
+    "anonymous_download_verified": true,
+    "actual_cpu_loading_verified": true
+  },
+  "public_corpus": {
+    "identity": "public-sanitized-v1",
+    "mode": "tfidf",
+    "chunks": 119,
+    "sha256": "021c281e9ec991e161faa997c202e7b879b1a884772eb355e7297d0f409b008f",
+    "historical_c1_scores_apply": false
+  },
+  "verification": {
+    "anonymous_clone": true,
+    "anonymous_latest_clone_public_tests_passed": 8,
+    "no_key_no_weights_quality_and_correction": true,
+    "missing_detector_is_not_empty_recognition": true,
+    "combined_cpu_environment_python_passed": 261,
+    "combined_cpu_environment_python_skipped": 2,
+    "skip_reasons": [
+      "Windows symbolic-link permission unavailable",
+      "Private historical Git commit intentionally absent"
+    ],
+    "web_component_scenarios_passed": 22,
+    "ci": {
+      "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/actions/runs/37196933597",
+      "head_sha": "1064be5f8c191f2c67f36e1ef958c85feb58cce4",
+      "conclusion": "success",
+      "lightweight": "success",
+      "regression": "success"
+    },
+    "mermaid_rendered_on_github": true,
+    "gif_loaded_on_github": true,
+    "paid_llm_requests": 0,
+    "model_training_runs": 0
+  },
+  "gif": {
+    "path": "assets/demo.gif",
+    "duration_seconds": 22,
+    "frames": 3,
+    "scheduler": "offline scripted",
+    "visual_tools": "actual SODD checkpoint and exposure functions",
+    "input": "licensed SODD example with simulated brightness multiplication by 0.6",
+    "actual_tool_calls": 6,
+    "actual_pipe_candidates": 0,
+    "actual_vision_status": "unreliable",
+    "latency_recording": false
+  },
+  "excluded": [
+    "private development Git history",
+    "populated environment files and credentials",
+    "personal paths and memory databases",
+    "raw session and evaluation logs",
+    "datasets, caches and full papers",
+    "other experimental checkpoints"
+  ],
+  "known_boundaries": [
+    "Initial optional SDK install failure remains in CI history; main contains compatibility fixes",
+    "The immutable initial source tag is not moved; clone main for current instructions",
+    "Historical experiment scores retain separate versions and denominators",
+    "Labels have not received external human review",
+    "Pattern scans and offline checks are not comprehensive external security review",
+    "Engineering delivery does not establish improved visual accuracy or real LLM scheduling ability"
+  ]
+}

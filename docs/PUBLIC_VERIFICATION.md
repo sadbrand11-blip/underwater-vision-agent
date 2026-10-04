@@ -91,3 +91,17 @@ Changing the homepage also changes the public corpus hash. Its consistency guard
 correctly blocked new sessions until the release hash was regenerated. The
 updated snapshot has 119 chunks and retains the guard; current measurements and
 reliability requirements were not relaxed.
+
+## Public CI and current snapshot
+
+Both jobs passed on commit `1064be5f8c191f2c67f36e1ef958c85feb58cce4`:
+[GitHub Actions run](https://github.com/sadbrand11-blip/underwater-vision-agent/actions/runs/37196933597).
+The lightweight job installs no detector or optional SDKs; the regression job
+installs both optional SDKs and runs the full Python and three web-component
+suites. This verifies a fresh Linux setup independently of the local Windows
+environment. The initial failed jobs are retained rather than replaced.
+
+The anonymous clone was fast-forwarded to this commit and its eight public-entry
+tests passed. GitHub renders the Mermaid diagram and loaded the actual 960 x1540
+GIF. The machine-readable [delivery summary](PUBLIC_DELIVERY.json) records the
+checkpoint, corpus identity and verification scope without raw session logs.
