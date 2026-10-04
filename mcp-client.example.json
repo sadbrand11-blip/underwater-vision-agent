@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "underwater-vision": {
+      "command": "D:\\CodexData\\optical_agent\\public\\venv\\Scripts\\python.exe",
+      "args": [
+        "<ABSOLUTE_PUBLIC_CHECKOUT>/serve_mcp.py"
+      ],
+      "env": {
+        "OPTICAL_AGENT_DATA_ROOT": "D:\\CodexData\\optical_agent"
+      }
+    }
+  }
+}

@@ -1,0 +1,508 @@
+{
+  "app_version": "0.5.2",
+  "timestamp_utc": "2026-10-04T04:05:14.686811+00:00",
+  "langgraph_version": "1.2.12",
+  "native_runtime_sha256": "5bb3aa33ad5ba1ef326a638d89a99386aee9c74248b715ba161f1f0c1cf48cc1",
+  "graph_runtime_sha256": "f239f0d6465b8b11614de820bd1bd8f2741b010bcc4f87c415d428a099af89b9",
+  "all_core_equal": true,
+  "case_count": 7,
+  "upstream_api_requests": 0,
+  "unit_tests": {
+    "passed": 237,
+    "failed": 0,
+    "initial_run_failed": 1
+  },
+  "optional_environment_check": {
+    "base_langgraph_installed": false,
+    "passed": 1,
+    "skipped_graph_only_tests": 38
+  },
+  "web_fixture_tests": {
+    "conversation": 12,
+    "memory": 6,
+    "langgraph": 4
+  },
+  "cases": [
+    {
+      "case": "normal_fixture",
+      "input": {
+        "kind": "synthetic_fixture"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "reliable",
+      "selected_image_id": "original",
+      "model_calls": 6,
+      "tool_calls": 3,
+      "graph_node_count": 12,
+      "native_latency_ms": 47.0,
+      "langgraph_latency_ms": 62.0,
+      "computation_counts": {
+        "quality": 1,
+        "detection": 1,
+        "correction": 0,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_reliability",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "dark_fixture",
+      "input": {
+        "kind": "synthetic_fixture"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "reliable",
+      "selected_image_id": "candidate_gamma",
+      "model_calls": 9,
+      "tool_calls": 6,
+      "graph_node_count": 18,
+      "native_latency_ms": 63.0,
+      "langgraph_latency_ms": 93.0,
+      "computation_counts": {
+        "quality": 2,
+        "detection": 2,
+        "correction": 1,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "generate_exposure_candidate",
+          "arguments": {
+            "image_id": "original",
+            "method": "gamma_only"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "candidate_gamma"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "candidate_gamma"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "compare_candidates",
+          "arguments": {
+            "candidate_image_ids": [
+              "candidate_gamma"
+            ]
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "lost_fixture",
+      "input": {
+        "kind": "synthetic_fixture"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "quality_failure",
+      "selected_image_id": "original",
+      "model_calls": 5,
+      "tool_calls": 2,
+      "graph_node_count": 10,
+      "native_latency_ms": 32.0,
+      "langgraph_latency_ms": 62.0,
+      "computation_counts": {
+        "quality": 1,
+        "detection": 0,
+        "correction": 0,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_reliability",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "validation_recovery",
+      "input": {
+        "kind": "synthetic_fixture"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": null,
+      "selected_image_id": "original",
+      "model_calls": 5,
+      "tool_calls": 1,
+      "graph_node_count": 11,
+      "native_latency_ms": 31.0,
+      "langgraph_latency_ms": 47.0,
+      "computation_counts": {
+        "quality": 1,
+        "detection": 0,
+        "correction": 0,
+        "comparison": 0
+      },
+      "format_repairs": 1,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "validate",
+        "repair",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "sodd_normal",
+      "input": {
+        "kind": "real_sodd",
+        "source_index": 6,
+        "source_pixels_sha256": "386c35279b6cf0154b785e6fc21e252051c06c4b1767140bd3e0918b0a2dd294",
+        "variant": "normal",
+        "source_file": "frame_13833_433s_802ms_original.jpg",
+        "model_sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "unreliable",
+      "selected_image_id": "original",
+      "model_calls": 6,
+      "tool_calls": 3,
+      "graph_node_count": 12,
+      "native_latency_ms": 1016.0,
+      "langgraph_latency_ms": 313.0,
+      "computation_counts": {
+        "quality": 1,
+        "detection": 1,
+        "correction": 0,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_reliability",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "sodd_dark",
+      "input": {
+        "kind": "simulated_exposure_perturbation",
+        "source_index": 7,
+        "source_pixels_sha256": "1514aec8c009bb29547bc0a8c7afdc95345445bddcd38847c00c0e24bbdb9d03",
+        "variant": "dark",
+        "source_file": "frame_1431_44s_797ms_original.jpg",
+        "model_sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "unreliable",
+      "selected_image_id": "candidate_gamma",
+      "model_calls": 9,
+      "tool_calls": 6,
+      "graph_node_count": 18,
+      "native_latency_ms": 750.0,
+      "langgraph_latency_ms": 656.0,
+      "computation_counts": {
+        "quality": 2,
+        "detection": 2,
+        "correction": 1,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "generate_exposure_candidate",
+          "arguments": {
+            "image_id": "original",
+            "method": "gamma_only"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "candidate_gamma"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "detect_objects",
+          "arguments": {
+            "image_id": "candidate_gamma"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "compare_candidates",
+          "arguments": {
+            "candidate_image_ids": [
+              "candidate_gamma"
+            ]
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "sodd_lost",
+      "input": {
+        "kind": "simulated_exposure_perturbation",
+        "source_index": 8,
+        "source_pixels_sha256": "31bacc9ba26d6d01593f57925cc5cb93edd587942c9ab2055c0a6a59b34fe75f",
+        "variant": "lost",
+        "source_file": "frame_14940_896s_74ms_original.jpg",
+        "model_sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a"
+      },
+      "core_equal": true,
+      "task_status": "completed",
+      "vision_status": "quality_failure",
+      "selected_image_id": "original",
+      "model_calls": 5,
+      "tool_calls": 2,
+      "graph_node_count": 10,
+      "native_latency_ms": 219.0,
+      "langgraph_latency_ms": 219.0,
+      "computation_counts": {
+        "quality": 1,
+        "detection": 0,
+        "correction": 0,
+        "comparison": 1
+      },
+      "format_repairs": 0,
+      "graph_path": [
+        "initialize",
+        "understand_goal",
+        "plan",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "execute_tools",
+        "choose_action",
+        "validate",
+        "output"
+      ],
+      "actions": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        },
+        {
+          "tool": "assess_reliability",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "cached": false
+        }
+      ]
+    }
+  ],
+  "native_tracked_source_changed": false,
+  "scope": "Offline deterministic clients. Not evidence of live LLM quality or improved detection accuracy.",
+  "formal_agent_acceptance_rerun": false
+}

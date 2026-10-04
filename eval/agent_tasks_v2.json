@@ -1,0 +1,1120 @@
+{
+  "schema_version": 2,
+  "label_origin": "依据本轮方案在联网前预设独立标签；未经过外部人工复核，与运行时任务契约独立。expected 字段绝不发送给模型。",
+  "qualification": "10开发案例、20保留验收案例；本轮只使用开发案例，不作正式验收。",
+  "cases": [
+    {
+      "id": "dev_01",
+      "split": "dev",
+      "kind": "quality",
+      "source_index": 6,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "只检查这张原图的曝光，不要识别目标。",
+          "expected": {
+            "task_types": [
+              "quality"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "quality:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_02",
+      "split": "dev",
+      "kind": "correction",
+      "source_index": 7,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "只校正原图曝光，给我候选图和处理参数。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_03",
+      "split": "dev",
+      "kind": "detection",
+      "source_index": 8,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "识别原图中的目标，给出检测候选。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_04",
+      "split": "dev",
+      "kind": "comparison",
+      "source_index": 9,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "比较校正前后识别有没有改善。",
+          "expected": {
+            "task_types": [
+              "comparison"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_05",
+      "split": "dev",
+      "kind": "explanation",
+      "source_index": 4,
+      "image_variant": "over",
+      "turns": [
+        {
+          "message": "解释为什么这个结果不能自动接受，并给出依据。",
+          "expected": {
+            "task_types": [
+              "explanation"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": true,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence",
+              "retrieve_knowledge"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_06",
+      "split": "dev",
+      "kind": "corrected_followup",
+      "source_index": 10,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "只校正原图曝光。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "识别校正后的那张图中的目标。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "corrected"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:corrected"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_07",
+      "split": "dev",
+      "kind": "cache_repeat",
+      "source_index": 6,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "检测原图中的目标。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "再次检测原图，复用已有结果。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_08",
+      "split": "dev",
+      "kind": "missing_corrected",
+      "source_index": 7,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "识别校正图中的目标。",
+          "expected": {
+            "task_types": [
+              "detection",
+              "clarify"
+            ],
+            "image_ids": [
+              "corrected",
+              "original"
+            ],
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "改为原图。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_09",
+      "split": "dev",
+      "kind": "unsupported",
+      "source_index": 8,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "帮我识别这张图中的鱼和珊瑚。",
+          "expected": {
+            "task_types": [
+              "unsupported"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "unsupported"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "dev_10",
+      "split": "dev",
+      "kind": "conditional",
+      "source_index": 9,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "如果曝光太暗就增强，否则识别目标。",
+          "expected": {
+            "task_types": [
+              "clarify"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_01",
+      "split": "test",
+      "kind": "quality",
+      "source_index": 20,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "评估原始图片的曝光情况即可。",
+          "expected": {
+            "task_types": [
+              "quality"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "quality:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_02",
+      "split": "test",
+      "kind": "quality",
+      "source_index": 21,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "请检查原图曝光质量，不需要找目标。",
+          "expected": {
+            "task_types": [
+              "quality"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "quality:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_03",
+      "split": "test",
+      "kind": "correction",
+      "source_index": 22,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "对原图做一次曝光校正，展示参数。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_04",
+      "split": "test",
+      "kind": "correction",
+      "source_index": 23,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "只增强原始图像的曝光并给候选图片。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_05",
+      "split": "test",
+      "kind": "detection",
+      "source_index": 24,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "检测原图中支持的目标类别。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_06",
+      "split": "test",
+      "kind": "detection",
+      "source_index": 25,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "在原图中找二维码和管道，给候选框。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_07",
+      "split": "test",
+      "kind": "comparison",
+      "source_index": 26,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "对比增强前后目标检测结果。",
+          "expected": {
+            "task_types": [
+              "comparison"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_08",
+      "split": "test",
+      "kind": "comparison",
+      "source_index": 27,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "比较原始图和校正图的识别证据。",
+          "expected": {
+            "task_types": [
+              "comparison"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_09",
+      "split": "test",
+      "kind": "explanation",
+      "source_index": 28,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "请依据实际计算和知识来源说明结果为何不可靠。",
+          "expected": {
+            "task_types": [
+              "explanation"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": true,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence",
+              "retrieve_knowledge"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_10",
+      "split": "test",
+      "kind": "explanation",
+      "source_index": 29,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "解释校正前后为何无法自动接受，附引用。",
+          "expected": {
+            "task_types": [
+              "explanation"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "comparison:original"
+            ],
+            "requires_citations": true,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure",
+              "detect_objects",
+              "compare_detection_evidence",
+              "retrieve_knowledge"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_11",
+      "split": "test",
+      "kind": "corrected_followup",
+      "source_index": 30,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "先只增强原图曝光。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "检测增强后的图中的目标。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "corrected"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:corrected"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_12",
+      "split": "test",
+      "kind": "corrected_followup",
+      "source_index": 31,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "请只校正原图的曝光。",
+          "expected": {
+            "task_types": [
+              "correction"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "assess_image_quality",
+              "correct_image_exposure"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "刚才校正后的图，识别目标。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "corrected"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:corrected"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_13",
+      "split": "test",
+      "kind": "cache_repeat",
+      "source_index": 32,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "识别原图中的二维码。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "重复识别原图，使用缓存。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_14",
+      "split": "test",
+      "kind": "cache_repeat",
+      "source_index": 33,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "检测原图中的管道。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "重复识别原图，使用缓存。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_15",
+      "split": "test",
+      "kind": "missing_corrected",
+      "source_index": 34,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "在增强后的图片中检测目标。",
+          "expected": {
+            "task_types": [
+              "detection",
+              "clarify"
+            ],
+            "image_ids": [
+              "corrected",
+              "original"
+            ],
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "用原图。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_16",
+      "split": "test",
+      "kind": "missing_corrected",
+      "source_index": 35,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "识别校正后的图中有哪些目标。",
+          "expected": {
+            "task_types": [
+              "detection",
+              "clarify"
+            ],
+            "image_ids": [
+              "corrected",
+              "original"
+            ],
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        },
+        {
+          "message": "请改用原图检测。",
+          "expected": {
+            "task_types": [
+              "detection"
+            ],
+            "image_ids": [
+              "original"
+            ],
+            "task_statuses": [
+              "completed"
+            ],
+            "required_evidence": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "allowed_tools": [
+              "detect_objects"
+            ],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_17",
+      "split": "test",
+      "kind": "unsupported",
+      "source_index": 36,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "检测图片中的海龟。",
+          "expected": {
+            "task_types": [
+              "unsupported"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "unsupported"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_18",
+      "split": "test",
+      "kind": "unsupported",
+      "source_index": 37,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "识别珊瑚种类。",
+          "expected": {
+            "task_types": [
+              "unsupported"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "unsupported"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_19",
+      "split": "test",
+      "kind": "conditional",
+      "source_index": 38,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "帮我处理一下这张图。",
+          "expected": {
+            "task_types": [
+              "clarify"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "hold_20",
+      "split": "test",
+      "kind": "conditional",
+      "source_index": 39,
+      "image_variant": "none",
+      "turns": [
+        {
+          "message": "如果校正效果好就检测，不好就保留原图。",
+          "expected": {
+            "task_types": [
+              "clarify"
+            ],
+            "image_ids": null,
+            "task_statuses": [
+              "needs_clarification"
+            ],
+            "required_evidence": [],
+            "requires_citations": false,
+            "allowed_tools": [],
+            "cache_only": false
+          }
+        }
+      ]
+    }
+  ]
+}

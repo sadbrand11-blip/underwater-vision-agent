@@ -1,0 +1,199 @@
+[
+  {
+    "id": "readme",
+    "title": "当前系统操作与能力边界",
+    "path": "README.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/README.md",
+    "verified_at": "2026-09-28",
+    "source_type": "project_context",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "results",
+    "title": "水下视觉模型的初步实验结果",
+    "path": "UNDERWATER_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/UNDERWATER_RESULTS.md",
+    "verified_at": "2026-09-28",
+    "source_type": "project_default",
+    "vision_modes": [
+      "legacy"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "model",
+    "title": "SODD模型类别、校准与限制",
+    "path": "knowledge/MODEL_CARD.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/MODEL_CARD.md",
+    "verified_at": "2026-09-28",
+    "source_type": "project_default",
+    "vision_modes": [
+      "legacy"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "sodd",
+    "title": "SODD水下设施数据说明",
+    "path": "knowledge/SODD.md",
+    "url": "https://zenodo.org/records/10230328",
+    "verified_at": "2026-09-28",
+    "source_type": "project_context",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "moud",
+    "title": "MOUD真实灯光变化数据说明",
+    "path": "knowledge/MOUD.md",
+    "url": "https://www.nature.com/articles/s41597-025-05797-w",
+    "verified_at": "2026-09-28",
+    "source_type": "project_context",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "exposure",
+    "title": "曝光校正、信息丢失与拒识原因",
+    "path": "knowledge/EXPOSURE_SOP.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/EXPOSURE_SOP.md",
+    "verified_at": "2026-09-28",
+    "source_type": "project_context",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "vision_data",
+    "title": "UIEB与UIIS10K视觉实验及机器人识别限制",
+    "path": "knowledge/VISION_DATASETS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/VISION_DATASETS.md",
+    "verified_at": "2026-10-01",
+    "source_type": "project_context",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "vision_results_v040",
+    "title": "0.4.0视觉实验实测结果与采用门槛",
+    "path": "VISION_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/VISION_RESULTS.md",
+    "verified_at": "2026-10-01",
+    "source_type": "project_experiment",
+    "vision_modes": [
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "project_files"
+  },
+  {
+    "id": "paper_uieb",
+    "title": "UIEB: reference enhancement and evaluation limits",
+    "path": "knowledge/papers/UIEB.md",
+    "url": "https://li-chongyi.github.io/proj_benchmark.html",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_page_full",
+    "asset": "uieb"
+  },
+  {
+    "id": "paper_sea_thru",
+    "title": "Sea-Thru: underwater imaging physics and RGBD",
+    "path": "knowledge/papers/SEA_THRU.md",
+    "url": "https://openaccess.thecvf.com/content_CVPR_2019/papers/Akkaynak_Sea-Thru_A_Method_for_Removing_Water_From_Underwater_Images_CVPR_2019_paper.pdf",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_pdf_full",
+    "asset": "sea_thru"
+  },
+  {
+    "id": "paper_machine_iqa",
+    "title": "Machine IQA: human preference versus downstream tasks",
+    "path": "knowledge/papers/MACHINE_IQA.md",
+    "url": "https://openaccess.thecvf.com/content/CVPR2025/papers/Li_Image_Quality_Assessment_From_Human_to_Machine_Preference_CVPR_2025_paper.pdf",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_pdf_full",
+    "asset": "machine_iqa"
+  },
+  {
+    "id": "paper_reed",
+    "title": "REED: extreme exposure and real aligned sequences",
+    "path": "knowledge/papers/REED.md",
+    "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Wang_From_Abyssal_Darkness_to_Blinding_Glare_A_Benchmark_on_Extreme_ICCV_2025_paper.pdf",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_pdf_full",
+    "asset": "reed"
+  },
+  {
+    "id": "paper_rhcnet",
+    "title": "RHCNet: underwater structural degradation and feature calibration",
+    "path": "knowledge/papers/RHCNET.md",
+    "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Wang_RHCNet_Residual-Guided_Hierarchical_Calibration_Network_for_Robust_Underwater_Object_Detection_CVPR_2026_paper.pdf",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_pdf_full",
+    "asset": "rhcnet"
+  },
+  {
+    "id": "paper_enhancement_augmentation",
+    "title": "Enhancement as Augmentation: mixed-domain training",
+    "path": "knowledge/papers/ENHANCEMENT_AUGMENTATION.md",
+    "url": "https://openaccess.thecvf.com/content/WACV2026W/WVAQ/papers/Saleem_Enhancement_as_Augmentation_Improving_Detection_in_Highly_Degraded_Underwater_Images_WACVW_2026_paper.pdf",
+    "verified_at": "2026-10-03",
+    "source_type": "research",
+    "vision_modes": [
+      "legacy",
+      "experiment_control",
+      "experiment_candidate"
+    ],
+    "verification_level": "official_pdf_full",
+    "asset": "enhancement_augmentation"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "provenance": "2026-09-29 approved DeepSeek project diagnostic; response fields retained for offline replay, call identifiers replaced; no images, keys or original requests",
+  "responses": [
+    {
+      "choices": [{
+        "finish_reason": "tool_calls",
+        "message": {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [{"id": "replay_quality_1", "type": "function", "function": {"name": "assess_image_quality", "arguments": "{\"image_id\":\"original\"}"}}]
+        }
+      }],
+      "usage": {"prompt_tokens": 922, "completion_tokens": 36, "total_tokens": 958}
+    },
+    {
+      "choices": [{
+        "finish_reason": "stop",
+        "message": {"role": "assistant", "content": "{\"evidence_ids\":[\"quality:original\"],\"citation_ids\":[]}"}
+      }],
+      "usage": {"prompt_tokens": 1192, "completion_tokens": 15, "total_tokens": 1207}
+    }
+  ]
+}

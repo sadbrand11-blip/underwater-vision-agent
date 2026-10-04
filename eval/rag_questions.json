@@ -1,0 +1,1679 @@
+{
+  "version": "1",
+  "seed": 20261003,
+  "labels": "source_anchored_automatic_requires_review",
+  "metric_unit": "canonical evidence group, alternatives deduplicated",
+  "evidence": {
+    "lost_texture": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "gamma和CLAHE可以调整已有像素的分布，但不能确定丢失的真实纹理。",
+          "start": 120,
+          "end": 156
+        },
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "全黑、全白、关键区域信息丢失不能靠增强恢复可靠事实。",
+          "start": 771,
+          "end": 797
+        }
+      ]
+    },
+    "candidate_noise": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "候选框增加也可能是增强放大的噪声或误报。",
+          "start": 225,
+          "end": 245
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "校正候选虽增加了 3.4 个百分点的召回，但也比原图多产生 12 个误检",
+          "start": 2107,
+          "end": 2143
+        }
+      ]
+    },
+    "no_gt_accuracy": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "没有真实标注时，只能比较检测证据，不能声称准确率提高。",
+          "start": 245,
+          "end": 272
+        },
+        {
+          "source_id": "paper_machine_iqa",
+          "path": "knowledge/papers/MACHINE_IQA.md",
+          "quote": "质量分数、检测框数量及分数上升均不能代替真实框标注下的召回与误报评测。",
+          "start": 483,
+          "end": 518
+        }
+      ]
+    },
+    "dark_background": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "当前水下质量配置允许部分暗背景，但阈值来自小样本启发式",
+          "start": 292,
+          "end": 319
+        }
+      ]
+    },
+    "internal_reliability": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "reliable表示通过当前规则，不表示经过分布外可靠性验证。",
+          "start": 327,
+          "end": 358
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "`reliable` 只表示通过本原型的内部规则，不代表对任意水域或目标都有可靠识别能力。",
+          "start": 3925,
+          "end": 3970
+        }
+      ]
+    },
+    "multiframe_registration": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "现有多帧功能选择有效帧并检查框的一致性，没有实现图像配准或纹理重建。",
+          "start": 407,
+          "end": 441
+        }
+      ]
+    },
+    "human_queue": {
+      "alternatives": [
+        {
+          "source_id": "exposure",
+          "path": "knowledge/EXPOSURE_SOP.md",
+          "quote": "系统不设人工复核队列。",
+          "start": 360,
+          "end": 371
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "没有相机控制或人工复核队列。",
+          "start": 1623,
+          "end": 1637
+        }
+      ]
+    },
+    "legacy_architecture": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "模型：Faster R-CNN MobileNetV3 320 FPN；COCO初始化后，以160张SODD原图微调4轮。",
+          "start": 18,
+          "end": 79
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "**目标识别：**TorchVision Faster R-CNN MobileNetV3 320，从 COCO 权重微调，用 SODD 原始图和训练集内的像素域曝光扰动训练。",
+          "start": 3378,
+          "end": 3466
+        }
+      ]
+    },
+    "legacy_mapping": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "类别编号为背景0、propeller 1、pipe_type2 2、red_fin 3、net 4、qr_codes 5、pipe 6。",
+          "start": 79,
+          "end": 147
+        }
+      ]
+    },
+    "isotonic_probability": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "estimated_box_precision来自验证分布的保序回归（IsotonicRegression），不是任意水域下的正确概率。",
+          "start": 166,
+          "end": 234
+        }
+      ]
+    },
+    "legacy_threshold": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "阈值0.33在40张验证图上确定。",
+          "start": 149,
+          "end": 166
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "最终模型在 40 张验证图上选出的工作阈值为 **0.33**",
+          "start": 655,
+          "end": 686
+        }
+      ]
+    },
+    "legacy_biological_classes": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "没有鱼、珊瑚或MOUD九类生物的训练头。",
+          "start": 369,
+          "end": 389
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "当前模型不负责识别鱼、珊瑚等其他生物。",
+          "start": 1785,
+          "end": 1804
+        }
+      ]
+    },
+    "empty_detection": {
+      "alternatives": [
+        {
+          "source_id": "model",
+          "path": "knowledge/MODEL_CARD.md",
+          "quote": "未检出候选不能证明没有目标。",
+          "start": 389,
+          "end": 403
+        }
+      ]
+    },
+    "moud_illumination": {
+      "alternatives": [
+        {
+          "source_id": "moud",
+          "path": "knowledge/MOUD.md",
+          "quote": "真实灯光变化不等于相机快门曝光变化。",
+          "start": 145,
+          "end": 163
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "照明来自灯光档位，不是相机快门曝光",
+          "start": 406,
+          "end": 423
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "分档来自水下灯光强度，不是相机曝光时间",
+          "start": 2580,
+          "end": 2599
+        }
+      ]
+    },
+    "moud_unaligned": {
+      "alternatives": [
+        {
+          "source_id": "moud",
+          "path": "knowledge/MOUD.md",
+          "quote": "抽样帧没有逐帧配准参考",
+          "start": 211,
+          "end": 222
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "MOUD 没有对齐的高质量参考图",
+          "start": 1486,
+          "end": 1502
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "MOUD 没有对齐参考图，因此没有在它上面计算 PSNR/SSIM。",
+          "start": 3879,
+          "end": 3913
+        },
+        {
+          "source_id": "vision_results_v040",
+          "path": "VISION_RESULTS.md",
+          "quote": "MOUD照明强度变化不是已知相机曝光时间序列；无配准参考、不计算PSNR。",
+          "start": 4032,
+          "end": 4069
+        }
+      ]
+    },
+    "moud_subset": {
+      "alternatives": [
+        {
+          "source_id": "moud",
+          "path": "knowledge/MOUD.md",
+          "quote": "本项目已下载Scene 1的24张图，三档光照各8张。",
+          "start": 184,
+          "end": 211
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "Scene 1 高、中、低照明各 8 张，覆盖四个区域",
+          "start": 376,
+          "end": 403
+        }
+      ]
+    },
+    "moud_scope": {
+      "alternatives": [
+        {
+          "source_id": "moud",
+          "path": "knowledge/MOUD.md",
+          "quote": "这是当前实验观察，不是MOUD全数据集结论。",
+          "start": 322,
+          "end": 344
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "现有 240 张 SODD 图和 24 张 MOUD 图只够验证流程与暴露失败模式。",
+          "start": 4912,
+          "end": 4954
+        }
+      ]
+    },
+    "uieb_no_boxes": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "本项目没有 UIEB 检测框。",
+          "start": 94,
+          "end": 109
+        }
+      ]
+    },
+    "robot_instance_count": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "10,048 张图片，官方类别名 robots、类别编号 10，502 个机器人框。",
+          "start": 265,
+          "end": 307
+        }
+      ]
+    },
+    "robot_merge": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "该分支只训练合并的 underwater_robot，包括水下机器人 AUV/ROV 等，不区分二者",
+          "start": 349,
+          "end": 399
+        }
+      ]
+    },
+    "missing_robot_model": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "机器人模型文件不存在应显示不可用，不能解释为没有目标。",
+          "start": 688,
+          "end": 715
+        }
+      ]
+    },
+    "scene_independence": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "缺少可核实序列编号，因此这种分组不能保证真正场景独立。",
+          "start": 606,
+          "end": 633
+        },
+        {
+          "source_id": "vision_results_v040",
+          "path": "VISION_RESULTS.md",
+          "quote": "无可靠序列编号，不能保证真正场景独立。",
+          "start": 632,
+          "end": 651
+        }
+      ]
+    },
+    "paired_resize": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "PSNR/SSIM 使用一致缩放长边最多 768 像素，仅限 UIEB 对齐参考图。",
+          "start": 797,
+          "end": 839
+        },
+        {
+          "source_id": "vision_results_v040",
+          "path": "VISION_RESULTS.md",
+          "quote": "RGB PSNR 和 SSIM（skimage、7×7、data_range=255）；原图/参考图相同缩放，长边最多768px。参考图是作者的增强参考，不是相机曝光真值",
+          "start": 1209,
+          "end": 1294
+        }
+      ]
+    },
+    "robot_background": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "其他官方类别作为本分支背景，不输出鱼、珊瑚等类别。",
+          "start": 400,
+          "end": 425
+        }
+      ]
+    },
+    "insufficient_calibration": {
+      "alternatives": [
+        {
+          "source_id": "vision_data",
+          "path": "knowledge/VISION_DATASETS.md",
+          "quote": "校准缺失或样本不足的类别保留候选，即使框分数很高也不能自动变为可信结论。",
+          "start": 715,
+          "end": 751
+        }
+      ]
+    },
+    "v040_no_llm": {
+      "alternatives": [
+        {
+          "source_id": "vision_results_v040",
+          "path": "VISION_RESULTS.md",
+          "quote": "无付费 LLM 请求。",
+          "start": 60,
+          "end": 71
+        },
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "已增加 UIEB 官方下载与配对评测、跨数据集分组划分、六类设施对照训练和独立水下机器人分支。数据、图像缓存和新训练权重统一保存在 `D:\\CodexData\\optical_agent`；本轮不调用付费 LLM。",
+          "start": 5031,
+          "end": 5138
+        }
+      ]
+    },
+    "d_drive_data": {
+      "alternatives": [
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "全部数据集下载物位于 `D:\\CodexData\\optical_agent`，不提交到 Git。",
+          "start": 2789,
+          "end": 2838
+        },
+        {
+          "source_id": "results",
+          "path": "UNDERWATER_RESULTS.md",
+          "quote": "数据集文件及下载清单保存在 `D:\\CodexData\\optical_agent`。Git 仓库只包含代码、模型与报告，不再分发数据集图片。",
+          "start": 469,
+          "end": 540
+        }
+      ]
+    },
+    "weights_autoload": {
+      "alternatives": [
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "模型文件会自动加载，无需手动打开 `.pt` 文件。",
+          "start": 1979,
+          "end": 2005
+        }
+      ]
+    },
+    "no_camera_control": {
+      "alternatives": [
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "没有相机控制或人工复核队列。",
+          "start": 1623,
+          "end": 1637
+        }
+      ]
+    },
+    "measured_by_program": {
+      "alternatives": [
+        {
+          "source_id": "readme",
+          "path": "README.md",
+          "quote": "视觉测量和可靠性状态由程序产生。",
+          "start": 107,
+          "end": 123
+        }
+      ]
+    },
+    "sea_coefficients": {
+      "alternatives": [
+        {
+          "source_id": "paper_sea_thru",
+          "path": "knowledge/papers/SEA_THRU.md",
+          "quote": "直接信号衰减与后向散射由不同系数控制，不能简单共用一个大气去雾系数。",
+          "start": 319,
+          "end": 353
+        }
+      ]
+    },
+    "sea_rgbd": {
+      "alternatives": [
+        {
+          "source_id": "paper_sea_thru",
+          "path": "knowledge/papers/SEA_THRU.md",
+          "quote": "Sea-Thru 使用 RGBD 图像及已知距离信息",
+          "start": 400,
+          "end": 426
+        }
+      ]
+    },
+    "machine_preference": {
+      "alternatives": [
+        {
+          "source_id": "paper_machine_iqa",
+          "path": "knowledge/papers/MACHINE_IQA.md",
+          "quote": "人眼偏好与机器视觉任务偏好存在差异，观感更好不保证检测、分割或问答结果更好。",
+          "start": 286,
+          "end": 324
+        }
+      ]
+    },
+    "machine_protocol": {
+      "alternatives": [
+        {
+          "source_id": "paper_machine_iqa",
+          "path": "knowledge/papers/MACHINE_IQA.md",
+          "quote": "机器质量需要指定下游任务、测试模型及评价指标。",
+          "start": 380,
+          "end": 403
+        }
+      ]
+    },
+    "reed_alignment": {
+      "alternatives": [
+        {
+          "source_id": "paper_reed",
+          "path": "knowledge/papers/REED.md",
+          "quote": "采用裁剪和改进的 SIFT 对齐",
+          "start": 358,
+          "end": 374
+        }
+      ]
+    },
+    "reed_brightness": {
+      "alternatives": [
+        {
+          "source_id": "paper_reed",
+          "path": "knowledge/papers/REED.md",
+          "quote": "论文指出某些情况下仅看亮度不足以判断曝光状态",
+          "start": 459,
+          "end": 481
+        }
+      ]
+    },
+    "rhc_modules": {
+      "alternatives": [
+        {
+          "source_id": "paper_rhcnet",
+          "path": "knowledge/papers/RHCNET.md",
+          "quote": "提出残差引导特征增强 RGFE 和分层特征校准金字塔 HFCP。",
+          "start": 401,
+          "end": 433
+        }
+      ]
+    },
+    "rhc_calibration": {
+      "alternatives": [
+        {
+          "source_id": "paper_rhcnet",
+          "path": "knowledge/papers/RHCNET.md",
+          "quote": "这里的 calibration 是特征对齐和校准，不是本项目把检测分数映射为经验精确率的 isotonic 概率校准",
+          "start": 480,
+          "end": 538
+        }
+      ]
+    },
+    "mixed_domain": {
+      "alternatives": [
+        {
+          "source_id": "paper_enhancement_augmentation",
+          "path": "knowledge/papers/ENHANCEMENT_AUGMENTATION.md",
+          "quote": "混合域训练与推理前对每张图固定增强是不同的操作。",
+          "start": 539,
+          "end": 563
+        }
+      ]
+    },
+    "uieb_challenge": {
+      "alternatives": [
+        {
+          "source_id": "paper_uieb",
+          "path": "knowledge/papers/UIEB.md",
+          "quote": "其余 60 张作为挑战集，没有令人满意的参考结果。",
+          "start": 255,
+          "end": 280
+        }
+      ]
+    },
+    "mixed_training_design": {
+      "alternatives": [
+        {
+          "source_id": "paper_enhancement_augmentation",
+          "path": "knowledge/papers/ENHANCEMENT_AUGMENTATION.md",
+          "quote": "论文分别测试四种增强模型，每次将一种增强器的变体与原图配对用于混合域训练，保持检测器架构与推理流程不变",
+          "start": 404,
+          "end": 455
+        }
+      ]
+    }
+  },
+  "questions": [
+    {
+      "id": "q01_1",
+      "fact_group": "lost_texture",
+      "split": "dev",
+      "kind": "existing",
+      "query": "全黑图被调亮后，为什么还不能说纹理恢复了？",
+      "required_groups": [
+        "lost_texture"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q01_2",
+      "fact_group": "lost_texture",
+      "split": "dev",
+      "kind": "existing",
+      "query": "Can gamma or CLAHE determine texture that was already lost?",
+      "required_groups": [
+        "lost_texture"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q02_1",
+      "fact_group": "candidate_noise",
+      "split": "test",
+      "kind": "existing",
+      "query": "增强后多了几个框，为什么还可能是坏结果？",
+      "required_groups": [
+        "candidate_noise"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q02_2",
+      "fact_group": "candidate_noise",
+      "split": "test",
+      "kind": "existing",
+      "query": "候选目标变多可能来自什么干扰？",
+      "required_groups": [
+        "candidate_noise"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q03_1",
+      "fact_group": "no_gt_and_calibration",
+      "split": "test",
+      "kind": "existing",
+      "query": "没有真实框标注，能否说校正提高了识别准确率？",
+      "required_groups": [
+        "no_gt_accuracy"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q03_2",
+      "fact_group": "no_gt_and_calibration",
+      "split": "test",
+      "kind": "existing",
+      "query": "没有真实标注时，为什么不能据 estimated_box_precision 上升宣称准确率改善，它的概率解释又有什么限制？",
+      "required_groups": [
+        "no_gt_accuracy",
+        "isotonic_probability"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q04_1",
+      "fact_group": "dark_background",
+      "split": "test",
+      "kind": "existing",
+      "query": "水下背景较暗是否一定意味着整张图不能用？",
+      "required_groups": [
+        "dark_background"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q04_2",
+      "fact_group": "dark_background",
+      "split": "test",
+      "kind": "existing",
+      "query": "水下质量规则对暗背景的容忍有什么依据限制？",
+      "required_groups": [
+        "dark_background"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q05_1",
+      "fact_group": "internal_reliability",
+      "split": "dev",
+      "kind": "existing",
+      "query": "reliable标记能保证新水域也可靠吗？",
+      "required_groups": [
+        "internal_reliability"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q05_2",
+      "fact_group": "internal_reliability",
+      "split": "dev",
+      "kind": "existing",
+      "query": "当前的可靠标记和 OOD 验证是一回事吗？",
+      "required_groups": [
+        "internal_reliability"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q06_1",
+      "fact_group": "multiframe_registration",
+      "split": "dev",
+      "kind": "existing",
+      "query": "现有多帧流程会自动配准和重建纹理吗？",
+      "required_groups": [
+        "multiframe_registration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q06_2",
+      "fact_group": "multiframe_registration",
+      "split": "dev",
+      "kind": "existing",
+      "query": "多帧功能实际做了什么，还有什么没实现？",
+      "required_groups": [
+        "multiframe_registration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q07_1",
+      "fact_group": "human_queue",
+      "split": "dev",
+      "kind": "existing",
+      "query": "结果失败后会进入人工复核队列吗？",
+      "required_groups": [
+        "human_queue"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q07_2",
+      "fact_group": "human_queue",
+      "split": "dev",
+      "kind": "existing",
+      "query": "系统有没有转人工排队功能？",
+      "required_groups": [
+        "human_queue"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q08_1",
+      "fact_group": "legacy_architecture",
+      "split": "dev",
+      "kind": "existing",
+      "query": "旧默认检测器的架构与微调数据是什么？",
+      "required_groups": [
+        "legacy_architecture"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q08_2",
+      "fact_group": "legacy_architecture",
+      "split": "dev",
+      "kind": "existing",
+      "query": "Describe the legacy SODD detector architecture and training initialization.",
+      "required_groups": [
+        "legacy_architecture"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q09_1",
+      "fact_group": "legacy_mapping",
+      "split": "test",
+      "kind": "existing",
+      "query": "默认模型的类别编号怎样对应？",
+      "required_groups": [
+        "legacy_mapping"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q09_2",
+      "fact_group": "legacy_mapping",
+      "split": "test",
+      "kind": "existing",
+      "query": "背景、螺旋桨和两种管道各是什么 class id？",
+      "required_groups": [
+        "legacy_mapping"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q10_1",
+      "fact_group": "no_gt_and_calibration",
+      "split": "test",
+      "kind": "existing",
+      "query": "estimated_box_precision是不是任意水域都准确的概率？",
+      "required_groups": [
+        "isotonic_probability"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q10_2",
+      "fact_group": "no_gt_and_calibration",
+      "split": "test",
+      "kind": "existing",
+      "query": "IsotonicRegression 输出为什么不能当作跨水域正确概率？",
+      "required_groups": [
+        "isotonic_probability"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q11_1",
+      "fact_group": "legacy_threshold",
+      "split": "test",
+      "kind": "existing",
+      "query": "旧默认检测阈值是多少，在哪些数据上定的？",
+      "required_groups": [
+        "legacy_threshold"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q11_2",
+      "fact_group": "legacy_threshold",
+      "split": "test",
+      "kind": "existing",
+      "query": "Where was the legacy 0.33 detection threshold selected?",
+      "required_groups": [
+        "legacy_threshold"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q12_1",
+      "fact_group": "legacy_biological_classes",
+      "split": "dev",
+      "kind": "existing",
+      "query": "默认模型能直接识别鱼和珊瑚吗？",
+      "required_groups": [
+        "legacy_biological_classes"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q12_2",
+      "fact_group": "legacy_biological_classes",
+      "split": "dev",
+      "kind": "existing",
+      "query": "默认 SODD 模型是否具备 MOUD 九类生物检测头？",
+      "required_groups": [
+        "legacy_biological_classes"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q13_1",
+      "fact_group": "empty_detection",
+      "split": "test",
+      "kind": "existing",
+      "query": "没有检测框是否就能证明图里没目标？",
+      "required_groups": [
+        "empty_detection"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q13_2",
+      "fact_group": "empty_detection",
+      "split": "test",
+      "kind": "existing",
+      "query": "没有任何候选框时，结论的边界是什么？",
+      "required_groups": [
+        "empty_detection"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q14_1",
+      "fact_group": "moud_illumination",
+      "split": "dev",
+      "kind": "existing",
+      "query": "MOUD 的明暗分档是不是快门曝光变化？",
+      "required_groups": [
+        "moud_illumination"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q14_2",
+      "fact_group": "moud_illumination",
+      "split": "dev",
+      "kind": "existing",
+      "query": "MOUD 的 light levels 能当成不同 shutter exposure 吗？",
+      "required_groups": [
+        "moud_illumination"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q15_1",
+      "fact_group": "moud_unaligned",
+      "split": "dev",
+      "kind": "existing",
+      "query": "可以直接用不同照明的 MOUD 抽样帧算 PSNR 吗？",
+      "required_groups": [
+        "moud_unaligned"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q15_2",
+      "fact_group": "moud_unaligned",
+      "split": "dev",
+      "kind": "existing",
+      "query": "MOUD 本地抽样帧是否有逐帧对齐参考？",
+      "required_groups": [
+        "moud_unaligned"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q16_1",
+      "fact_group": "moud_subset",
+      "split": "test",
+      "kind": "existing",
+      "query": "电脑上用了多少 MOUD 图片，各档有多少？",
+      "required_groups": [
+        "moud_subset"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q16_2",
+      "fact_group": "moud_subset",
+      "split": "test",
+      "kind": "existing",
+      "query": "本地 MOUD 使用的是哪一场景和多大子集？",
+      "required_groups": [
+        "moud_subset"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q17_1",
+      "fact_group": "small_subset_scene_independence",
+      "split": "test",
+      "kind": "existing",
+      "query": "本地最低照明失败能代表整个 MOUD 吗？",
+      "required_groups": [
+        "moud_scope"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q17_2",
+      "fact_group": "small_subset_scene_independence",
+      "split": "test",
+      "kind": "existing",
+      "query": "为什么不能把24张图的结果推广到整个照明数据集？",
+      "required_groups": [
+        "moud_scope"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q18_1",
+      "fact_group": "uieb_no_boxes",
+      "split": "test",
+      "kind": "existing",
+      "query": "UIEB 在本项目里能用于计算目标框召回吗？",
+      "required_groups": [
+        "uieb_no_boxes"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q18_2",
+      "fact_group": "uieb_no_boxes",
+      "split": "test",
+      "kind": "existing",
+      "query": "我们是否有 UIEB 对应的 detection bounding boxes？",
+      "required_groups": [
+        "uieb_no_boxes"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q19_1",
+      "fact_group": "robot_instance_count",
+      "split": "dev",
+      "kind": "existing",
+      "query": "下载包中机器人官方类别编号和实例数是多少？",
+      "required_groups": [
+        "robot_instance_count"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q19_2",
+      "fact_group": "robot_instance_count",
+      "split": "dev",
+      "kind": "existing",
+      "query": "UIIS10K robots 的类别编号以及实际框数是什么？",
+      "required_groups": [
+        "robot_instance_count"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q20_1",
+      "fact_group": "robot_merge",
+      "split": "dev",
+      "kind": "existing",
+      "query": "实验机器人模型能分开判断 AUV 与 ROV 吗？",
+      "required_groups": [
+        "robot_merge"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q20_2",
+      "fact_group": "robot_merge",
+      "split": "dev",
+      "kind": "existing",
+      "query": "underwater_robot 标签包含什么，是否细分机器人类型？",
+      "required_groups": [
+        "robot_merge"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q21_1",
+      "fact_group": "missing_robot_model",
+      "split": "test",
+      "kind": "existing",
+      "query": "机器人权重丢失时应该返回什么状态？",
+      "required_groups": [
+        "missing_robot_model"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q21_2",
+      "fact_group": "missing_robot_model",
+      "split": "test",
+      "kind": "existing",
+      "query": "机器人模型 unavailable 能被当作没检测到目标吗？",
+      "required_groups": [
+        "missing_robot_model"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q22_1",
+      "fact_group": "small_subset_scene_independence",
+      "split": "test",
+      "kind": "existing",
+      "query": "感知哈希分组能保证拍摄场景完全独立吗？",
+      "required_groups": [
+        "scene_independence"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q22_2",
+      "fact_group": "small_subset_scene_independence",
+      "split": "test",
+      "kind": "existing",
+      "query": "为什么不能仅用 pHash 和24张 MOUD 抽样图宣称场景泛化已经验证？",
+      "required_groups": [
+        "scene_independence",
+        "moud_scope"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q23_1",
+      "fact_group": "paired_resize",
+      "split": "test",
+      "kind": "existing",
+      "query": "本项目 PSNR 和 SSIM 的图像尺寸及参考条件是什么？",
+      "required_groups": [
+        "paired_resize"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q23_2",
+      "fact_group": "paired_resize",
+      "split": "test",
+      "kind": "existing",
+      "query": "UIEB paired metrics 是原尺寸计算还是有缩放？",
+      "required_groups": [
+        "paired_resize"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q24_1",
+      "fact_group": "robot_background",
+      "split": "test",
+      "kind": "existing",
+      "query": "机器人分支会输出鱼、珊瑚等 UIIS 其他类别吗？",
+      "required_groups": [
+        "robot_background"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q24_2",
+      "fact_group": "robot_background",
+      "split": "test",
+      "kind": "existing",
+      "query": "训练机器人分支时怎样处理其他已标注类别？",
+      "required_groups": [
+        "robot_background"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q25_1",
+      "fact_group": "insufficient_calibration",
+      "split": "dev",
+      "kind": "existing",
+      "query": "没有足够校准数据，高分框能自动变成可信结果吗？",
+      "required_groups": [
+        "insufficient_calibration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q25_2",
+      "fact_group": "insufficient_calibration",
+      "split": "dev",
+      "kind": "existing",
+      "query": "样本不足或 calibration missing 时，候选如何处理？",
+      "required_groups": [
+        "insufficient_calibration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q26_1",
+      "fact_group": "v040_no_llm",
+      "split": "dev",
+      "kind": "existing",
+      "query": "0.4.0视觉训练实验有没有使用付费大模型调用？",
+      "required_groups": [
+        "v040_no_llm"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q26_2",
+      "fact_group": "v040_no_llm",
+      "split": "dev",
+      "kind": "existing",
+      "query": "0.4.0 是付费 LLM 调度评测还是本地视觉实验？",
+      "required_groups": [
+        "v040_no_llm"
+      ],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "q27_1",
+      "fact_group": "d_drive_data",
+      "split": "dev",
+      "kind": "existing",
+      "query": "数据集都保存在哪里，是否上传到了 Git？",
+      "required_groups": [
+        "d_drive_data"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q27_2",
+      "fact_group": "d_drive_data",
+      "split": "dev",
+      "kind": "existing",
+      "query": "Where are dataset downloads stored and are they committed?",
+      "required_groups": [
+        "d_drive_data"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q28_1",
+      "fact_group": "weights_autoload",
+      "split": "dev",
+      "kind": "existing",
+      "query": "我要先手动打开 pt 模型文件才能分析吗？",
+      "required_groups": [
+        "weights_autoload"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q28_2",
+      "fact_group": "weights_autoload",
+      "split": "dev",
+      "kind": "existing",
+      "query": "启动网页之后如何加载模型文件？",
+      "required_groups": [
+        "weights_autoload"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q29_1",
+      "fact_group": "no_camera_control",
+      "split": "dev",
+      "kind": "existing",
+      "query": "这个项目能控制相机重拍吗？",
+      "required_groups": [
+        "no_camera_control"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q29_2",
+      "fact_group": "no_camera_control",
+      "split": "dev",
+      "kind": "existing",
+      "query": "当前原型有没有接入相机控制功能？",
+      "required_groups": [
+        "no_camera_control"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q30_1",
+      "fact_group": "measured_by_program",
+      "split": "test",
+      "kind": "existing",
+      "query": "曝光测量和可靠性状态是谁产生的？",
+      "required_groups": [
+        "measured_by_program"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q30_2",
+      "fact_group": "measured_by_program",
+      "split": "test",
+      "kind": "existing",
+      "query": "是否由语言模型自行填写视觉测量和可靠性状态？",
+      "required_groups": [
+        "measured_by_program"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q31_1",
+      "fact_group": "sea_coefficients",
+      "split": "test",
+      "kind": "literature",
+      "query": "Sea-Thru 为什么不直接套用大气去雾系数？",
+      "required_groups": [
+        "sea_coefficients"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q31_2",
+      "fact_group": "sea_coefficients",
+      "split": "test",
+      "kind": "literature",
+      "query": "Do direct attenuation and backscatter share one coefficient in Sea-Thru?",
+      "required_groups": [
+        "sea_coefficients"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q32_1",
+      "fact_group": "sea_rgbd",
+      "split": "dev",
+      "kind": "literature",
+      "query": "Sea-Thru 的输入需要深度或距离吗？",
+      "required_groups": [
+        "sea_rgbd"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q32_2",
+      "fact_group": "sea_rgbd",
+      "split": "dev",
+      "kind": "literature",
+      "query": "只有 RGB 图片满足原始 Sea-Thru 的输入条件吗？",
+      "required_groups": [
+        "sea_rgbd"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q33_1",
+      "fact_group": "machine_preference",
+      "split": "test",
+      "kind": "literature",
+      "query": "MPD 研究是否认为观感更好就保证机器任务结果更好？",
+      "required_groups": [
+        "machine_preference"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q33_2",
+      "fact_group": "machine_preference",
+      "split": "test",
+      "kind": "literature",
+      "query": "Does better visual appeal guarantee better downstream detection according to machine IQA?",
+      "required_groups": [
+        "machine_preference"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q34_1",
+      "fact_group": "machine_protocol",
+      "split": "dev",
+      "kind": "literature",
+      "query": "评价机器视觉图像质量需要先确定哪些条件？",
+      "required_groups": [
+        "machine_protocol"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q34_2",
+      "fact_group": "machine_protocol",
+      "split": "dev",
+      "kind": "literature",
+      "query": "机器质量评估协议应指定哪些项目？",
+      "required_groups": [
+        "machine_protocol"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q35_1",
+      "fact_group": "reed_alignment",
+      "split": "test",
+      "kind": "literature",
+      "query": "REED 真实序列如何处理运动造成的错位？",
+      "required_groups": [
+        "reed_alignment"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q35_2",
+      "fact_group": "reed_alignment",
+      "split": "test",
+      "kind": "literature",
+      "query": "极端曝光连拍图通过什么办法对齐？",
+      "required_groups": [
+        "reed_alignment"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q36_1",
+      "fact_group": "reed_brightness",
+      "split": "test",
+      "kind": "literature",
+      "query": "REED 论文是否认为仅看亮度在所有情况下都足以判断曝光？",
+      "required_groups": [
+        "reed_brightness"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q36_2",
+      "fact_group": "reed_brightness",
+      "split": "test",
+      "kind": "literature",
+      "query": "Does the REED paper regard luminance alone as sufficient in every case?",
+      "required_groups": [
+        "reed_brightness"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q37_1",
+      "fact_group": "rhc_modules",
+      "split": "dev",
+      "kind": "literature",
+      "query": "RHCNet 提出的两个核心模块是什么？",
+      "required_groups": [
+        "rhc_modules"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q37_2",
+      "fact_group": "rhc_modules",
+      "split": "dev",
+      "kind": "literature",
+      "query": "What are the names and abbreviations of the two core RHCNet modules?",
+      "required_groups": [
+        "rhc_modules"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q38_1",
+      "fact_group": "rhc_calibration",
+      "split": "dev",
+      "kind": "literature",
+      "query": "RHCNet 特征校准可以代替现有置信度校准吗？",
+      "required_groups": [
+        "rhc_calibration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q38_2",
+      "fact_group": "rhc_calibration",
+      "split": "dev",
+      "kind": "literature",
+      "query": "RHCNet calibration 和 isotonic calibration 是同一个东西吗？",
+      "required_groups": [
+        "rhc_calibration"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q39_1",
+      "fact_group": "mixed_domain",
+      "split": "test",
+      "kind": "literature",
+      "query": "增强作为增广与推理时统一增强有什么区别？",
+      "required_groups": [
+        "mixed_domain",
+        "mixed_training_design"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q39_2",
+      "fact_group": "mixed_domain",
+      "split": "test",
+      "kind": "literature",
+      "query": "How does mixed-domain training differ from always enhancing images at inference?",
+      "required_groups": [
+        "mixed_domain",
+        "mixed_training_design"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q40_1",
+      "fact_group": "uieb_challenge",
+      "split": "dev",
+      "kind": "literature",
+      "query": "UIEB 的60张挑战图为什么没有参考增强图？",
+      "required_groups": [
+        "uieb_challenge"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "q40_2",
+      "fact_group": "uieb_challenge",
+      "split": "dev",
+      "kind": "literature",
+      "query": "为什么 UIEB challenging set 不能照搬有参考图的评测？",
+      "required_groups": [
+        "uieb_challenge"
+      ],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n01",
+      "fact_group": "camera_iso",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "这张上传图的原始 ISO 数值是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n02",
+      "fact_group": "camera_shutter",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "本地机器人样本每张照片的准确快门时间是多少毫秒？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n03",
+      "fact_group": "camera_aperture",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "MOUD 当前样本采集时每张图片的镜头光圈值是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n04",
+      "fact_group": "robot_mass",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "UIIS10K test_0352 机器人整机质量是多少千克？",
+      "required_groups": [],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "n05",
+      "fact_group": "robot_manufacturer",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "UIIS10K 所有机器人实例分别由哪家厂商制造？",
+      "required_groups": [],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "n06",
+      "fact_group": "robot_battery",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "这张图中的 ROV 电池还剩多少分钟续航？",
+      "required_groups": [],
+      "vision_mode": "experiment_candidate"
+    },
+    {
+      "id": "n07",
+      "fact_group": "field_temperature",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "当前上传图片拍摄时水温是多少摄氏度？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n08",
+      "fact_group": "field_salinity",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "Scene 1 每帧采集时水体盐度的精确数值是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n09",
+      "fact_group": "field_depth",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "上传图目标距相机的实测距离是多少米？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n10",
+      "fact_group": "hardware_response",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "in_domain_unknown",
+      "query": "本机镜头与传感器联合光谱响应的标定曲线数值是什么？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n11",
+      "fact_group": "cake",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "黑森林蛋糕需要哪些食材和烘焙步骤？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n12",
+      "fact_group": "taxi",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "明天上海机场到火车站出租车多少钱？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n13",
+      "fact_group": "chess",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "国际象棋王车易位有哪些规则？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n14",
+      "fact_group": "gardening",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "如何给阳台的月季施肥？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n15",
+      "fact_group": "music",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "小提琴 D 大调音阶的指法是什么？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n16",
+      "fact_group": "history",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "唐代科举殿试的演变过程是什么？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n17",
+      "fact_group": "accounting",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "增值税一般纳税人的账务分录怎样做？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n18",
+      "fact_group": "football",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "今年足球世界杯决赛的比分是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n19",
+      "fact_group": "quantum",
+      "split": "dev",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "超导量子芯片的约瑟夫森结临界电流是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    },
+    {
+      "id": "n20",
+      "fact_group": "astronomy",
+      "split": "test",
+      "kind": "unanswerable",
+      "negative_type": "out_of_domain",
+      "query": "木星大红斑最近的风速测量结果是多少？",
+      "required_groups": [],
+      "vision_mode": "legacy"
+    }
+  ],
+  "construction_sha256": "bfd501b4da268b864f048e3e94241e41adfe6dfe1b03343e410860fd3dca146b"
+}

@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><title>水下图像分析 Agent</title>
+<link rel="stylesheet" href="/static/analysis.css"></head><body><nav><a href="/agent">打开对话工作台</a></nav>
+<h1>水下图像曝光校正与目标识别 Agent</h1><p>上传一张水下图像，或多张同场景、同尺寸且已对齐的不同光照图像。</p>
+<p>当前识别器面向 SODD 的六类水下设施目标。其他水下生物或场景的识别结果属于训练域外探索。</p>
+<a class="demo" href="/demo">试用示例图片</a>
+<p>蓝色热图代表偏暗，红色代表偏亮。结果图中红框代表原图不可恢复区域，绿框是检测候选，橙框是验证集估计正确率较低的候选。可靠状态仅表示通过当前模型的内部检查。</p>
+<p>类别说明：propeller 螺旋桨，pipe / pipe_type2 管道，red_fin 红色鳍片，net 渔网，qr_codes 二维码。</p>
+<form method="post" enctype="multipart/form-data"><input type="file" name="images" accept="image/*" multiple required>
+<label>视觉配置 <select name="vision_mode"><option value="legacy">现有默认六类</option><option value="experiment_control">0.4.0 实验对照＋机器人</option><option value="experiment_candidate">0.4.0 实验候选＋机器人</option></select></label>
+<button type="submit">分析图像</button></form>
+{% if error %}<div class="panel bad">{{ error }}</div>{% endif %}
+{% if result %}<div class="panel"><h2 class="{{ 'good' if result.status=='reliable' else 'bad' }}">结果：{{ status_labels[result.status] }}</h2>
+<p>自动输出的目标框：{{ result.accepted_detections|length }}；低置信候选：{{ result.tentative_detections|length }}；采用图像：{{ result.selected_image }}；耗时：{{ result.latency_ms }} ms</p>
+{% if result.reasons %}<ul>{% for item in result.reasons %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+<table><tr><th>指标</th><th>原图</th><th>校正后</th></tr>
+{% for key,label in [('dark_fraction','暗部占比'),('bright_fraction','高亮占比'),('contrast','局部对比度'),('edge_strength','边缘强度'),('sharpness','清晰度'),('noise_estimate','噪声估计')] %}
+<tr><td>{{ label }}</td><td>{{ '%.4f'|format(result.quality_before['global'][key]) }}</td><td>{{ '%.4f'|format(result.quality_after['global'][key]) }}</td></tr>{% endfor %}
+</table><p>原图曝光类型：{{ result.quality_before.exposure_state }}；校正：{{ result.correction.method }}；
+原图信息丢失区域：{{ result.irrecoverable_regions|length }}；剩余问题区域：{{ result.remaining_problem_regions|length }}</p></div>
+<div class="grid">{% for name,label in [('original','原图'),('corrected','校正候选图'),('selected','最终采用图像'),('quality_heatmap_before','原图曝光问题'),('quality_heatmap_after','校正后曝光问题'),('detections_original','原图检测框'),('detections_corrected','校正图检测框'),('detections_selected','最终采用的检测框')] %}
+<div class="panel"><h3>{{ label }}</h3><img src="{{ images[name] }}"></div>{% endfor %}</div>
+<div class="panel"><h3>机器可读结果</h3><pre>{{ result_json }}</pre></div>{% endif %}</body></html>

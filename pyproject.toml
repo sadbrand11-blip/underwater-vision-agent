@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "underwater-optical-agent"
+version = "0.5.3"
+description = "Local underwater vision tools with bounded cloud orchestration"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.23,<2", "opencv-python>=4.7", "Pillow>=9", "scikit-image>=0.20",
+  "scikit-learn>=1.2", "Flask>=2.2,<4", "requests>=2.31", "psutil>=5.9"
+]
+
+[project.optional-dependencies]
+detector = ["torch==2.2.0", "torchvision==0.17.0"]
+embedding = ["torch==2.2.0", "transformers==4.32.1", "tokenizers==0.13.2", "safetensors==0.3.2"]
+langgraph = ["langgraph==1.2.12"]
+mcp = ["mcp==2.3.0"]
+
+[tool.setuptools]
+py-modules = ["agent", "agent_tools", "quality", "detector", "data", "metrics"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["optical_agent*"]

@@ -1,0 +1,125 @@
+{
+  "version": "0.4.0",
+  "runtime_revision": "v040_delivery_r1",
+  "run_id": "v040_delivery_r1_20261001T062037996659Z",
+  "raw_records": "D:\\CodexData\\optical_agent\\vision_v040\\web_checks\\v040_delivery_r1_20261001T062037996659Z",
+  "python_tests": {
+    "passed": 163,
+    "seconds": 154.94,
+    "source_log": "D:\\CodexData\\optical_agent\\tests_v040_release.log"
+  },
+  "web_checks": [
+    {
+      "case": "legacy_exposure",
+      "task_status": "completed",
+      "vision_status": null,
+      "target_count": null,
+      "actual_compute": {
+        "comparison": 0,
+        "correction": 0,
+        "detection": 0,
+        "quality": 1
+      },
+      "llm_request_attempts": 0,
+      "simulated": false,
+      "goal_classes": [
+        "propeller",
+        "pipe_type2",
+        "red_fin",
+        "net",
+        "qr_codes",
+        "pipe"
+      ]
+    },
+    {
+      "case": "candidate_pipe",
+      "task_status": "completed",
+      "vision_status": null,
+      "target_count": 1,
+      "actual_compute": {
+        "comparison": 0,
+        "correction": 0,
+        "detection": 1,
+        "quality": 0
+      },
+      "llm_request_attempts": 0,
+      "simulated": false,
+      "goal_classes": [
+        "pipe_type2",
+        "pipe"
+      ]
+    },
+    {
+      "case": "candidate_robot",
+      "task_status": "completed",
+      "vision_status": null,
+      "target_count": 3,
+      "actual_compute": {
+        "comparison": 0,
+        "correction": 0,
+        "detection": 1,
+        "quality": 0
+      },
+      "llm_request_attempts": 0,
+      "simulated": false,
+      "goal_classes": [
+        "underwater_robot"
+      ]
+    },
+    {
+      "case": "joint_targets",
+      "task_status": "completed",
+      "vision_status": null,
+      "target_count": 4,
+      "actual_compute": {
+        "comparison": 0,
+        "correction": 0,
+        "detection": 2,
+        "quality": 0
+      },
+      "llm_request_attempts": 0,
+      "simulated": false,
+      "goal_classes": [
+        "pipe_type2",
+        "pipe",
+        "underwater_robot"
+      ]
+    },
+    {
+      "case": "correction_robot",
+      "task_status": "completed",
+      "vision_status": "unreliable",
+      "target_count": 3,
+      "actual_compute": {
+        "comparison": 1,
+        "correction": 1,
+        "detection": 2,
+        "quality": 2
+      },
+      "llm_request_attempts": 0,
+      "simulated": false,
+      "goal_classes": [
+        "underwater_robot"
+      ]
+    },
+    {
+      "case": "lost_robot",
+      "task_status": "completed",
+      "vision_status": "quality_failure",
+      "target_count": null,
+      "actual_compute": {
+        "comparison": 1,
+        "correction": 0,
+        "detection": 0,
+        "quality": 1
+      },
+      "llm_request_attempts": 0,
+      "simulated": true,
+      "goal_classes": [
+        "underwater_robot"
+      ]
+    }
+  ],
+  "mode": "scripted with real local vision models",
+  "paid_llm_requests": 0
+}

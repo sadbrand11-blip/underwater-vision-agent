@@ -1,0 +1,13 @@
+numpy>=1.23,<2
+opencv-python>=4.7
+Pillow>=9
+scikit-image>=0.20
+scikit-learn>=1.2
+Flask>=2.2,<4
+torch>=2.2
+torchvision>=0.17
+requests>=2.31
+transformers==4.32.1
+tokenizers>=0.13,<0.14
+safetensors>=0.3
+psutil>=5.9

@@ -1,0 +1,1344 @@
+{
+  "version": "0.5.0",
+  "run_id": "rag_v050_20261003",
+  "evaluation_status": "complete",
+  "release": {
+    "version": "0.5.0",
+    "mode": "hybrid",
+    "corpus_hash": "474e7effaa82044d2e4f138dc31951f432261d9fbf663b5ce96ea4958000653d",
+    "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+    "thresholds": {
+      "tfidf": 0.3,
+      "dense": 0.6
+    },
+    "profiles": {
+      "tfidf": {
+        "tfidf": 0.15,
+        "dense": 0.75
+      },
+      "embedding": {
+        "tfidf": 0.1,
+        "dense": 0.6
+      },
+      "hybrid": {
+        "tfidf": 0.3,
+        "dense": 0.6
+      }
+    },
+    "run_id": "rag_v050_20261003",
+    "adoption_gates": {
+      "recall3_gain": true,
+      "mrr_not_lower": true,
+      "no_answer": true,
+      "cpu_p95": true
+    },
+    "knowledge_replacement_gate": true,
+    "legacy_corpus": "frozen_C0",
+    "holdout_tuning": false
+  },
+  "metrics": {
+    "C0/tfidf": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.35,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.38333333333333336,
+        "full_hit": {
+          "1": 0.3333333333333333,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.1
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.6666666666666666,
+          "3": 0.8333333333333334,
+          "5": 0.9,
+          "10": 0.9666666666666667
+        },
+        "mrr10": 0.7851851851851851,
+        "full_hit": {
+          "1": 0.6333333333333333,
+          "3": 0.8333333333333334,
+          "5": 0.9,
+          "10": 0.9666666666666667
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.35,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.38333333333333336,
+        "full_hit": {
+          "1": 0.3333333333333333,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.1
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 0.8927810000204772,
+        "cpu_warm_p95_ms": 0.9628049990169529,
+        "cached_mean_ms": 0.03513400002702838,
+        "cached_p95_ms": 0.03966499962189116,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 58.24589999974705,
+      "load_ms": 59.71689999933005,
+      "process_rss_mb": 482.796875,
+      "matrix_bytes": 582860,
+      "vector_bytes": 0,
+      "metadata": {
+        "mode": "tfidf",
+        "corpus": "C0",
+        "corpus_hash": "ffe3ae4a450d98d28ddd614510ad98a2efcd7aca1da63dbaebf4fc2be3515c7f",
+        "model_revision": null,
+        "model_sha256": null,
+        "asset_hash": null,
+        "vision_mode": null,
+        "thresholds": {
+          "tfidf": 0.1,
+          "dense": 0.75
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C0/embedding": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.06666666666666667,
+          "3": 0.06666666666666667,
+          "5": 0.1,
+          "10": 0.1
+        },
+        "mrr10": 0.075,
+        "full_hit": {
+          "1": 0.06666666666666667,
+          "3": 0.06666666666666667,
+          "5": 0.1,
+          "10": 0.1
+        },
+        "no_answer_false_return": 0.0
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.23333333333333334,
+          "3": 0.45,
+          "5": 0.5,
+          "10": 0.75
+        },
+        "mrr10": 0.3927248677248677,
+        "full_hit": {
+          "1": 0.23333333333333334,
+          "3": 0.43333333333333335,
+          "5": 0.4666666666666667,
+          "10": 0.7333333333333333
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.06666666666666667,
+          "3": 0.06666666666666667,
+          "5": 0.1,
+          "10": 0.1
+        },
+        "mrr10": 0.075,
+        "full_hit": {
+          "1": 0.06666666666666667,
+          "3": 0.06666666666666667,
+          "5": 0.1,
+          "10": 0.1
+        },
+        "no_answer_false_return": 0.0
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 22.792363000116893,
+        "cpu_warm_p95_ms": 25.994259999333735,
+        "cached_mean_ms": 0.158015000015439,
+        "cached_p95_ms": 0.1896699996905226,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 916.0174000007828,
+      "load_ms": 62.78590000147233,
+      "process_rss_mb": 499.87109375,
+      "matrix_bytes": 582860,
+      "vector_bytes": 112640,
+      "metadata": {
+        "mode": "embedding",
+        "corpus": "C0",
+        "corpus_hash": "ffe3ae4a450d98d28ddd614510ad98a2efcd7aca1da63dbaebf4fc2be3515c7f",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": null,
+        "thresholds": {
+          "tfidf": 0.1,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C0/hybrid": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.25,
+          "3": 0.25,
+          "5": 0.25,
+          "10": 0.25
+        },
+        "mrr10": 0.26666666666666666,
+        "full_hit": {
+          "1": 0.23333333333333334,
+          "3": 0.23333333333333334,
+          "5": 0.23333333333333334,
+          "10": 0.23333333333333334
+        },
+        "no_answer_false_return": 0.1
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4666666666666667,
+          "3": 0.75,
+          "5": 0.75,
+          "10": 0.85
+        },
+        "mrr10": 0.6297619047619047,
+        "full_hit": {
+          "1": 0.43333333333333335,
+          "3": 0.7333333333333333,
+          "5": 0.7333333333333333,
+          "10": 0.8333333333333334
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.25,
+          "3": 0.25,
+          "5": 0.25,
+          "10": 0.25
+        },
+        "mrr10": 0.26666666666666666,
+        "full_hit": {
+          "1": 0.23333333333333334,
+          "3": 0.23333333333333334,
+          "5": 0.23333333333333334,
+          "10": 0.23333333333333334
+        },
+        "no_answer_false_return": 0.1
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 22.692850999974326,
+        "cpu_warm_p95_ms": 25.811870000234183,
+        "cached_mean_ms": 0.12506449989814428,
+        "cached_p95_ms": 0.146404999668448,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 916.0174000007828,
+      "load_ms": 65.1027999992948,
+      "process_rss_mb": 503.5390625,
+      "matrix_bytes": 582860,
+      "vector_bytes": 112640,
+      "metadata": {
+        "mode": "hybrid",
+        "corpus": "C0",
+        "corpus_hash": "ffe3ae4a450d98d28ddd614510ad98a2efcd7aca1da63dbaebf4fc2be3515c7f",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": null,
+        "thresholds": {
+          "tfidf": 0.15,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C0_struct/tfidf": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.31666666666666665,
+          "3": 0.31666666666666665,
+          "5": 0.31666666666666665,
+          "10": 0.31666666666666665
+        },
+        "mrr10": 0.3333333333333333,
+        "full_hit": {
+          "1": 0.3,
+          "3": 0.3,
+          "5": 0.3,
+          "10": 0.3
+        },
+        "no_answer_false_return": 0.1
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.5666666666666667,
+          "3": 0.7833333333333333,
+          "5": 0.9166666666666666,
+          "10": 0.9833333333333333
+        },
+        "mrr10": 0.729484126984127,
+        "full_hit": {
+          "1": 0.5333333333333333,
+          "3": 0.7666666666666667,
+          "5": 0.9,
+          "10": 0.9666666666666667
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.31666666666666665,
+          "3": 0.31666666666666665,
+          "5": 0.31666666666666665,
+          "10": 0.31666666666666665
+        },
+        "mrr10": 0.3333333333333333,
+        "full_hit": {
+          "1": 0.3,
+          "3": 0.3,
+          "5": 0.3,
+          "10": 0.3
+        },
+        "no_answer_false_return": 0.1
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 0.9154530000068917,
+        "cpu_warm_p95_ms": 1.0095649998220324,
+        "cached_mean_ms": 0.05958899997494882,
+        "cached_p95_ms": 0.07040499949653167,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 54.69660000017029,
+      "load_ms": 58.83940000057919,
+      "process_rss_mb": 505.33203125,
+      "matrix_bytes": 502264,
+      "vector_bytes": 0,
+      "metadata": {
+        "mode": "tfidf",
+        "corpus": "C0_struct",
+        "corpus_hash": "77d854be0174604595d8e722919e026f0fe43745ecbdc15441dc7802bb5677de",
+        "model_revision": null,
+        "model_sha256": null,
+        "asset_hash": null,
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.15,
+          "dense": 0.75
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C0_struct/embedding": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.43333333333333335,
+        "full_hit": {
+          "1": 0.36666666666666664,
+          "3": 0.36666666666666664,
+          "5": 0.36666666666666664,
+          "10": 0.36666666666666664
+        },
+        "no_answer_false_return": 0.0
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.6333333333333333,
+          "3": 0.7166666666666667,
+          "5": 0.7833333333333333,
+          "10": 0.8166666666666667
+        },
+        "mrr10": 0.7183333333333334,
+        "full_hit": {
+          "1": 0.6,
+          "3": 0.7,
+          "5": 0.7666666666666667,
+          "10": 0.8
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.43333333333333335,
+        "full_hit": {
+          "1": 0.36666666666666664,
+          "3": 0.36666666666666664,
+          "5": 0.36666666666666664,
+          "10": 0.36666666666666664
+        },
+        "no_answer_false_return": 0.0
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 22.697295000025406,
+        "cpu_warm_p95_ms": 25.315544999648402,
+        "cached_mean_ms": 0.21461549996274698,
+        "cached_p95_ms": 0.2692749998459476,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 302.73680000027525,
+      "load_ms": 65.88019999981043,
+      "process_rss_mb": 506.0234375,
+      "matrix_bytes": 502264,
+      "vector_bytes": 196608,
+      "metadata": {
+        "mode": "embedding",
+        "corpus": "C0_struct",
+        "corpus_hash": "77d854be0174604595d8e722919e026f0fe43745ecbdc15441dc7802bb5677de",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.1,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C0_struct/hybrid": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.43333333333333335,
+          "3": 0.43333333333333335,
+          "5": 0.43333333333333335,
+          "10": 0.43333333333333335
+        },
+        "mrr10": 0.4666666666666667,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.0
+      },
+      "raw": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.6,
+          "3": 0.7833333333333333,
+          "5": 0.8166666666666667,
+          "10": 0.9166666666666666
+        },
+        "mrr10": 0.7317063492063492,
+        "full_hit": {
+          "1": 0.5666666666666667,
+          "3": 0.7666666666666667,
+          "5": 0.8,
+          "10": 0.9
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.43333333333333335,
+          "3": 0.43333333333333335,
+          "5": 0.43333333333333335,
+          "10": 0.43333333333333335
+        },
+        "mrr10": 0.4666666666666667,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.0
+      },
+      "literature": {
+        "answerable_n": 0,
+        "negative_n": 0,
+        "recall": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "mrr10": null,
+        "full_hit": {
+          "1": null,
+          "3": null,
+          "5": null,
+          "10": null
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 22.698635000006107,
+        "cpu_warm_p95_ms": 25.76736999981221,
+        "cached_mean_ms": 0.16028300001380558,
+        "cached_p95_ms": 0.19731500087800666,
+        "timed_queries": 200,
+        "repetitions": 5,
+        "independent_questions": 40,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 302.73680000027525,
+      "load_ms": 127.56790000094043,
+      "process_rss_mb": 506.71875,
+      "matrix_bytes": 502264,
+      "vector_bytes": 196608,
+      "metadata": {
+        "mode": "hybrid",
+        "corpus": "C0_struct",
+        "corpus_hash": "77d854be0174604595d8e722919e026f0fe43745ecbdc15441dc7802bb5677de",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.3,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C1/tfidf": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.3375,
+          "3": 0.35,
+          "5": 0.3625,
+          "10": 0.3875
+        },
+        "mrr10": 0.36250000000000004,
+        "full_hit": {
+          "1": 0.325,
+          "3": 0.325,
+          "5": 0.35,
+          "10": 0.375
+        },
+        "no_answer_false_return": 0.1
+      },
+      "raw": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.5,
+          "3": 0.725,
+          "5": 0.8375,
+          "10": 0.8875
+        },
+        "mrr10": 0.65,
+        "full_hit": {
+          "1": 0.475,
+          "3": 0.7,
+          "5": 0.825,
+          "10": 0.875
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.31666666666666665,
+          "3": 0.31666666666666665,
+          "5": 0.31666666666666665,
+          "10": 0.31666666666666665
+        },
+        "mrr10": 0.3333333333333333,
+        "full_hit": {
+          "1": 0.3,
+          "3": 0.3,
+          "5": 0.3,
+          "10": 0.3
+        },
+        "no_answer_false_return": 0.1
+      },
+      "literature": {
+        "answerable_n": 10,
+        "negative_n": 0,
+        "recall": {
+          "1": 0.4,
+          "3": 0.45,
+          "5": 0.5,
+          "10": 0.6
+        },
+        "mrr10": 0.45,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.5,
+          "10": 0.6
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 0.9925199999779579,
+        "cpu_warm_p95_ms": 1.120320000427455,
+        "cached_mean_ms": 0.07971999997243984,
+        "cached_p95_ms": 0.09255499999198946,
+        "timed_queries": 250,
+        "repetitions": 5,
+        "independent_questions": 50,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 71.56680000116467,
+      "load_ms": 76.54299999921932,
+      "process_rss_mb": 508.8984375,
+      "matrix_bytes": 658816,
+      "vector_bytes": 0,
+      "metadata": {
+        "mode": "tfidf",
+        "corpus": "C1",
+        "corpus_hash": "474e7effaa82044d2e4f138dc31951f432261d9fbf663b5ce96ea4958000653d",
+        "model_revision": null,
+        "model_sha256": null,
+        "asset_hash": null,
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.15,
+          "dense": 0.75
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C1/embedding": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.45,
+          "5": 0.45,
+          "10": 0.45
+        },
+        "mrr10": 0.45,
+        "full_hit": {
+          "1": 0.375,
+          "3": 0.425,
+          "5": 0.425,
+          "10": 0.425
+        },
+        "no_answer_false_return": 0.0
+      },
+      "raw": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.525,
+          "3": 0.6625,
+          "5": 0.7125,
+          "10": 0.7625
+        },
+        "mrr10": 0.6316666666666666,
+        "full_hit": {
+          "1": 0.5,
+          "3": 0.65,
+          "5": 0.7,
+          "10": 0.75
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.43333333333333335,
+        "full_hit": {
+          "1": 0.36666666666666664,
+          "3": 0.36666666666666664,
+          "5": 0.36666666666666664,
+          "10": 0.36666666666666664
+        },
+        "no_answer_false_return": 0.0
+      },
+      "literature": {
+        "answerable_n": 10,
+        "negative_n": 0,
+        "recall": {
+          "1": 0.4,
+          "3": 0.6,
+          "5": 0.6,
+          "10": 0.6
+        },
+        "mrr10": 0.5,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.6,
+          "5": 0.6,
+          "10": 0.6
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 23.119322400089004,
+        "cpu_warm_p95_ms": 26.113094999982422,
+        "cached_mean_ms": 0.2867963999888161,
+        "cached_p95_ms": 0.3629050007475598,
+        "timed_queries": 250,
+        "repetitions": 5,
+        "independent_questions": 50,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 369.0076000002591,
+      "load_ms": 77.89670000056503,
+      "process_rss_mb": 510.66015625,
+      "matrix_bytes": 658816,
+      "vector_bytes": 258048,
+      "metadata": {
+        "mode": "embedding",
+        "corpus": "C1",
+        "corpus_hash": "474e7effaa82044d2e4f138dc31951f432261d9fbf663b5ce96ea4958000653d",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.1,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    },
+    "C1/hybrid": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.45,
+          "3": 0.475,
+          "5": 0.475,
+          "10": 0.475
+        },
+        "mrr10": 0.4875,
+        "full_hit": {
+          "1": 0.425,
+          "3": 0.45,
+          "5": 0.45,
+          "10": 0.45
+        },
+        "no_answer_false_return": 0.0
+      },
+      "raw": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.55,
+          "3": 0.725,
+          "5": 0.7875,
+          "10": 0.8875
+        },
+        "mrr10": 0.6720833333333334,
+        "full_hit": {
+          "1": 0.525,
+          "3": 0.7,
+          "5": 0.775,
+          "10": 0.875
+        },
+        "no_answer_false_return": 1.0
+      },
+      "old_questions": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.43333333333333335,
+          "3": 0.43333333333333335,
+          "5": 0.43333333333333335,
+          "10": 0.43333333333333335
+        },
+        "mrr10": 0.4666666666666667,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.0
+      },
+      "literature": {
+        "answerable_n": 10,
+        "negative_n": 0,
+        "recall": {
+          "1": 0.5,
+          "3": 0.6,
+          "5": 0.6,
+          "10": 0.6
+        },
+        "mrr10": 0.55,
+        "full_hit": {
+          "1": 0.5,
+          "3": 0.6,
+          "5": 0.6,
+          "10": 0.6
+        },
+        "no_answer_false_return": null
+      },
+      "latency": {
+        "cpu_warm_mean_ms": 23.162655599961,
+        "cpu_warm_p95_ms": 26.25010999954611,
+        "cached_mean_ms": 0.18817719998332905,
+        "cached_p95_ms": 0.23555499910798972,
+        "timed_queries": 250,
+        "repetitions": 5,
+        "independent_questions": 50,
+        "includes_query_encoding": true,
+        "excludes_model_load": true
+      },
+      "index_build_ms": 369.0076000002591,
+      "load_ms": 82.48800000001211,
+      "process_rss_mb": 511.6171875,
+      "matrix_bytes": 658816,
+      "vector_bytes": 258048,
+      "metadata": {
+        "mode": "hybrid",
+        "corpus": "C1",
+        "corpus_hash": "474e7effaa82044d2e4f138dc31951f432261d9fbf663b5ce96ea4958000653d",
+        "model_revision": "7999e1d3359715c523056ef9478215996d62a620",
+        "model_sha256": "354763b9b1357bc9c44f62c6be2276321081ed2567773608c0d0785b61d5a026",
+        "asset_hash": "425c0877d6ee0311af942c5f533a0f7853a8535b1670bf63234ac2ed06b9b2f9",
+        "vision_mode": "legacy",
+        "thresholds": {
+          "tfidf": 0.3,
+          "dense": 0.6
+        },
+        "score_is_probability": false,
+        "query_device": "cpu"
+      }
+    }
+  },
+  "development": {
+    "C0/tfidf": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.4666666666666667,
+          "5": 0.4666666666666667,
+          "10": 0.4666666666666667
+        },
+        "mrr10": 0.43333333333333335,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.4666666666666667,
+          "5": 0.4666666666666667,
+          "10": 0.4666666666666667
+        },
+        "no_answer_false_return": 0.2
+      },
+      "thresholds": {
+        "tfidf": 0.1,
+        "dense": 0.75
+      }
+    },
+    "C0/embedding": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.13333333333333333,
+          "3": 0.16666666666666666,
+          "5": 0.2,
+          "10": 0.2
+        },
+        "mrr10": 0.15833333333333333,
+        "full_hit": {
+          "1": 0.13333333333333333,
+          "3": 0.16666666666666666,
+          "5": 0.2,
+          "10": 0.2
+        },
+        "no_answer_false_return": 0.0
+      },
+      "thresholds": {
+        "tfidf": 0.1,
+        "dense": 0.6
+      }
+    },
+    "C0/hybrid": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.26666666666666666,
+          "3": 0.26666666666666666,
+          "5": 0.26666666666666666,
+          "10": 0.26666666666666666
+        },
+        "mrr10": 0.26666666666666666,
+        "full_hit": {
+          "1": 0.26666666666666666,
+          "3": 0.26666666666666666,
+          "5": 0.26666666666666666,
+          "10": 0.26666666666666666
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.15,
+        "dense": 0.6
+      }
+    },
+    "C0_struct/tfidf": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.3,
+          "3": 0.3333333333333333,
+          "5": 0.3333333333333333,
+          "10": 0.3333333333333333
+        },
+        "mrr10": 0.31111111111111106,
+        "full_hit": {
+          "1": 0.3,
+          "3": 0.3333333333333333,
+          "5": 0.3333333333333333,
+          "10": 0.3333333333333333
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.15,
+        "dense": 0.75
+      }
+    },
+    "C0_struct/embedding": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.43333333333333335,
+          "3": 0.4666666666666667,
+          "5": 0.4666666666666667,
+          "10": 0.5
+        },
+        "mrr10": 0.45,
+        "full_hit": {
+          "1": 0.43333333333333335,
+          "3": 0.4666666666666667,
+          "5": 0.4666666666666667,
+          "10": 0.5
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.1,
+        "dense": 0.6
+      }
+    },
+    "C0_struct/hybrid": {
+      "delivered": {
+        "answerable_n": 30,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4666666666666667,
+          "3": 0.5333333333333333,
+          "5": 0.5333333333333333,
+          "10": 0.5333333333333333
+        },
+        "mrr10": 0.5,
+        "full_hit": {
+          "1": 0.4666666666666667,
+          "3": 0.5333333333333333,
+          "5": 0.5333333333333333,
+          "10": 0.5333333333333333
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.3,
+        "dense": 0.6
+      }
+    },
+    "C1/tfidf": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.375,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "mrr10": 0.3875,
+        "full_hit": {
+          "1": 0.375,
+          "3": 0.4,
+          "5": 0.4,
+          "10": 0.4
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.15,
+        "dense": 0.75
+      }
+    },
+    "C1/embedding": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.4,
+          "3": 0.425,
+          "5": 0.425,
+          "10": 0.45
+        },
+        "mrr10": 0.4125,
+        "full_hit": {
+          "1": 0.4,
+          "3": 0.425,
+          "5": 0.425,
+          "10": 0.45
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.1,
+        "dense": 0.6
+      }
+    },
+    "C1/hybrid": {
+      "delivered": {
+        "answerable_n": 40,
+        "negative_n": 10,
+        "recall": {
+          "1": 0.45,
+          "3": 0.525,
+          "5": 0.525,
+          "10": 0.525
+        },
+        "mrr10": 0.4875,
+        "full_hit": {
+          "1": 0.45,
+          "3": 0.525,
+          "5": 0.525,
+          "10": 0.525
+        },
+        "no_answer_false_return": 0.1
+      },
+      "thresholds": {
+        "tfidf": 0.3,
+        "dense": 0.6
+      }
+    }
+  },
+  "paired_intervals": {
+    "C1_embedding_vs_tfidf": {
+      "recall3": {
+        "metric": "recall3",
+        "delta": 0.1,
+        "ci95": [
+          -0.0714657738095238,
+          0.25
+        ],
+        "fact_groups": 18,
+        "resamples": 2000,
+        "seed": 20261003
+      },
+      "mrr10": {
+        "metric": "mrr10",
+        "delta": 0.08750000000000001,
+        "ci95": [
+          -0.09727182539682538,
+          0.25
+        ],
+        "fact_groups": 18,
+        "resamples": 2000,
+        "seed": 20261003
+      }
+    },
+    "C1_hybrid_vs_tfidf": {
+      "recall3": {
+        "metric": "recall3",
+        "delta": 0.125,
+        "ci95": [
+          -0.05555555555555555,
+          0.2717391304347826
+        ],
+        "fact_groups": 18,
+        "resamples": 2000,
+        "seed": 20261003
+      },
+      "mrr10": {
+        "metric": "mrr10",
+        "delta": 0.125,
+        "ci95": [
+          -0.06946271929824563,
+          0.2750378787878786
+        ],
+        "fact_groups": 18,
+        "resamples": 2000,
+        "seed": 20261003
+      }
+    },
+    "knowledge_only_tfidf": {
+      "metric": "recall3",
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    },
+    "combined_tfidf": {
+      "metric": "recall3",
+      "delta": -0.08333333333333333,
+      "ci95": [
+        -0.23214285714285715,
+        0.04411764705882353
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    },
+    "knowledge_only_embedding": {
+      "metric": "recall3",
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    },
+    "combined_embedding": {
+      "metric": "recall3",
+      "delta": 0.3333333333333333,
+      "ci95": [
+        0.11538461538461539,
+        0.5526550751879699
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    },
+    "knowledge_only_hybrid": {
+      "metric": "recall3",
+      "delta": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    },
+    "combined_hybrid": {
+      "metric": "recall3",
+      "delta": 0.18333333333333332,
+      "ci95": [
+        -0.038461538461538464,
+        0.4027777777777778
+      ],
+      "fact_groups": 13,
+      "resamples": 2000,
+      "seed": 20261003
+    }
+  },
+  "http_requests_during_evaluation": 0,
+  "paid_api_requests": 0,
+  "labels": "automatic_source_anchored_independently_reviewed_no_external_human_acceptance",
+  "independent_review": "same-family/provisional",
+  "freeze_sha256": "aa1cdf2113c7e6a1d78c0e757891e7faf0feaecba86a35ea399a976cd7bf7803",
+  "delivery_revision": "v050_rag_delivery_r3",
+  "evaluated_source": "D-drive frozen_code archive",
+  "original_freeze_limitations": [
+    "indexes not anchored before evaluation",
+    "publisher not frozen before evaluation"
+  ],
+  "results_sha256": {
+    "dev": "7a412ee63f13f2be63d213043e4131d5d8bf59b44a4de1c0f17d1ff52b76753b",
+    "test": "fbfbf6aaf13d19bf74a63dc2d80cbdb5be44190225744f12e6d286960c1ff115",
+    "selection": "f1051cf55933b25ca76cbed19bf132cdeffbf75add1851dba1fe25a562a6a7cd"
+  },
+  "limitations": [
+    "small automatic question set",
+    "not LLM answer quality",
+    "not visual precision",
+    "negative return is strict abstention proxy, including valid limitation passages",
+    "process RSS includes shared encoder even for TF-IDF",
+    "latency repeated five times, not independent tasks"
+  ]
+}

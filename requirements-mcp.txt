@@ -1,0 +1,2 @@
+# Installed only in D:\CodexData\optical_agent\mcp\venv.
+mcp==2.3.0

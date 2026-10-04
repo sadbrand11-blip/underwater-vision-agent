@@ -1,0 +1,802 @@
+[
+  {
+    "id": "quality_01",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 0,
+    "image_variant": "none",
+    "message": "只检查这张图的曝光",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_02",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 1,
+    "image_variant": "under",
+    "message": "只评估原图曝光质量",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_03",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 2,
+    "image_variant": "over",
+    "message": "测量这张图的暗部占比",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_04",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 3,
+    "image_variant": "mixed",
+    "message": "检查原图高亮饱和情况",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_05",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 4,
+    "image_variant": "none",
+    "message": "请只分析曝光，不识别目标",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_06",
+    "kind": "quality",
+    "split": "dev",
+    "source_index": 5,
+    "image_variant": "none",
+    "message": "报告原图的局部对比度",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_07",
+    "kind": "quality",
+    "split": "test",
+    "source_index": 6,
+    "image_variant": "under",
+    "message": "只检查原图曝光是否偏暗",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_08",
+    "kind": "quality",
+    "split": "test",
+    "source_index": 7,
+    "image_variant": "over",
+    "message": "查看图像质量和暗像素占比",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_09",
+    "kind": "quality",
+    "split": "test",
+    "source_index": 8,
+    "image_variant": "mixed",
+    "message": "这张原图曝光正常吗",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "quality_10",
+    "kind": "quality",
+    "split": "test",
+    "source_index": 9,
+    "image_variant": "none",
+    "message": "评估原图的曝光问题",
+    "required_evidence": "quality:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_01",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 0,
+    "image_variant": "none",
+    "message": "识别图中的目标",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_02",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 1,
+    "image_variant": "under",
+    "message": "原图有什么目标",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_03",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 2,
+    "image_variant": "over",
+    "message": "只检测原图中的物体",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_04",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 3,
+    "image_variant": "mixed",
+    "message": "报告原图目标候选框",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_05",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 4,
+    "image_variant": "none",
+    "message": "统计原图检测候选有多少",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_06",
+    "kind": "detection",
+    "split": "dev",
+    "source_index": 5,
+    "image_variant": "none",
+    "message": "识别原图的水下设施",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_07",
+    "kind": "detection",
+    "split": "test",
+    "source_index": 6,
+    "image_variant": "under",
+    "message": "检测原图目标类别",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_08",
+    "kind": "detection",
+    "split": "test",
+    "source_index": 7,
+    "image_variant": "over",
+    "message": "列出原图里的目标候选",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_09",
+    "kind": "detection",
+    "split": "test",
+    "source_index": 8,
+    "image_variant": "mixed",
+    "message": "查看原图物体识别结果",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "detection_10",
+    "kind": "detection",
+    "split": "test",
+    "source_index": 9,
+    "image_variant": "none",
+    "message": "告诉我原图识别出哪些目标",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_01",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 0,
+    "image_variant": "none",
+    "message": "比较校正前后识别有没有改善",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_02",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 1,
+    "image_variant": "under",
+    "message": "检查曝光校正与检测证据的变化",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_03",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 2,
+    "image_variant": "over",
+    "message": "先校正曝光，再比较两张图目标识别",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_04",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 3,
+    "image_variant": "mixed",
+    "message": "比较原图和增强图的目标框",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_05",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 4,
+    "image_variant": "none",
+    "message": "完整分析曝光校正及识别可靠性",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_06",
+    "kind": "comparison",
+    "split": "dev",
+    "source_index": 5,
+    "image_variant": "none",
+    "message": "比较校正前后检测是否稳定",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_07",
+    "kind": "comparison",
+    "split": "test",
+    "source_index": 6,
+    "image_variant": "under",
+    "message": "比较增强前后目标识别结果",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_08",
+    "kind": "comparison",
+    "split": "test",
+    "source_index": 7,
+    "image_variant": "over",
+    "message": "校正后识别有没有改善，请比较证据",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_09",
+    "kind": "comparison",
+    "split": "test",
+    "source_index": 8,
+    "image_variant": "mixed",
+    "message": "完整分析后选择原图或校正图",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "comparison_10",
+    "kind": "comparison",
+    "split": "test",
+    "source_index": 9,
+    "image_variant": "none",
+    "message": "先增强再比较识别结果",
+    "required_evidence": "comparison:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_01",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 0,
+    "image_variant": "none",
+    "message": "解释为什么结果不能自动接受",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_02",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 1,
+    "image_variant": "under",
+    "message": "说明曝光校正失败的原因和依据",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_03",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 2,
+    "image_variant": "over",
+    "message": "为什么校正后还可能不可靠",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_04",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 3,
+    "image_variant": "mixed",
+    "message": "解释检测结论被拒绝的原因",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_05",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 4,
+    "image_variant": "none",
+    "message": "依据知识库解释曝光质量失败",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_06",
+    "kind": "explanation",
+    "split": "dev",
+    "source_index": 5,
+    "image_variant": "none",
+    "message": "解释原图信息丢失的原因",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_07",
+    "kind": "explanation",
+    "split": "test",
+    "source_index": 6,
+    "image_variant": "under",
+    "message": "为什么增强不等于可靠识别",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_08",
+    "kind": "explanation",
+    "split": "test",
+    "source_index": 7,
+    "image_variant": "over",
+    "message": "说明拒识原因并给出依据",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_09",
+    "kind": "explanation",
+    "split": "test",
+    "source_index": 8,
+    "image_variant": "mixed",
+    "message": "解释不能自动接受的依据",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "explanation_10",
+    "kind": "explanation",
+    "split": "test",
+    "source_index": 9,
+    "image_variant": "none",
+    "message": "为什么识别结果需要标为不可靠",
+    "required_evidence": "comparison:original",
+    "requires_citations": true,
+    "allowed_tools": [
+      "assess_image_quality",
+      "correct_image_exposure",
+      "detect_objects",
+      "compare_detection_evidence",
+      "retrieve_knowledge"
+    ],
+    "setup": []
+  },
+  {
+    "id": "followup_01",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 0,
+    "image_variant": "none",
+    "message": "识别校正后的那张图",
+    "required_evidence": "detections:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_02",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 1,
+    "image_variant": "under",
+    "message": "只检查校正后的那张图曝光",
+    "required_evidence": "quality:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_03",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 2,
+    "image_variant": "over",
+    "message": "检测校正后的图中目标",
+    "required_evidence": "detections:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_04",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 3,
+    "image_variant": "mixed",
+    "message": "报告增强后的那张图的曝光质量",
+    "required_evidence": "quality:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_05",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 4,
+    "image_variant": "none",
+    "message": "识别原图中的目标",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_06",
+    "kind": "followup",
+    "split": "dev",
+    "source_index": 5,
+    "image_variant": "none",
+    "message": "检测校正后的图有哪些目标",
+    "required_evidence": "detections:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_07",
+    "kind": "followup",
+    "split": "test",
+    "source_index": 6,
+    "image_variant": "under",
+    "message": "只评估校正后的那张图曝光",
+    "required_evidence": "quality:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_08",
+    "kind": "followup",
+    "split": "test",
+    "source_index": 7,
+    "image_variant": "over",
+    "message": "识别增强后的那张图",
+    "required_evidence": "detections:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_09",
+    "kind": "followup",
+    "split": "test",
+    "source_index": 8,
+    "image_variant": "mixed",
+    "message": "查看校正后的那张图曝光情况",
+    "required_evidence": "quality:corrected",
+    "requires_citations": false,
+    "allowed_tools": [
+      "assess_image_quality"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  },
+  {
+    "id": "followup_10",
+    "kind": "followup",
+    "split": "test",
+    "source_index": 9,
+    "image_variant": "none",
+    "message": "只识别原图有什么目标",
+    "required_evidence": "detections:original",
+    "requires_citations": false,
+    "allowed_tools": [
+      "detect_objects"
+    ],
+    "setup": [
+      "比较校正前后识别改善"
+    ],
+    "setup_required_evidence": "comparison:original"
+  }
+]

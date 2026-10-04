@@ -1,0 +1,13 @@
+{
+  "dataset": "SODD",
+  "source": "https://zenodo.org/records/10230328",
+  "license": "CC-BY-4.0",
+  "source_split": "test",
+  "source_subset_index": 7,
+  "file": "frame_1431_44s_797ms_original.jpg",
+  "sha256": "ff1ec2f94c6d0faf9784423d606b038d68bd525c38223ae252f904d011aa9431",
+  "perturbations": {
+    "dark": "uint8(original * 0.6)",
+    "lost": "zeros_like(original)"
+  }
+}

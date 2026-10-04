@@ -1,0 +1,105 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "WARN",
+  "reason_code": "limited_scope_seen_development_and_historical_planning_failures",
+  "summary": "Saved results and accounting supported; safeguards corrected offline. Limited development/demo evidence cannot establish formal acceptance or visual improvement.",
+  "run_id": "adaptive-20260930-v030",
+  "audited_input_hashes": {
+    "eval/adaptive_summary.json": "sha256:e69c3141899acdf4482acb387795bc20a302e7f7ad04cf88ccc0e04a18778e7d",
+    "eval/adaptive_examples.json": "sha256:fc7d802ef2026059e4eb02d5a60ae3c5852db934f3136c7d71babff470052d3a",
+    "eval/adaptive_tasks.json": "sha256:26015fc72bfe9f4843abb359f8a9e4a6c61faddffaabeedf3d695c0f85b34b36",
+    "eval/adaptive_record_hashes.json": "sha256:3bf187c74b8e82fdec36c0d938041ebe56004e0f53cc3859aadb91195a35bc1d",
+    "evaluate_adaptive.py": "sha256:034c34422d28981a16b9bea8d997a07a7720775026c1e89e1d955263c5188bc5",
+    "report_adaptive.py": "sha256:406511df430ae4eddeac47028e3e463f0c77b501f170fc31f845138120645602",
+    "optical_agent/adaptive_tools.py": "sha256:f2c5a3aa3d2abcae767995224adc1a9ed8a2e7bc9c1ca5983680460a547f3767",
+    "optical_agent/adaptive_goals.py": "sha256:2bcb51c7910927e922cf1ff6e5645111d68f484e34b8793d5a0b8f146aa5ec93",
+    "ADAPTIVE_EVALUATION_RESULTS.md": "sha256:8378a0cc71ea52fe7f90ba14866b2391e59e6208e8ddbb897e5e28b96f789e24"
+  },
+  "raw_input_hash_manifest": "eval/adaptive_record_hashes.json",
+  "trace_path": ".aris/traces/experiment-audit/2026-09-30_run02/",
+  "agent_id": "/root/adaptive_integrity_audit",
+  "verdict_id": "2026-09-30_run02_004",
+  "executor_model": "not_exposed",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-09-30T11:41:27.587435+00:00",
+  "date": "2026-09-30",
+  "auditor": "gpt-6-astra-ultra",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "checks": {
+    "gt_provenance": {
+      "status": "warn",
+      "details": "Dataset boxes verified; assistant-authored task labels lack external review; fix1 includes a seen development answer."
+    },
+    "score_normalization": {
+      "status": "warn",
+      "details": "No self-normalization; all planned demo denominators included. Registered-tool rate is not selection accuracy; undefined legacy recall encoded as zero and qualified in prose."
+    },
+    "result_existence": {
+      "status": "pass",
+      "details": "15 cases,17 turns,100 HTTP/model calls,292537 tokens; preserved failures and all public aggregates match."
+    },
+    "dead_code": {
+      "status": "warn",
+      "post_audit_guard_check": "pass",
+      "details": "Scoring executes. Historical task-scope, stop recovery and publisher gaps repaired and independently checked offline; no new cloud evaluation."
+    },
+    "scope": {
+      "status": "warn",
+      "details": "Seen dev regression4/4, real vision3/6 vs fixed6/6. Only3 sources; simulated dark/lost inputs; no formal acceptance or vision improvement."
+    },
+    "eval_type": {
+      "status": "pass",
+      "classifications": [
+        "authored_semantic_oracle",
+        "authored_visual_fixture",
+        "dataset_real_gt",
+        "simulation_only",
+        "no_reference_engineering_rules"
+      ]
+    }
+  },
+  "accounting": {
+    "case_records": 15,
+    "user_turns": 17,
+    "http_attempts": 100,
+    "http_cap": 120,
+    "tokens": 292537
+  },
+  "post_audit_verification": {
+    "latest_adaptive_tests": 21,
+    "earlier_full_python_tests": 131,
+    "ui_cases": 9,
+    "local_web_check": "pass_offline_only",
+    "cloud_retest": false,
+    "crash_window_guard": "pass"
+  },
+  "formal_acceptance": false,
+  "claims": [
+    {
+      "id": "narrow_task_conformance",
+      "impact": "supported"
+    },
+    {
+      "id": "observed_one_real_llm_replan",
+      "impact": "needs_qualifier_visual_fixture"
+    },
+    {
+      "id": "generalization",
+      "impact": "unsupported"
+    },
+    {
+      "id": "new_formal_acceptance",
+      "impact": "unsupported"
+    },
+    {
+      "id": "visual_accuracy_improvement",
+      "impact": "unsupported"
+    }
+  ]
+}

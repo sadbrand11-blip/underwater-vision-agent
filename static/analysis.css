@@ -1,0 +1,6 @@
+body{font-family:system-ui,sans-serif;max-width:1150px;margin:auto;padding:25px;color:#17212b;background:#f5f7fa}
+h1{font-size:26px} form,.panel{background:white;border-radius:12px;padding:18px;margin:14px 0;box-shadow:0 1px 5px #d8dce1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}.grid img{width:100%;border:1px solid #ddd}
+.bad{color:#a51818}.good{color:#106b38}code,pre{white-space:pre-wrap;overflow-wrap:anywhere}button{padding:9px 18px;cursor:pointer}
+.demo{display:inline-block;background:#1165b5;color:white;padding:10px 16px;border-radius:8px;text-decoration:none;margin:4px 0 10px}
+table{border-collapse:collapse}td,th{border:1px solid #ddd;padding:6px 12px;text-align:left}

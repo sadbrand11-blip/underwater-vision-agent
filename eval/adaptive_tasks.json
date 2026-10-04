@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "purpose": "0.3.0开发验证；助手预先编写的独立预期；未经外部人工复核；不属于正式验收",
+  "cases": [
+    {"id":"dev_quality","split":"dev","pixels":100,"turns":[{"message":"只检查这张图的曝光，不检测目标。","expected":{"types":["quality"],"classes":"all","policy":"never","image":"original","status":"completed","evidence":"quality"}}]},
+    {"id":"dev_pipe","split":"dev","pixels":100,"turns":[{"message":"只识别原图中的管道。","expected":{"types":["detection"],"classes":["pipe","pipe_type2"],"policy":"never","image":"original","status":"completed","evidence":"detections"}}]},
+    {"id":"dev_conditional","split":"dev","pixels":45,"turns":[{"message":"检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。","expected":{"types":["analysis"],"classes":["pipe","pipe_type2"],"policy":"if_needed","image":"original","status":"completed","evidence":"analysis","candidate_required":true}}]},
+    {"id":"dev_decline","split":"dev","pixels":45,"declining_fixture":true,"turns":[{"message":"检查这张图，必要时校正，只识别管道；校正没有帮助则采用原图，说明结果是否可靠。","expected":{"types":["analysis"],"classes":["pipe","pipe_type2"],"policy":"if_needed","image":"original","status":"completed","evidence":"analysis","candidate_required":true,"selected_original":true}}]},
+    {"id":"dev_followup","split":"dev","pixels":45,"turns":[{"message":"只校正这张图的曝光。","expected":{"types":["correction"],"classes":"all","policy":"always","image":"original","status":"completed","evidence":"correction","candidate_required":true}},{"message":"现在只识别校正后的那张图中的二维码。","expected":{"types":["detection"],"classes":["qr_codes"],"policy":"never","image":"last_candidate","status":"completed","evidence":"detections"}}]},
+    {"id":"dev_unsupported","split":"dev","pixels":100,"turns":[{"message":"只识别图中的鱼。","expected":{"types":["unsupported"],"classes":"ignore","policy":"ignore","image":"ignore","status":"unsupported","evidence":"none"}}]},
+    {"id":"demo_normal","split":"demo","source_index":6,"variant":"original","repeats":2,"turns":[{"message":"检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。","expected":{"types":["analysis"],"classes":["pipe","pipe_type2"],"policy":"if_needed","image":"original","status":"completed","evidence":"analysis","no_correction":true}}]},
+    {"id":"demo_dark","split":"demo","source_index":7,"variant":"multiply_0.6_simulated","repeats":2,"turns":[{"message":"检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。","expected":{"types":["analysis"],"classes":["pipe","pipe_type2"],"policy":"if_needed","image":"original","status":"completed","evidence":"analysis","candidate_required":true}}]},
+    {"id":"demo_lost","split":"demo","source_index":8,"variant":"black_simulated","repeats":2,"turns":[{"message":"检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。","expected":{"types":["analysis"],"classes":["pipe","pipe_type2"],"policy":"if_needed","image":"original","status":"completed","evidence":"quality_failure","no_correction":true,"no_detection":true}}]}
+  ]
+}

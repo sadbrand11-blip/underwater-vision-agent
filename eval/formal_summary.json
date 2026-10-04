@@ -1,0 +1,1054 @@
+{
+  "schema_version": 3,
+  "run_id": "formal-20260930-v023",
+  "qualification": "20条预设保留任务的正式验收，重复3次；不是60条独立任务。标签在调用前预设，尚未经过外部人工复核；调度成绩不代表识别精度。",
+  "started_at": "2026-09-30T06:03:33.349979+00:00",
+  "updated_at": "2026-09-30T06:12:45.779477+00:00",
+  "model": "deepseek-flash",
+  "served_model_aliases": [
+    "deepseek-flash"
+  ],
+  "baseline_behavior_version": "0.2.3",
+  "task_sha256": "52e217246f2a1bbe0e53350b422faf7f3fcc0159c6d06fcae791e539234af1ea",
+  "manifest_sha256": "4878e9dc9bdebf1606c03473d6dc2715ff0ab60e7d9a9f1fe3e0bbf8146fbe66",
+  "versions": {
+    "code_commit": "4b9ebb78f0deca8aec21812bb61818fa5497b4bf",
+    "source_sha256": {
+      "runtime.py": "dea08cdbce1b94d96e87870dc248e2426bb9693c54b683431735839048336c81",
+      "tasks.py": "dfb3d45cba71521e3af404e9a04582899ec472ee4e7612ecb323de9a5aed4b47",
+      "tools.py": "ca7bc10726294846fd5f2bccafeeffad62661fd9da7cda5b2dd208eb670daaa0",
+      "llm.py": "4fcc8f6afebefb8ab8b97ce1e3ef692148a4dd71c324c370503c28ef9e0d392c",
+      "independent_eval.py": "1e166b9a3e5f29f2c65626afccb02ea046dc41059fed0b2915feb8c5db1a1e7a",
+      "request_budget.py": "83b01ccde52a9fe8cebca3ba61759fc1d131f81ce721897831e57ff4b1c75576",
+      "reports.py": "ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55"
+    },
+    "prompt_sha256": "35acec93b8d11564f5eebb152b9aefbf9c0d1ed7fcd87f251a234aef2f6e2927"
+  },
+  "metrics": {
+    "planned_cases": 60,
+    "executed_cases": 60,
+    "executed_turns": 78,
+    "parsing_coverage": 1.0,
+    "intent_accuracy_on_parsed": 0.9871794871794872,
+    "image_accuracy_on_parsed": 1.0,
+    "intent_accuracy_all_requests": 0.9871794871794872,
+    "image_accuracy_all_requests": 1.0,
+    "tool_selection_accuracy": 0.9871794871794872,
+    "argument_accuracy": 1.0,
+    "independent_turn_completion_rate": 0.9871794871794872,
+    "independent_case_completion_rate": 0.9833333333333333,
+    "planned_case_completion_rate": 0.9833333333333333,
+    "unregistered_tool_executions": 0,
+    "reliability_overrides": 0,
+    "fact_violations": 0,
+    "request_attempts": 242,
+    "model_calls": {
+      "mean": 4.033333333333333,
+      "p95": 7.0
+    },
+    "tool_calls": {
+      "mean": 2.3333333333333335,
+      "p95": 8.049999999999997
+    },
+    "latency_ms": {
+      "mean": 6751.083333333333,
+      "p95": 12047.099999999999
+    },
+    "tokens": {
+      "mean": 5468.266666666666,
+      "p95": 14863.549999999996
+    },
+    "known_token_usage": {
+      "prompt_tokens": 319796,
+      "completion_tokens": 8300,
+      "total_tokens": 328096
+    },
+    "token_usage_turns": 78,
+    "failures": {
+      "intent": 1,
+      "image_reference": 0,
+      "tool_selection": 0,
+      "parameters": 0,
+      "computation": 0,
+      "report": 1,
+      "api": 0,
+      "budget": 0,
+      "parsing": 0,
+      "setup": 0,
+      "facts": 0
+    },
+    "formal_acceptance": true,
+    "by_kind": {
+      "cache_repeat": {
+        "cases": 6,
+        "completed": 6
+      },
+      "comparison": {
+        "cases": 6,
+        "completed": 6
+      },
+      "conditional": {
+        "cases": 6,
+        "completed": 6
+      },
+      "corrected_followup": {
+        "cases": 6,
+        "completed": 6
+      },
+      "correction": {
+        "cases": 6,
+        "completed": 6
+      },
+      "detection": {
+        "cases": 6,
+        "completed": 5
+      },
+      "explanation": {
+        "cases": 6,
+        "completed": 6
+      },
+      "missing_corrected": {
+        "cases": 6,
+        "completed": 6
+      },
+      "quality": {
+        "cases": 6,
+        "completed": 6
+      },
+      "unsupported": {
+        "cases": 6,
+        "completed": 6
+      }
+    },
+    "pilot_targets_met": true,
+    "planned_turns": 78,
+    "planned_parsing_coverage": 1.0,
+    "turn_execution_coverage": 1.0,
+    "interrupted_cases": 0,
+    "evaluation_status": "complete",
+    "acceptance_status": "passed",
+    "rounds": {
+      "1": {
+        "planned_cases": 20,
+        "executed_cases": 20,
+        "executed_turns": 26,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 1.0,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 1.0,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "independent_turn_completion_rate": 1.0,
+        "independent_case_completion_rate": 1.0,
+        "planned_case_completion_rate": 1.0,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "fact_violations": 0,
+        "request_attempts": 81,
+        "model_calls": {
+          "mean": 4.05,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 2.4,
+          "p95": 9.0
+        },
+        "latency_ms": {
+          "mean": 6987.55,
+          "p95": 12065.85
+        },
+        "tokens": {
+          "mean": 5561.25,
+          "p95": 13206.950000000004
+        },
+        "known_token_usage": {
+          "prompt_tokens": 108408,
+          "completion_tokens": 2817,
+          "total_tokens": 111225
+        },
+        "token_usage_turns": 26,
+        "failures": {
+          "intent": 0,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 0,
+          "computation": 0,
+          "report": 0,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "cache_repeat": {
+            "cases": 2,
+            "completed": 2
+          },
+          "comparison": {
+            "cases": 2,
+            "completed": 2
+          },
+          "conditional": {
+            "cases": 2,
+            "completed": 2
+          },
+          "corrected_followup": {
+            "cases": 2,
+            "completed": 2
+          },
+          "correction": {
+            "cases": 2,
+            "completed": 2
+          },
+          "detection": {
+            "cases": 2,
+            "completed": 2
+          },
+          "explanation": {
+            "cases": 2,
+            "completed": 2
+          },
+          "missing_corrected": {
+            "cases": 2,
+            "completed": 2
+          },
+          "quality": {
+            "cases": 2,
+            "completed": 2
+          },
+          "unsupported": {
+            "cases": 2,
+            "completed": 2
+          }
+        },
+        "pilot_targets_met": true
+      },
+      "2": {
+        "planned_cases": 20,
+        "executed_cases": 20,
+        "executed_turns": 26,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 1.0,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 1.0,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "independent_turn_completion_rate": 1.0,
+        "independent_case_completion_rate": 1.0,
+        "planned_case_completion_rate": 1.0,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "fact_violations": 0,
+        "request_attempts": 81,
+        "model_calls": {
+          "mean": 4.05,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 2.3,
+          "p95": 8.0
+        },
+        "latency_ms": {
+          "mean": 6721.05,
+          "p95": 10845.350000000002
+        },
+        "tokens": {
+          "mean": 5387.8,
+          "p95": 12296.950000000003
+        },
+        "known_token_usage": {
+          "prompt_tokens": 105013,
+          "completion_tokens": 2743,
+          "total_tokens": 107756
+        },
+        "token_usage_turns": 26,
+        "failures": {
+          "intent": 0,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 0,
+          "computation": 0,
+          "report": 0,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "cache_repeat": {
+            "cases": 2,
+            "completed": 2
+          },
+          "comparison": {
+            "cases": 2,
+            "completed": 2
+          },
+          "conditional": {
+            "cases": 2,
+            "completed": 2
+          },
+          "corrected_followup": {
+            "cases": 2,
+            "completed": 2
+          },
+          "correction": {
+            "cases": 2,
+            "completed": 2
+          },
+          "detection": {
+            "cases": 2,
+            "completed": 2
+          },
+          "explanation": {
+            "cases": 2,
+            "completed": 2
+          },
+          "missing_corrected": {
+            "cases": 2,
+            "completed": 2
+          },
+          "quality": {
+            "cases": 2,
+            "completed": 2
+          },
+          "unsupported": {
+            "cases": 2,
+            "completed": 2
+          }
+        },
+        "pilot_targets_met": true
+      },
+      "3": {
+        "planned_cases": 20,
+        "executed_cases": 20,
+        "executed_turns": 26,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 0.9615384615384616,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 0.9615384615384616,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 0.9615384615384616,
+        "argument_accuracy": 1.0,
+        "independent_turn_completion_rate": 0.9615384615384616,
+        "independent_case_completion_rate": 0.95,
+        "planned_case_completion_rate": 0.95,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "fact_violations": 0,
+        "request_attempts": 80,
+        "model_calls": {
+          "mean": 4.0,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 2.3,
+          "p95": 8.05
+        },
+        "latency_ms": {
+          "mean": 6544.65,
+          "p95": 11984.300000000001
+        },
+        "tokens": {
+          "mean": 5455.75,
+          "p95": 16371.4
+        },
+        "known_token_usage": {
+          "prompt_tokens": 106375,
+          "completion_tokens": 2740,
+          "total_tokens": 109115
+        },
+        "token_usage_turns": 26,
+        "failures": {
+          "intent": 1,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 0,
+          "computation": 0,
+          "report": 1,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "cache_repeat": {
+            "cases": 2,
+            "completed": 2
+          },
+          "comparison": {
+            "cases": 2,
+            "completed": 2
+          },
+          "conditional": {
+            "cases": 2,
+            "completed": 2
+          },
+          "corrected_followup": {
+            "cases": 2,
+            "completed": 2
+          },
+          "correction": {
+            "cases": 2,
+            "completed": 2
+          },
+          "detection": {
+            "cases": 2,
+            "completed": 1
+          },
+          "explanation": {
+            "cases": 2,
+            "completed": 2
+          },
+          "missing_corrected": {
+            "cases": 2,
+            "completed": 2
+          },
+          "quality": {
+            "cases": 2,
+            "completed": 2
+          },
+          "unsupported": {
+            "cases": 2,
+            "completed": 2
+          }
+        },
+        "pilot_targets_met": true
+      }
+    },
+    "ledger_http_attempts": 242,
+    "unattributed_reserved_attempts": 0
+  },
+  "budget": {
+    "limit": 600,
+    "used": 242,
+    "remaining": 358
+  },
+  "stop_reason": null,
+  "vision_metrics": {
+    "original": {
+      "unique_sources": 10,
+      "tp": 8,
+      "fp": 7,
+      "fn": 4,
+      "recall": 0.6666666666666666,
+      "precision": 0.5333333333333333,
+      "repeat_counts_consistent": true
+    },
+    "corrected": {
+      "unique_sources": 6,
+      "tp": 5,
+      "fp": 5,
+      "fn": 2,
+      "recall": 0.7142857142857143,
+      "precision": 0.5,
+      "repeat_counts_consistent": true
+    },
+    "accepted": {
+      "unique_sources": 4,
+      "tp": 1,
+      "fp": 1,
+      "fn": 3,
+      "recall": 0.25,
+      "precision": 0.5,
+      "repeat_counts_consistent": true
+    }
+  },
+  "cases": [
+    {
+      "id": "hold_01",
+      "kind": "quality",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_02",
+      "kind": "quality",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_03",
+      "kind": "correction",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_04",
+      "kind": "correction",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_05",
+      "kind": "detection",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_06",
+      "kind": "detection",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": false,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_07",
+      "kind": "comparison",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_08",
+      "kind": "comparison",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_09",
+      "kind": "explanation",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_10",
+      "kind": "explanation",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_11",
+      "kind": "corrected_followup",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_12",
+      "kind": "corrected_followup",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_13",
+      "kind": "cache_repeat",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_14",
+      "kind": "cache_repeat",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_15",
+      "kind": "missing_corrected",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_16",
+      "kind": "missing_corrected",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_17",
+      "kind": "unsupported",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_18",
+      "kind": "unsupported",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_19",
+      "kind": "conditional",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "hold_20",
+      "kind": "conditional",
+      "rounds": [
+        {
+          "round": 1,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 2,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        },
+        {
+          "round": 3,
+          "completed": true,
+          "executed": true,
+          "journal_status": "completed"
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "case": "hold_03",
+      "round": 2,
+      "turn": 1,
+      "message": "对原图做一次曝光校正，展示参数。",
+      "expected_task": [
+        "correction"
+      ],
+      "expected_images": [
+        "original"
+      ],
+      "actual_contract": {
+        "task_type": "correction",
+        "task_name": "只校正曝光",
+        "image_reference": "original",
+        "image_id": "original",
+        "start_image_id": "original",
+        "required_evidence_ids": [
+          "correction:original"
+        ],
+        "requires_citations": false,
+        "requirements": [
+          "原图：校正候选图与处理参数"
+        ],
+        "disposition": "ready",
+        "question": ""
+      },
+      "completed": true,
+      "failures": [
+        "format_repair"
+      ],
+      "format_repairs": 1,
+      "execution_status": "completed",
+      "task_status": "completed",
+      "selected_evidence": [
+        "quality:original",
+        "correction:original"
+      ],
+      "tools": [
+        {
+          "tool": "assess_image_quality",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "error_category": null,
+          "cached": false
+        },
+        {
+          "tool": "correct_image_exposure",
+          "arguments": {
+            "image_id": "original"
+          },
+          "ok": true,
+          "error_category": null,
+          "cached": false
+        }
+      ]
+    },
+    {
+      "case": "hold_06",
+      "round": 3,
+      "turn": 1,
+      "message": "在原图中找二维码和管道，给候选框。",
+      "expected_task": [
+        "detection"
+      ],
+      "expected_images": [
+        "original"
+      ],
+      "actual_contract": {
+        "task_type": "unsupported",
+        "task_name": "超出当前能力",
+        "image_reference": "original",
+        "image_id": "original",
+        "start_image_id": "original",
+        "required_evidence_ids": [],
+        "requires_citations": false,
+        "requirements": [],
+        "disposition": "unsupported",
+        "question": "当前支持曝光评估、一次校正、SODD 六类目标检测、前后比较和依据解释。鱼、珊瑚等其他类别尚不支持。"
+      },
+      "completed": false,
+      "failures": [
+        "intent",
+        "report"
+      ],
+      "format_repairs": 0,
+      "execution_status": "unsupported",
+      "task_status": "unsupported",
+      "selected_evidence": [],
+      "tools": []
+    }
+  ],
+  "report_integrity": {
+    "status": "verified",
+    "bound_files_checked": 46,
+    "images_checked": 20,
+    "turns_checked": 78,
+    "cv_counts_checked": 65,
+    "http_attempts_checked": 242,
+    "new_cloud_requests": 0,
+    "detector_observations": "saved_observations_replayed_not_new_inference",
+    "semantic_scope": "frozen_task_type_image_tool_evidence_oracle_no_class_filter_check"
+  },
+  "metric_scope": "预设粗粒度任务oracle的流程符合度；未评价指定类别筛选，不代表完整语义满足率",
+  "format_repairs": 1
+}

@@ -1,0 +1,9 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>知识检索对照</title><link rel="stylesheet" href="/static/conversation.css"></head>
+<body><main><header><p class="eyebrow">本地知识检索 · 0.5.0</p><h1>对比三种方法找到的依据</h1><p>无需上传图片。此页只检索本地资料，不调用付费大模型；检索分数不是正确概率。</p><a href="/agent">返回图像对话</a></header>
+<section class="card"><form id="search-form"><label for="question">输入知识问题</label><textarea id="question" rows="3" required>为什么机器人检测框变多，仍不能说识别更准确？</textarea>
+<label for="vision">资料适用配置</label><select id="vision"><option value="experiment_candidate">实验机器人＋设施候选</option><option value="legacy">旧默认六类设施</option><option value="experiment_control">实验重训对照</option></select>
+<label for="top-k">交付条数</label><select id="top-k"><option>3</option><option>5</option><option>10</option></select><button id="search">对比检索</button><p id="status" role="status"></p></form></section>
+<p>研究依据示例：<button id="research-example" class="secondary">比较质量分数、框数量与真实标注评测</button>（使用另一条明确的文献问题，不改写上一次排名）</p>
+<p>三列使用相同知识库和适用资料。显示经过开发集拒绝阈值过滤后的实际结果；研究文献与项目实测各有标记。没有返回片段与模型不可用会分别显示。</p>
+<div id="rankings" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px"></div>
+<footer>检索评测不等于大模型回答质量，也不改变曝光测量、目标框或可靠性状态。</footer></main><script src="/static/knowledge.js"></script></body></html>

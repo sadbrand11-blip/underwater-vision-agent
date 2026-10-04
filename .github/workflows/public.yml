@@ -1,0 +1,31 @@
+name: Public offline checks
+on: [push, pull_request]
+jobs:
+  lightweight:
+    runs-on: ubuntu-latest
+    env:
+      OPTICAL_AGENT_DATA_ROOT: /tmp/underwater-public-light
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-demo.txt pytest==7.4.4
+      - run: python -m pytest tests/test_public_demo.py -q
+      - run: python tools/audit_public.py
+  regression:
+    runs-on: ubuntu-latest
+    env:
+      OPTICAL_AGENT_DATA_ROOT: /tmp/underwater-public-regression
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-demo.txt pytest==7.4.4
+      - run: python -m pip install -r requirements-detector.txt --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -r requirements-langgraph.txt -r requirements-mcp.txt
+      - run: python -m pytest -q -p no:cacheprovider
+      - run: node tests/check_conversation_ui.cjs
+      - run: node tests/check_memory_ui.cjs
+      - run: node tests/check_langgraph_ui.cjs

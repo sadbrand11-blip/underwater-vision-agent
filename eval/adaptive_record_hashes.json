@@ -1,0 +1,23 @@
+{
+  "run_id": "adaptive-20260930-v030",
+  "files": {
+    "before/dev_conditional_0.json": "d213b393d99ce0f77f4411bedd107b6391c1131cca949b3984c5b1dd9f0a7f34",
+    "before/dev_decline_0.json": "e671f54334fa7279a105017b05fdc767169aa7d031560377e83beba894bee566",
+    "before/dev_followup_0.json": "f0cfab970ad03f429f24bd311399dc40f9a887871bbe4558f37fff501167b364",
+    "before/dev_pipe_0.json": "fa3b16ea7befe7a2417742c18c6d79c8d2ec05f933d6589d87c75b79699f5345",
+    "before/dev_quality_0.json": "c7526ec23d77c89bdc14c68a70912d0c548ee7915cec5ae91ccd0c35f7f89ad3",
+    "before/dev_unsupported_0.json": "ad1bfcfbe81d3c957e05f6cbca53062fc09b6ed9b56a065659a192be091c4b5c",
+    "before/freeze.json": "217757e3428d399ee502ec2eab63a806fcaab84ad1ec61d09ee108e496915159",
+    "fix1/demo_dark_0.json": "77e81fda29078ab7b342eb01e4157bd5ca5f5604fa3189c21a775f450d961619",
+    "fix1/demo_dark_1.json": "6f427caeafc11a3981c7bc4cf16cbde7f91a585c2795e8c0f5432c0157e17c97",
+    "fix1/demo_lost_0.json": "2e6d2b21a42196af51cd38f52110cdccddf0c4950a77c7d705a2ca987716d725",
+    "fix1/demo_lost_1.json": "642517f7e0f063bc7a55af6f42bcd34e9373d2a6d6df03aca12293613cfbabc9",
+    "fix1/demo_normal_0.json": "603de27a79c7c67784819906b1c720b1efcd65bbd556ea0220f0e1a6427e69d3",
+    "fix1/demo_normal_1.json": "89b9ed1751c68946dbbb6cef54aec92c9faaa7984eb30816c5fa5edb532c25e7",
+    "fix1/dev_conditional_0.json": "0dcddef4482f30e7b66210b8ffddebab3646a0a142fcc3cd554a368defa6c9ec",
+    "fix1/dev_decline_0.json": "da944fdfd9f84f6007c3b994a21e9b9ab580adc4efb9bd22162a05bb14514952",
+    "fix1/dev_followup_0.json": "cb757f769251ae63c75f47a0acac0da4a973b69e071ecc745f9bfe9979d91deb",
+    "fix1/freeze.json": "c9d7a2a935aed3253625c0d58fdcb4b5fb9b89027f70c34f16913291651c6c5d",
+    "http_budget.json": "0497fd02f7209e4dcdffb815c25a4763582d4e54510f5d77ab970106bd242d67"
+  }
+}

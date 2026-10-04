@@ -1,0 +1,85 @@
+{
+  "version": "0.5.1",
+  "date": "2026-10-03",
+  "verification_type": "functional_engineering_checks_not_agent_or_visual_accuracy_evaluation",
+  "memory_revision": "v051_memory_r1",
+  "checks": {
+    "distinct_processes": true,
+    "both_tasks_completed": true,
+    "preferences_persist": true,
+    "different_images": true,
+    "history_loaded_after_restart": true,
+    "new_image_detection_computed": true,
+    "two_summaries_saved": true,
+    "no_paid_API_requests": true
+  },
+  "demonstration": {
+    "vision_backend": "real_existing_SODD_detector",
+    "orchestrator": "offline_rule_fixture_not_LLM_ability",
+    "distinct_processes": true,
+    "images": 2,
+    "case_runs": 2,
+    "record_path": "D:\\CodexData\\optical_agent\\memory\\runs\\demo_v051_20261003_final",
+    "personal_preferences_modified": false,
+    "first": {
+      "source_index": 6,
+      "candidate_count": 0,
+      "new_detection_computations": 1,
+      "history_refs": 0
+    },
+    "second": {
+      "source_index": 7,
+      "candidate_count": 0,
+      "new_detection_computations": 1,
+      "history_refs": 1
+    }
+  },
+  "tests": {
+    "python_passed": 198,
+    "python_warning_count": 1,
+    "new_memory_tests": 22,
+    "conversation_UI_scenarios": 12,
+    "memory_UI_scenarios": 6,
+    "final_log": "D:\\CodexData\\optical_agent\\memory\\runs\\v051_checks\\python_tests_final.log",
+    "initial_full_run_failed": {
+      "failed": 1,
+      "passed": 195,
+      "reason": "Windows test fixture left sqlite connections open; fixture corrected with explicit closing; original log retained",
+      "log": "D:\\CodexData\\optical_agent\\memory\\runs\\v051_checks\\python_tests.log"
+    }
+  },
+  "live_web": {
+    "health_HTTP": 200,
+    "app_version": "0.5.1",
+    "memory_revision": "v051_memory_r1",
+    "task_status": "completed",
+    "task_validation_passed": true,
+    "save_status": "saved",
+    "repeat_save_status": "reused",
+    "new_detection_computations": 0,
+    "preferred_classes": [],
+    "history_count_after_check": 1
+  },
+  "source_sha256": {
+    "optical_agent/memory.py": "e39a55b1f4ca1bb7007c587b7537c8f954006aa801c510b630270fd16d7fac11",
+    "optical_agent/adaptive_goals.py": "b11e8dd9c85b1ef174f155de7622efd32c5b99523efd9cc4af3a8a50dcb93dab",
+    "optical_agent/adaptive_runtime.py": "5bb3aa33ad5ba1ef326a638d89a99386aee9c74248b715ba161f1f0c1cf48cc1",
+    "optical_agent/runtime.py": "619e395bd32b660fa3ded9af7a06c083e4403af5c0ce742b2ccc680665190228",
+    "app.py": "63265c3a49f436c8f1a8517404dc1144517513421fdc0de1729f6189861faba9",
+    "demo_memory.py": "79b24789dab11d5bf7871e430c2beca093bbe36f65e7bc5c58d3a0cb446abc58",
+    "tests/test_memory.py": "3c7206111b50b3a46debb4a542438bb4e97dde6197e4b3306e6fe7036972f78f",
+    "static/memory.js": "f839ab8563b352d69d438973372426b648674a1d4377c054b6cf0b3f302ccac5",
+    "static/conversation.js": "c28ab8379d489aa4bb5ac2060047cdeeb9a0e76b6033fba1fc5590f675bd8909"
+  },
+  "cloud_model_requests": 0,
+  "paid_API_requests": 0,
+  "vision_training_runs": 0,
+  "limitations": [
+    "not real LLM memory-use effectiveness",
+    "not visual accuracy improvement",
+    "single local user",
+    "no restoration of expired image sessions",
+    "source-anchored historical summaries are not current evidence",
+    "exact version/task/category matching is intentionally conservative"
+  ]
+}

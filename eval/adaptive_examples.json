@@ -1,0 +1,1183 @@
+[
+  {
+    "case": "demo_dark",
+    "repeat": 0,
+    "source_kind": "simulated_exposure_perturbation",
+    "input_quality": {
+      "exposure_state": "underexposed",
+      "quality_pass": true
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图质量，判断是否需要曝光校正"
+      }
+    ],
+    "plan_revisions": [],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "gamma_only"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_gamma"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "local_bounded"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_local"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_gamma:0cb9bd0268e5"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_gamma"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_local"
+      },
+      {
+        "tool": "compare_candidates",
+        "arguments": {
+          "candidate_image_ids": [
+            "candidate_gamma",
+            "candidate_local"
+          ]
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "comparison:candidate_gamma+candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_reliability",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "reliability:original:0cb9bd0268e5"
+      }
+    ],
+    "selected": "candidate_gamma",
+    "task_status": "completed",
+    "execution_status": "completed",
+    "vision_status": "unreliable",
+    "score": {
+      "passed": true,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": true,
+        "evidence": true,
+        "facts": true,
+        "tools": true,
+        "parameters": true,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": null,
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {
+      "original": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      },
+      "candidate_gamma": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      },
+      "candidate_local": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      }
+    },
+    "computation_counts": {
+      "quality": 3,
+      "detection": 3,
+      "correction": 2,
+      "comparison": 2
+    }
+  },
+  {
+    "case": "demo_dark",
+    "repeat": 1,
+    "source_kind": "simulated_exposure_perturbation",
+    "input_quality": {
+      "exposure_state": "underexposed",
+      "quality_pass": true
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图是否需要曝光校正"
+      },
+      {
+        "tool": "detect_objects",
+        "purpose": "识别管道类目标"
+      },
+      {
+        "tool": "assess_reliability",
+        "purpose": "评估识别结果可靠性"
+      }
+    ],
+    "plan_revisions": [
+      {
+        "reason": "依据 comparison:candidate_gamma+candidate_local:0cb9bd0268e5，两候选均无可接受目标检测（accepted_detections 为空、status=unreliable），采用规则未接受任一候选（accepted=false），故不改用候选，保留原图 original 作为最终图片；可靠性结论沿用 reliability:original:0cb9bd0268e5（unreliable）。",
+        "observation_ids": [
+          "comparison:candidate_gamma+candidate_local:0cb9bd0268e5",
+          "quality:original",
+          "detections:original:0cb9bd0268e5",
+          "reliability:original:0cb9bd0268e5"
+        ],
+        "steps": [
+          {
+            "tool": "assess_image_quality",
+            "purpose": "确认原图欠曝但质量通过（无需恢复纹理）"
+          },
+          {
+            "tool": "detect_objects",
+            "purpose": "在固定目标类别下检测原图管道目标"
+          },
+          {
+            "tool": "assess_reliability",
+            "purpose": "输出原图的程序化可靠性结论"
+          }
+        ],
+        "revision": 1
+      }
+    ],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "gamma_only"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_gamma"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "local_bounded"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_local"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_gamma"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_local"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_gamma:0cb9bd0268e5"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "compare_candidates",
+        "arguments": {
+          "candidate_image_ids": [
+            "candidate_gamma",
+            "candidate_local"
+          ]
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "comparison:candidate_gamma+candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_reliability",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "reliability:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "retrieve_knowledge",
+        "arguments": {
+          "query": "水下图像欠曝校正候选不可靠 未检出目标 可靠性结论"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "knowledge:d941c1ee87de"
+      },
+      {
+        "tool": "revise_plan",
+        "arguments": {
+          "reason": "依据 comparison:candidate_gamma+candidate_local:0cb9bd0268e5，两候选均无可接受目标检测（accepted_detections 为空、status=unreliable），采用规则未接受任一候选（accepted=false），故不改用候选，保留原图 original 作为最终图片；可靠性结论沿用 reliability:original:0cb9bd0268e5（unreliable）。",
+          "observation_ids": [
+            "comparison:candidate_gamma+candidate_local:0cb9bd0268e5",
+            "quality:original",
+            "detections:original:0cb9bd0268e5",
+            "reliability:original:0cb9bd0268e5"
+          ],
+          "steps": [
+            {
+              "tool": "assess_image_quality",
+              "purpose": "确认原图欠曝但质量通过（无需恢复纹理）"
+            },
+            {
+              "tool": "detect_objects",
+              "purpose": "在固定目标类别下检测原图管道目标"
+            },
+            {
+              "tool": "assess_reliability",
+              "purpose": "输出原图的程序化可靠性结论"
+            }
+          ]
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": null
+      }
+    ],
+    "selected": "original",
+    "task_status": "incomplete",
+    "execution_status": "budget_exceeded",
+    "vision_status": "unreliable",
+    "score": {
+      "passed": false,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": false,
+        "evidence": true,
+        "facts": true,
+        "tools": true,
+        "parameters": true,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": "budget",
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {
+      "original": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      },
+      "candidate_gamma": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      },
+      "candidate_local": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      }
+    },
+    "computation_counts": {
+      "quality": 3,
+      "detection": 3,
+      "correction": 2,
+      "comparison": 2
+    }
+  },
+  {
+    "case": "demo_lost",
+    "repeat": 0,
+    "source_kind": "simulated_exposure_perturbation",
+    "input_quality": {
+      "exposure_state": "underexposed",
+      "quality_pass": false
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "评估原图曝光与质量，判断是否需要校正"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "purpose": "必要时生成曝光校正候选图"
+      },
+      {
+        "tool": "compare_candidates",
+        "purpose": "比较原图与校正候选，决定最终分析用图"
+      },
+      {
+        "tool": "detect_objects",
+        "purpose": "在选定图上仅识别管道（pipe_type2、pipe）"
+      },
+      {
+        "tool": "assess_reliability",
+        "purpose": "评估识别结果的可靠性"
+      }
+    ],
+    "plan_revisions": [],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "gamma_only"
+        },
+        "ok": false,
+        "cached": false,
+        "error_category": "prerequisite",
+        "observation_id": null
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "local_bounded"
+        },
+        "ok": false,
+        "cached": false,
+        "error_category": "prerequisite",
+        "observation_id": null
+      }
+    ],
+    "selected": "original",
+    "task_status": "incomplete",
+    "execution_status": "tool_errors",
+    "vision_status": null,
+    "score": {
+      "passed": false,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": false,
+        "evidence": false,
+        "facts": true,
+        "tools": false,
+        "parameters": false,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": "status",
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {
+      "original": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      }
+    },
+    "computation_counts": {
+      "quality": 1,
+      "detection": 1,
+      "correction": 0,
+      "comparison": 0
+    }
+  },
+  {
+    "case": "demo_lost",
+    "repeat": 1,
+    "source_kind": "simulated_exposure_perturbation",
+    "input_quality": {
+      "exposure_state": "underexposed",
+      "quality_pass": false
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图质量与曝光情况"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "purpose": "生成曝光校正候选图"
+      },
+      {
+        "tool": "compare_candidates",
+        "purpose": "对比原图与校正图的曝光效果"
+      },
+      {
+        "tool": "detect_objects",
+        "purpose": "在选定图像上检测管道目标"
+      },
+      {
+        "tool": "assess_reliability",
+        "purpose": "评估检测结果可靠性"
+      }
+    ],
+    "plan_revisions": [],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "gamma_only"
+        },
+        "ok": false,
+        "cached": false,
+        "error_category": "prerequisite",
+        "observation_id": null
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "local_bounded"
+        },
+        "ok": false,
+        "cached": false,
+        "error_category": "prerequisite",
+        "observation_id": null
+      }
+    ],
+    "selected": "original",
+    "task_status": "incomplete",
+    "execution_status": "tool_errors",
+    "vision_status": null,
+    "score": {
+      "passed": false,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": false,
+        "evidence": false,
+        "facts": true,
+        "tools": false,
+        "parameters": false,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": "status",
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {},
+    "computation_counts": {
+      "quality": 1,
+      "detection": 0,
+      "correction": 0,
+      "comparison": 0
+    }
+  },
+  {
+    "case": "demo_normal",
+    "repeat": 0,
+    "source_kind": "real_sodd",
+    "input_quality": {
+      "exposure_state": "normal",
+      "quality_pass": true
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图质量，判断是否需要曝光校正"
+      },
+      {
+        "tool": "detect_objects",
+        "purpose": "在合适图像上检测管道两类目标"
+      },
+      {
+        "tool": "assess_reliability",
+        "purpose": "评估检测结果的可靠性"
+      }
+    ],
+    "plan_revisions": [],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_reliability",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "reliability:original:0cb9bd0268e5"
+      }
+    ],
+    "selected": "original",
+    "task_status": "completed",
+    "execution_status": "completed",
+    "vision_status": "unreliable",
+    "score": {
+      "passed": true,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": true,
+        "evidence": true,
+        "facts": true,
+        "tools": true,
+        "parameters": true,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": null,
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {
+      "original": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      }
+    },
+    "computation_counts": {
+      "quality": 1,
+      "detection": 1,
+      "correction": 0,
+      "comparison": 1
+    }
+  },
+  {
+    "case": "demo_normal",
+    "repeat": 1,
+    "source_kind": "real_sodd",
+    "input_quality": {
+      "exposure_state": "normal",
+      "quality_pass": true
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图是否需要曝光校正"
+      },
+      {
+        "tool": "detect_objects",
+        "purpose": "识别管道目标"
+      },
+      {
+        "tool": "assess_reliability",
+        "purpose": "评估检测结果可靠性"
+      }
+    ],
+    "plan_revisions": [],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_reliability",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "reliability:original:0cb9bd0268e5"
+      }
+    ],
+    "selected": "original",
+    "task_status": "completed",
+    "execution_status": "completed",
+    "vision_status": "unreliable",
+    "score": {
+      "passed": true,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": true,
+        "evidence": true,
+        "facts": true,
+        "tools": true,
+        "parameters": true,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": null,
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {
+      "original": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "recall": 0.0,
+        "precision": 0.0,
+        "fp_per_image": 0.0,
+        "small_recall": null,
+        "small_count": 0
+      }
+    },
+    "computation_counts": {
+      "quality": 1,
+      "detection": 1,
+      "correction": 0,
+      "comparison": 1
+    }
+  },
+  {
+    "case": "dev_decline",
+    "repeat": 0,
+    "source_kind": "authored_visual_fixture",
+    "input_quality": {
+      "exposure_state": "underexposed",
+      "quality_pass": true
+    },
+    "goal": {
+      "task_type": "analysis",
+      "image_id": "original",
+      "target_classes": [
+        "pipe_type2",
+        "pipe"
+      ],
+      "correction_policy": "if_needed",
+      "require_reliability": true,
+      "disposition": "ready",
+      "question": "",
+      "task_name": "根据观察分析图像",
+      "requires_citations": false,
+      "requirements": [
+        "结果来自实际工具",
+        "遵守目标类别与图片指向",
+        "程序产生的可靠性结论"
+      ]
+    },
+    "initial_plan": [
+      {
+        "tool": "assess_image_quality",
+        "purpose": "检查原图是否需要校正"
+      }
+    ],
+    "plan_revisions": [
+      {
+        "reason": "比较观察 comparison:candidate_gamma+candidate_local:0cb9bd0268e5 显示两个候选 effect_degraded=true，且采用建议为 original；因此不再尝试其他方法，保留原图，并对原图做可靠性评估以给出结论。",
+        "observation_ids": [
+          "comparison:candidate_gamma+candidate_local:0cb9bd0268e5"
+        ],
+        "steps": [
+          {
+            "tool": "assess_reliability",
+            "purpose": "对最终采用的原图给出程序化可靠性结论"
+          }
+        ],
+        "revision": 1
+      }
+    ],
+    "actions": [
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:original"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "gamma_only"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_gamma"
+      },
+      {
+        "tool": "generate_exposure_candidate",
+        "arguments": {
+          "image_id": "original",
+          "method": "local_bounded"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "correction:candidate_local"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:original:0cb9bd0268e5"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_gamma:0cb9bd0268e5"
+      },
+      {
+        "tool": "detect_objects",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "detections:candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_gamma"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_gamma"
+      },
+      {
+        "tool": "assess_image_quality",
+        "arguments": {
+          "image_id": "candidate_local"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "quality:candidate_local"
+      },
+      {
+        "tool": "compare_candidates",
+        "arguments": {
+          "candidate_image_ids": [
+            "candidate_gamma",
+            "candidate_local"
+          ]
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "comparison:candidate_gamma+candidate_local:0cb9bd0268e5"
+      },
+      {
+        "tool": "revise_plan",
+        "arguments": {
+          "reason": "比较观察 comparison:candidate_gamma+candidate_local:0cb9bd0268e5 显示两个候选 effect_degraded=true，且采用建议为 original；因此不再尝试其他方法，保留原图，并对原图做可靠性评估以给出结论。",
+          "observation_ids": [
+            "comparison:candidate_gamma+candidate_local:0cb9bd0268e5"
+          ],
+          "steps": [
+            {
+              "tool": "assess_reliability",
+              "purpose": "对最终采用的原图给出程序化可靠性结论"
+            }
+          ]
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": null
+      },
+      {
+        "tool": "assess_reliability",
+        "arguments": {
+          "image_id": "original"
+        },
+        "ok": true,
+        "cached": false,
+        "error_category": null,
+        "observation_id": "reliability:original:0cb9bd0268e5"
+      }
+    ],
+    "selected": "original",
+    "task_status": "completed",
+    "execution_status": "completed",
+    "vision_status": "unreliable",
+    "score": {
+      "passed": true,
+      "parsed": true,
+      "checks": {
+        "intent": true,
+        "classes": true,
+        "policy": true,
+        "image": true,
+        "status": true,
+        "evidence": true,
+        "facts": true,
+        "tools": true,
+        "parameters": true,
+        "integrity": true,
+        "revisions": true
+      },
+      "failure": null,
+      "irrelevant_calls": 0,
+      "unregistered_executions": 0,
+      "reliability_overrides": 0
+    },
+    "visual_counts": {},
+    "computation_counts": {
+      "quality": 3,
+      "detection": 3,
+      "correction": 2,
+      "comparison": 2
+    }
+  }
+]

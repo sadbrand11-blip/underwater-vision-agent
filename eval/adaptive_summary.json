@@ -1,0 +1,419 @@
+{
+  "version": "0.3.0",
+  "run_id": "adaptive-20260930-v030",
+  "formal_acceptance": false,
+  "cohorts": {
+    "development_initial": {
+      "formal_acceptance": false,
+      "scope": "development_and_demo_only",
+      "planned_cases": 6,
+      "recorded_cases": 6,
+      "case_completion_rate": 0.8333333333333334,
+      "budget": {
+        "used": 100,
+        "limit": 120,
+        "remaining": 20
+      },
+      "adaptive": {
+        "turns": 7,
+        "passed": 6,
+        "parse_coverage": 1.0,
+        "goal_conformance": 0.8571428571428571,
+        "image_accuracy": 0.8571428571428571,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 8663.0,
+          "p95": 12630.1
+        },
+        "model_calls": {
+          "mean": 4.857,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 3.857,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 3.714,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 10505.857,
+          "p95": 22393.5
+        },
+        "token_total": 73541,
+        "failures": [
+          {
+            "case": "dev_followup",
+            "repeat": 0,
+            "turn": 1,
+            "category": "image"
+          }
+        ]
+      },
+      "fixed_workflow": {
+        "turns": 7,
+        "passed": 7,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 22.286,
+          "p95": 62.7
+        },
+        "model_calls": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "tool_calls": {
+          "mean": 3.429,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 3.429,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "token_total": 0,
+        "failures": []
+      }
+    },
+    "matched_before": {
+      "formal_acceptance": false,
+      "scope": "development_and_demo_only",
+      "planned_cases": 3,
+      "recorded_cases": 3,
+      "case_completion_rate": 0.6666666666666666,
+      "budget": {
+        "used": 100,
+        "limit": 120,
+        "remaining": 20
+      },
+      "adaptive": {
+        "turns": 4,
+        "passed": 3,
+        "parse_coverage": 1.0,
+        "goal_conformance": 0.75,
+        "image_accuracy": 0.75,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 11008.0,
+          "p95": 12698.05
+        },
+        "model_calls": {
+          "mean": 6.25,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 6.25,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 6.0,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 16524.5,
+          "p95": 22533.75
+        },
+        "token_total": 66098,
+        "failures": [
+          {
+            "case": "dev_followup",
+            "repeat": 0,
+            "turn": 1,
+            "category": "image"
+          }
+        ]
+      },
+      "fixed_workflow": {
+        "turns": 4,
+        "passed": 4,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 35.0,
+          "p95": 62.85
+        },
+        "model_calls": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "tool_calls": {
+          "mean": 5.5,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 5.5,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "token_total": 0,
+        "failures": []
+      }
+    },
+    "matched_after": {
+      "formal_acceptance": false,
+      "scope": "development_and_demo_only",
+      "planned_cases": 3,
+      "recorded_cases": 3,
+      "case_completion_rate": 1.0,
+      "budget": {
+        "used": 100,
+        "limit": 120,
+        "remaining": 20
+      },
+      "adaptive": {
+        "turns": 4,
+        "passed": 4,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 2,
+        "latency_ms": {
+          "mean": 13246.0,
+          "p95": 18264.45
+        },
+        "model_calls": {
+          "mean": 7.0,
+          "p95": 8.85
+        },
+        "tool_calls": {
+          "mean": 6.75,
+          "p95": 10.7
+        },
+        "total_computations": {
+          "mean": 6.25,
+          "p95": 9.85
+        },
+        "tokens": {
+          "mean": 23050.25,
+          "p95": 40262.65
+        },
+        "token_total": 92201,
+        "failures": []
+      },
+      "fixed_workflow": {
+        "turns": 4,
+        "passed": 4,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 39.0,
+          "p95": 62.85
+        },
+        "model_calls": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "tool_calls": {
+          "mean": 5.5,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 5.5,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "token_total": 0,
+        "failures": []
+      }
+    },
+    "real_vision_demo": {
+      "formal_acceptance": false,
+      "scope": "development_and_demo_only",
+      "planned_cases": 6,
+      "recorded_cases": 6,
+      "case_completion_rate": 0.5,
+      "budget": {
+        "used": 100,
+        "limit": 120,
+        "remaining": 20
+      },
+      "adaptive": {
+        "turns": 6,
+        "passed": 3,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 0.8857142857142857,
+        "plan_revisions": 1,
+        "latency_ms": {
+          "mean": 12638.0,
+          "p95": 21058.75
+        },
+        "model_calls": {
+          "mean": 6.333,
+          "p95": 9.75
+        },
+        "tool_calls": {
+          "mean": 5.833,
+          "p95": 11.5
+        },
+        "total_computations": {
+          "mean": 4.833,
+          "p95": 10.0
+        },
+        "tokens": {
+          "mean": 21132.5,
+          "p95": 50678.75
+        },
+        "token_total": 126795,
+        "failures": [
+          {
+            "case": "demo_dark",
+            "repeat": 1,
+            "turn": 0,
+            "category": "budget"
+          },
+          {
+            "case": "demo_lost",
+            "repeat": 0,
+            "turn": 0,
+            "category": "status"
+          },
+          {
+            "case": "demo_lost",
+            "repeat": 1,
+            "turn": 0,
+            "category": "status"
+          }
+        ]
+      },
+      "fixed_workflow": {
+        "turns": 6,
+        "passed": 6,
+        "parse_coverage": 1.0,
+        "goal_conformance": 1.0,
+        "image_accuracy": 1.0,
+        "irrelevant_calls": 0,
+        "unregistered_executions": 0,
+        "reliability_overrides": 0,
+        "fact_failures": 0,
+        "tool_selection_rate": 1.0,
+        "parameter_rate": 1.0,
+        "plan_revisions": 0,
+        "latency_ms": {
+          "mean": 427.167,
+          "p95": 953.5
+        },
+        "model_calls": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "tool_calls": {
+          "mean": 4.667,
+          "p95": 9.0
+        },
+        "total_computations": {
+          "mean": 4.667,
+          "p95": 9.0
+        },
+        "tokens": {
+          "mean": 0.0,
+          "p95": 0.0
+        },
+        "token_total": 0,
+        "failures": []
+      }
+    }
+  },
+  "budget": {
+    "used": 100,
+    "limit": 120,
+    "remaining": 20
+  },
+  "token_total": 292537,
+  "freeze_hashes": {
+    "before": "93691d09c7f342e20648de14670db91769e6155659acfea2fd7fecc3d2748309",
+    "fix1": "9c07c34e3cc0b2c38df87bbc4aa210e2e92345e8a3e7d5255ef6e0af605137cb"
+  },
+  "known_label_specific_extra_calls": [
+    {
+      "case": "demo_lost",
+      "repeat": 0,
+      "tool": "detect_objects",
+      "ok": true
+    },
+    {
+      "case": "demo_lost",
+      "repeat": 0,
+      "tool": "generate_exposure_candidate",
+      "ok": false
+    },
+    {
+      "case": "demo_lost",
+      "repeat": 0,
+      "tool": "generate_exposure_candidate",
+      "ok": false
+    },
+    {
+      "case": "demo_lost",
+      "repeat": 1,
+      "tool": "generate_exposure_candidate",
+      "ok": false
+    },
+    {
+      "case": "demo_lost",
+      "repeat": 1,
+      "tool": "generate_exposure_candidate",
+      "ok": false
+    }
+  ],
+  "scope_note": "注册工具率不等于工具选择正确率。评分中的irrelevant_calls只覆盖一般工具范围；信息丢失案例的禁用检测/校正另列。未修复或选择重跑真实视觉失败。"
+}

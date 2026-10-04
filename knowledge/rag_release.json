@@ -1,0 +1,18 @@
+{
+  "version": "0.5.3-public.1",
+  "mode": "tfidf",
+  "corpus": "public-sanitized-v1",
+  "thresholds": {
+    "tfidf": 0.15,
+    "dense": 0.75
+  },
+  "profiles": {
+    "tfidf": {
+      "tfidf": 0.15,
+      "dense": 0.75
+    }
+  },
+  "historical_benchmark_applies": false,
+  "corpus_hash": "6963783a64de92d0ead95fefc627a66853e2f0ff4fd1e2f18cb8b80dae137ace",
+  "chunk_count": 119
+}

@@ -1,0 +1,18 @@
+{
+  "release": "v0.5.3-public.1",
+  "filename": "sodd_detector.pt",
+  "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/releases/download/v0.5.3-public.1/sodd_detector.pt",
+  "size_bytes": 76122802,
+  "sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a",
+  "license": "MIT",
+  "training_data": "https://zenodo.org/records/10230328",
+  "classes": [
+    "background",
+    "propeller",
+    "pipe_type2",
+    "red_fin",
+    "net",
+    "qr_codes",
+    "pipe"
+  ]
+}

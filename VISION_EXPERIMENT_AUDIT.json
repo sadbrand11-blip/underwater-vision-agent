@@ -1,0 +1,97 @@
+{
+  "skill": "experiment-audit",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_reasoning": "ultra",
+  "reviewer_family": "openai",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "agent_id": "/root/vision_integrity_audit",
+  "reviewer_thread": "01a0f5fb-6226-75b0-a839-292f9ff7d29d",
+  "status": "complete",
+  "generated_at": "2026-10-01T06:31:36.273368+00:00",
+  "audit_skill": "experiment-audit",
+  "date": "2026-10-01",
+  "verdict": "WARN",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "reason_code": "limited_scope_calibration_and_historical_trace",
+  "summary": "Reported delivery defects closed; actual results verified; experimental and historical limitations retained.",
+  "trace_path": ".aris/traces/experiment-audit/2026-10-01_run01/",
+  "verdict_id": "/root/vision_integrity_audit",
+  "checks": {
+    "gt_provenance": {
+      "status": "WARN",
+      "details": "Real dataset references and labels; frozen inputs match. Scene independence unproven and MOUD not pre-frozen."
+    },
+    "score_normalization": {
+      "status": "WARN",
+      "details": "No self-normalization found; corrected AP candidates differ and pooled original-image calibration is limited."
+    },
+    "result_existence": {
+      "status": "WARN",
+      "details": "Actual aggregates and all 1579 rows verified; historical snapshots and early web records incomplete."
+    },
+    "dead_code": {
+      "status": "PASS",
+      "scope": "Reported delivery issues and tested cases",
+      "details": "Reported entry-point defects closed without changing nine frozen experiment sources."
+    },
+    "scope": {
+      "status": "WARN",
+      "details": "Single seed and project split; no new formal LLM Agent Eval or deployment guarantee."
+    },
+    "eval_type": {
+      "status": "PASS",
+      "types": [
+        "real_gt",
+        "simulation_only",
+        "self_supervised_proxy"
+      ],
+      "details": "Dataset references and boxes distinguished from simulated exposure and no-reference stress diagnostics."
+    }
+  },
+  "audited_input_hashes": {
+    "VISION_RESULTS.md": "sha256:79b1db4d05b87cbb2f4ec822c90d8d4b6ada05bc3bc7a14ac2f9db7df6e76c69",
+    "VISION_RESULTS.json": "sha256:aea3c20ed997f737db23acc159fa74a848da0c05a5a24f65b37849dc0584fb85",
+    "VISION_CASES.csv": "sha256:ac9c93212032bdbc82d6dbda7d2c17973070e9816ca931647663824ee22b8d4e",
+    "VISION_VERIFICATION.json": "sha256:afb060d20b4f33423552cf78069b0544ece2d41f223a42e60e90a2c9d347ab0e",
+    "app.py": "sha256:6938b4a1f64cfed792ea1cc94d469768268bc5380886e349828526ae29ebd540",
+    "optical_agent/vision_delivery.py": "sha256:71a0130a68229e8f510f7bb6af61e26948b7c8f47a5151467447fe99e73661ee",
+    "optical_agent/adaptive_tools.py": "sha256:ee24213b97f444fcdc68d229d0b6d88a5a2f12edb93ed3b8b64a26c8b645e9d9",
+    "optical_agent/adaptive_fixture.py": "sha256:e9f0e924f85193a07ce076f47f530ca8c72f2b6f01c802c579a1197f1c08d947",
+    "run_agent.py": "sha256:09bd60835c7a6c8c307717f0cbf2b348e93cc447bd61cf63af4f9863269bf2b5",
+    "static/conversation.js": "sha256:623d0e327073ad55a98971c084203379ef605917b05c064744af7cdf0c9c8e9e",
+    "verify_vision_web.py": "sha256:6698e9f3da166fe76a691154e7e35eaf58487560afa7696ecfebc305e14cdb7b",
+    "tests/test_vision_v040.py": "sha256:4eaa4f6fc77bdbee04746d7e186cdcacf3b86cbf493d7fa6efc6ec37548ede5f",
+    "report_vision.py": "sha256:6399606bdb5e0100a91bd663498c8d2dd8c3cad82ec7455171e9bea839630b54",
+    "docs/10_VISION_OPTIMIZATION.md": "sha256:61eaf1338b5656780d5d326c8b550bc5d49c183180803ae5d2d88f93486b1d06"
+  },
+  "review_responses": {
+    "initial_sha256": "7996fa5e3cb776ffb4b8dabc8ab1f99b75db1f7c6a5b9d1a323afc9eaa9878e1",
+    "delivery_recheck_sha256": "da5c53406c92bf5bf81f95bd7ce0076c38e133e423018097821e2b6a2709ad99"
+  },
+  "frozen_experiment": {
+    "manifest_sha256": "5fed9e376d7b115ed3a6319b1d1f1ca8711ca8fec52b1c97d969f469713e9203",
+    "freeze_sha256": "d3a8687956d3673bf5feda1e5f98eccbc78beaf5fec692396cbefac283fb01e7"
+  },
+  "claims": [
+    {
+      "id": "visual_experiments_executed",
+      "impact": "supported"
+    },
+    {
+      "id": "new_default_improves_vision",
+      "impact": "unsupported"
+    },
+    {
+      "id": "reliable_robot_deployment",
+      "impact": "unsupported"
+    },
+    {
+      "id": "new_formal_agent_eval",
+      "impact": "unsupported"
+    }
+  ],
+  "paid_llm_requests": 0,
+  "runtime_revision": "v040_delivery_r1"
+}

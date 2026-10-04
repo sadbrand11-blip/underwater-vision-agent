@@ -1,0 +1,239 @@
+{
+  "verdict": "WARN",
+  "reason_code": "qualified_protocol_verified_semantic_scope_remains_limited",
+  "summary": "最终验证器已实际通过46个绑定文件、20张图片、78轮评分、65份视觉计数及242次请求记录核对，未发送云端请求。公开报告与冻结原始运行一致，指标命名和恢复事件已修正。剩余限制为类别语义未被评价及小范围重复评测。",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "deterministic_protocol_acceptance": "passed",
+  "checks": {
+    "report_generation": {
+      "status": "PASS",
+      "details": "发布前实际调用完整性验证器。"
+    },
+    "frozen_artifacts": {
+      "status": "PASS",
+      "details": "核对清单、任务、文件快照、计算代码、图像、标签及转换后的像素和GT。"
+    },
+    "observation_replay": {
+      "status": "PASS",
+      "details": "检测器返回保存的预测框；质量、证据、oracle评分与GT匹配重新计算，无新神经推理。"
+    },
+    "ledger_oracle_and_tokens": {
+      "status": "PASS",
+      "details": "账本、逐轮题目标签、评分、请求次数和token合计一致；未知token保持null。"
+    },
+    "result_existence": {
+      "status": "PASS",
+      "details": "公开摘要与冻结原始记录一致：59/60、77/78、140/140、242次请求、328096 tokens。"
+    },
+    "metric_naming": {
+      "status": "PASS",
+      "details": "已限定为预设oracle流程符合度及任务类型匹配，明确不代表完整用户意图满足率。"
+    },
+    "recovery_events": {
+      "status": "PASS",
+      "details": "公开记录包含1次最终失败和1次成功格式恢复；修复计数仅计will_retry=true。"
+    },
+    "corruption_tests": {
+      "status": "WARN",
+      "details": "静态检查确认文件、标签、oracle、评分、账本、视觉计数及未知token篡改测试。未运行写文件测试；尚缺专门的修复耗尽合法失败夹具。"
+    },
+    "semantic_scope": {
+      "status": "WARN",
+      "details": "类别筛选未进入冻结oracle；20条任务重复3次不能解释为60条独立任务或广泛泛化证据。"
+    }
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "当前冻结协议程序验收passed",
+      "impact": "supported"
+    },
+    {
+      "id": "C2",
+      "claim": "预设oracle案例流程符合率59/60",
+      "impact": "supported_with_qualifier"
+    },
+    {
+      "id": "C3",
+      "claim": "报告核验未新增云端请求或神经推理",
+      "impact": "supported"
+    },
+    {
+      "id": "C4",
+      "claim": "242次请求与328096 tokens",
+      "impact": "supported_by_saved_receipts_and_ledger"
+    },
+    {
+      "id": "C5",
+      "claim": "1次最终失败与1次成功格式恢复",
+      "impact": "supported"
+    },
+    {
+      "id": "C6",
+      "claim": "完整用户意图满足率98.3%",
+      "impact": "unsupported_and_now_explicitly_disclaimed"
+    },
+    {
+      "id": "C7",
+      "claim": "类别筛选能力、曝光增强收益或跨场景泛化",
+      "impact": "unsupported"
+    }
+  ],
+  "audit_skill": "experiment-audit",
+  "date": "2026-09-30",
+  "generated_at": "2026-09-30T07:14:47.231236+00:00",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "auditor": "gpt-6-astra-ultra",
+  "baseline_behavior_version": "0.2.3",
+  "delivery_version": "0.2.4",
+  "run_id": "formal-20260930-v023",
+  "agent_id": "/root/formal_integrity_audit",
+  "verdict_id": "/root/formal_integrity_audit:review-2",
+  "executor_model": "codex",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "trace_path": ".aris/traces/experiment-audit/2026-09-30_run01/",
+  "initial_review": {
+    "verdict": "WARN",
+    "reason_code": "task_oracle_omits_requested_class_semantics",
+    "summary": "冻结材料、原始记录、请求账本和数字复算一致；现有协议程序验收passed成立。但任务oracle遗漏请求类别及筛选语义，98.3%只能支持预设流程符合度，不能支持完整用户意图完成率。",
+    "review_independence": "same-family",
+    "acceptance_status": "provisional",
+    "deterministic_protocol_acceptance": "passed",
+    "read_only": true,
+    "cloud_requests_made_by_auditor": 0,
+    "checks": {
+      "gt_provenance": {
+        "status": "WARN",
+        "details": "SODD检测GT来自标签文件；预设任务oracle未进入模型请求，但未经外部人工复核且遗漏类别筛选。20份标签及转换后GT哈希匹配。"
+      },
+      "score_normalization": {
+        "status": "PASS",
+        "details": "未发现预测统计量自归一化。案例59/60、任务类型77/78、工具选择77/78、参数规则140/140；20条任务重复3次，不是60条独立任务。"
+      },
+      "result_existence": {
+        "status": "PASS",
+        "details": "46个绑定文件、45个冻结小文件、20张图像及像素、标签与GT哈希匹配；78份逐轮记录一致；242个唯一服务请求编号；328096 tokens；65份视觉计数重算无差异。"
+      },
+      "dead_code": {
+        "status": "WARN",
+        "details": "核心指标实际调用并持久化，预算及恢复路径存在。报告生成器主要重汇总保存评分，未独立验证完整冻结材料及账本；一次恢复的格式错误未列入公开失败表。"
+      },
+      "scope": {
+        "status": "WARN",
+        "details": "单模型、单检测器、单调度实现、20条任务、20张图像、3次重复；实际视觉计数覆盖10/6/4个来源子集。类别语义、独立场景及泛化尚未验证。"
+      },
+      "eval_type": {
+        "status": "WARN",
+        "classification": {
+          "dataset_detection": "real_gt",
+          "agent_orchestration": "preassigned_task_oracle",
+          "evidence_consistency": "self_supervised_proxy",
+          "offline_fixture_tests": "simulation_only"
+        },
+        "details": "任务oracle为项目内预设构造任务标签，不由本次模型预测生成，不能称为数据集GT或外部human_eval。"
+      }
+    },
+    "claims": [
+      {
+        "id": "C1",
+        "claim": "现有确定性协议正式验收passed",
+        "impact": "supported"
+      },
+      {
+        "id": "C2",
+        "claim": "预设任务oracle案例流程符合率59/60",
+        "impact": "supported_with_qualifier"
+      },
+      {
+        "id": "C3",
+        "claim": "完整用户意图完成率98.3%",
+        "impact": "unsupported"
+      },
+      {
+        "id": "C4",
+        "claim": "已检查工具参数规则140/140通过",
+        "impact": "supported_with_qualifier"
+      },
+      {
+        "id": "C5",
+        "claim": "242次HTTP请求及328096 tokens",
+        "impact": "supported_by_local_receipts"
+      },
+      {
+        "id": "C6",
+        "claim": "指定视觉子集的TP/FP/FN及精确率召回率",
+        "impact": "supported"
+      },
+      {
+        "id": "C7",
+        "claim": "完整失败表包含所有异常事件",
+        "impact": "needs_qualifier",
+        "details": "遗漏hold_03第二轮一次恢复成功的格式错误。"
+      },
+      {
+        "id": "C8",
+        "claim": "曝光校正收益、跨水域泛化或广泛鲁棒性",
+        "impact": "unsupported"
+      }
+    ]
+  },
+  "supplemental_review": {
+    "verdict": "PASS",
+    "reason_code": "exhausted_repair_coverage_gap_addressed",
+    "summary": "新增测试通过实际运行器构造修复耗尽失败记录，并将其交给报告验证器；验证器与此前审阅版本哈希一致。",
+    "review_independence": "same-family",
+    "acceptance_status": "provisional",
+    "review_method": "read_only_static_review",
+    "tests_executed": false,
+    "verifier_changed": false,
+    "file_hashes": {
+      "tests/test_eval_integrity.py": "2a4f6ab85226f9759452109fed256decb7f49ef786e26e1508fb02abc5c6e6c5",
+      "optical_agent/eval_integrity.py": "e0d4e99d21e3857cdff895fa17a3177e0b21bf3652a7d6b13a9cff79228fbada"
+    },
+    "scope": {
+      "new_test_type": "simulation_only",
+      "new_cloud_requests": 0,
+      "new_model_performance_evidence": false,
+      "remaining_limits": [
+        "冻结oracle未评价指定类别筛选",
+        "20条任务重复3次，不是60条独立任务",
+        "不证明完整用户意图满足率或跨场景泛化"
+      ]
+    },
+    "overall_formal_audit_verdict": "WARN"
+  },
+  "verification_by_executor": {
+    "python_tests": 111,
+    "python_result": "passed",
+    "ui_cases": 8,
+    "ui_result": "passed",
+    "report_integrity": "verified",
+    "new_deepseek_requests_during_report_verification": 0
+  },
+  "evaluation_types": {
+    "dataset_detection": "real_gt",
+    "agent_orchestration": "preassigned_task_oracle",
+    "evidence_consistency": "self_supervised_proxy",
+    "offline_fixture_tests": "simulation_only"
+  },
+  "audited_input_hashes": {
+    "optical_agent/eval_integrity.py": "sha256:e0d4e99d21e3857cdff895fa17a3177e0b21bf3652a7d6b13a9cff79228fbada",
+    "optical_agent/formal_eval.py": "sha256:da95a3a7c4142d6fe8929d204e2b7f4e125b1ed319288c46d96c34b75788c237",
+    "tests/test_eval_integrity.py": "sha256:2a4f6ab85226f9759452109fed256decb7f49ef786e26e1508fb02abc5c6e6c5",
+    "summarize_formal_eval.py": "sha256:f30314980ffc75931444dd16a3ccd308d677431dff9aaf458125a44f90aaf778",
+    "eval/agent_tasks_v2.json": "sha256:52e217246f2a1bbe0e53350b422faf7f3fcc0159c6d06fcae791e539234af1ea",
+    "eval/formal_summary.json": "sha256:38e6d0cde8e6cd3610b6098adcd1e10dbf79ca0099f8dc17f01d227a74b33f3a",
+    "FORMAL_EVALUATION_RESULTS.md": "sha256:b9e59e0e0a6c7b5cdb12b35865cc243c7fcf96b90f5592ecf4e7f9bed311660c",
+    "docs/07_FORMAL_EVALUATION.md": "sha256:64eb015c07c8e5268f98a91d9b3ac4bc870b27a098b7ec18561c3259497ec93b",
+    "runs/agent_eval/formal-20260930-v023/formal_manifest.json": "sha256:1af7a667b58893d0777309c2d7d9a25dc1c24bb67b96640a5f009eadb6f47c4c",
+    "runs/agent_eval/formal-20260930-v023/frozen_tasks.json": "sha256:52e217246f2a1bbe0e53350b422faf7f3fcc0159c6d06fcae791e539234af1ea",
+    "runs/agent_eval/formal-20260930-v023/formal_sodd_live.json": "sha256:c61871be18e88591cc64f6f9bfb747ec9ca47146a35c593d47ac3de1615c3e40",
+    "runs/agent_eval/formal-20260930-v023/http_budget.json": "sha256:577677129940cf7f4c5f960ba883202b2ac35b2e822b56fff84f5cd8efecaacf"
+  },
+  "hash_recording_note": "Final delivered files; reviewer snapshot hashes remain in raw responses. Report subsequently adds a failure-category table using unchanged raw counts."
+}

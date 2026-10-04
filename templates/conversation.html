@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>水下图像分析 · 对话工作台</title><link rel="stylesheet" href="/static/conversation.css"></head>
+<body><main><header><p class="eyebrow">水下图像分析</p><h1>上传一张图，告诉我你想分析什么</h1>
+<p>检查曝光、识别目标、比较校正结果，或查看结论的依据。</p><a href="/">打开原有完整分析页面 →</a> · <a href="/knowledge">知识检索对照</a> · <a href="/memory">长期记忆与偏好</a></header>
+<div class="workspace"><aside class="card"><h2>① 选择图片</h2>
+<label for="vision-mode">视觉配置（创建会话前选择）</label><select id="vision-mode"><option value="legacy">现有默认六类模型</option><option value="experiment_control">0.4.0 实验：重训对照＋机器人</option><option value="experiment_candidate">0.4.0 实验：改进候选＋机器人</option></select><p class="small">机器人为实验能力，不细分 AUV/ROV；校准不足仅返回候选。同一图片分别创建会话可对照新旧结果。</p>
+<label for="rag-mode">知识检索（创建后固定）</label><select id="rag-mode"><option value="">发布默认</option><option value="legacy">旧 TF-IDF 对照</option><option value="tfidf">结构化 TF-IDF</option><option value="embedding">本地 Embedding（实验）</option><option value="hybrid">Hybrid（排名融合）</option></select>
+<input id="image-file" type="file" accept="image/*"><button id="upload">使用这张图片</button><button id="demo" class="secondary">使用 D 盘示例图</button>
+<label for="demo-variant">D盘演示输入</label><select id="demo-variant"><option value="normal">正常原图（SODD索引6）</option><option value="dark">模拟偏暗：亮度×0.6（索引7）</option><option value="lost">模拟信息丢失：全黑（索引8）</option></select><p class="small">偏暗和全黑为模拟扰动，不代表相机重拍。</p>
+<p id="session-status" role="status">尚未选择图片</p><img id="original-preview" alt="原图预览" hidden>
+<button id="new-session" class="secondary">新建会话 / 更换配置</button>
+<h2>② 选择运行方式</h2><select id="mode"><option value="scripted">离线工具演示（规则调度）</option><option value="cloud">真实大模型对话（需要密钥）</option></select>
+<label for="runtime-engine">运行器（首次执行后固定）</label><select id="runtime-engine"><option value="native">native（默认）</option><option value="langgraph" {% if not langgraph_available %}disabled{% endif %}>LangGraph（等价对照）{% if not langgraph_available %} · 依赖未安装{% endif %}</option></select>
+<p class="small">LangGraph使用相同工具与可靠性规则。切换运行器请新建图片会话；图节点次数与模型调用次数分别显示。</p>
+<p class="small">离线模式可查看工具执行过程；它不代表大模型能力。图片和视觉计算均留在电脑上。</p>
+<p class="small">云端密钥：{{ '已配置' if cloud_configured else '尚未配置，可先离线体验' }}</p>
+<label for="agent-mode">调度策略</label><select id="agent-mode"><option value="adaptive">动态目标与规划</option><option value="legacy">原有受限调度（对照）</option></select>
+<p class="small">动态模式会展示拟议计划、真实工具结果与计划修订；离线运行仍是规则演示。</p>
+<h2>你可以这样问</h2><div id="examples"><button class="prompt">只检查这张图的曝光</button><button class="prompt">识别图中的目标</button>
+<button class="prompt">只校正这张图的曝光</button><button class="prompt">检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。</button><button class="prompt">比较校正前后，识别有没有改善</button><button class="prompt">解释为什么这个结果不能自动接受</button><button class="prompt">识别校正后的那张图</button></div>
+<p class="small">默认模型支持螺旋桨、两类管道、红色鳍片、渔网和二维码；0.4.0 实验配置额外支持合并的水下机器人类别。</p></aside>
+<section class="card"><h2>③ 提出任务或继续追问</h2><div id="messages" aria-live="polite"><p class="empty">分析结果、引用来源和执行过程会显示在这里。</p></div>
+<form id="chat-form"><label for="message">分析任务</label><textarea id="message" rows="3" placeholder="例如：只检查曝光" required></textarea>
+<div class="submit-row"><span id="running" role="status"></span><button id="send" type="submit">开始分析</button></div></form></section></div>
+<footer>任务是否完成与图像是否可靠分别显示。质量失败可以是一次正确完成的分析；单帧处理不能确定已丢失的真实纹理。</footer></main>
+<script src="/static/conversation.js"></script></body></html>

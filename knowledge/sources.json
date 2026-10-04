@@ -1,0 +1,58 @@
+[
+  {
+    "id": "readme",
+    "title": "当前系统操作与能力边界",
+    "path": "README.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/README.md",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "results",
+    "title": "水下视觉模型的初步实验结果",
+    "path": "UNDERWATER_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/UNDERWATER_RESULTS.md",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "model",
+    "title": "SODD模型类别、校准与限制",
+    "path": "knowledge/MODEL_CARD.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/MODEL_CARD.md",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "sodd",
+    "title": "SODD水下设施数据说明",
+    "path": "knowledge/SODD.md",
+    "url": "https://zenodo.org/records/10230328",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "moud",
+    "title": "MOUD真实灯光变化数据说明",
+    "path": "knowledge/MOUD.md",
+    "url": "https://www.nature.com/articles/s41597-025-05797-w",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "exposure",
+    "title": "曝光校正、信息丢失与拒识原因",
+    "path": "knowledge/EXPOSURE_SOP.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/EXPOSURE_SOP.md",
+    "verified_at": "2026-09-28"
+  },
+  {
+    "id": "vision_data",
+    "title": "UIEB与UIIS10K视觉实验及机器人识别限制",
+    "path": "knowledge/VISION_DATASETS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/VISION_DATASETS.md",
+    "verified_at": "2026-10-01"
+  },
+  {
+    "id": "vision_results_v040",
+    "title": "0.4.0视觉实验实测结果与采用门槛",
+    "path": "VISION_RESULTS.md",
+    "url": "https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/VISION_RESULTS.md",
+    "verified_at": "2026-10-01"
+  }
+]

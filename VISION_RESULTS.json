@@ -1,0 +1,1701 @@
+{
+  "version": "0.4.0",
+  "evaluation_status": "complete",
+  "scope": "Single seed; project grouped split; no paid LLM calls; not a new formal Agent Eval",
+  "manifest_sha256": "5fed9e376d7b115ed3a6319b1d1f1ca8711ca8fec52b1c97d969f469713e9203",
+  "freeze_sha256": "d3a8687956d3673bf5feda1e5f98eccbc78beaf5fec692396cbefac283fb01e7",
+  "data": {
+    "sodd": {
+      "train": {
+        "images": 166,
+        "groups": 161,
+        "instances": {
+          "5": 56,
+          "4": 42,
+          "1": 31,
+          "2": 22,
+          "6": 83,
+          "3": 18
+        }
+      },
+      "selection": {
+        "images": 19,
+        "groups": 19,
+        "instances": {
+          "2": 3,
+          "5": 5,
+          "3": 2,
+          "1": 3,
+          "6": 9,
+          "4": 5
+        }
+      },
+      "calibration": {
+        "images": 19,
+        "groups": 19,
+        "instances": {
+          "6": 8,
+          "2": 2,
+          "5": 7,
+          "1": 3,
+          "4": 5,
+          "3": 2
+        }
+      },
+      "test": {
+        "images": 36,
+        "groups": 36,
+        "instances": {
+          "6": 18,
+          "1": 6,
+          "4": 9,
+          "2": 5,
+          "3": 4,
+          "5": 12
+        }
+      }
+    },
+    "uieb": {
+      "train": {
+        "images": 638,
+        "groups": 628,
+        "instances": {}
+      },
+      "selection": {
+        "images": 62,
+        "groups": 62,
+        "instances": {}
+      },
+      "calibration": {
+        "images": 62,
+        "groups": 62,
+        "instances": {}
+      },
+      "test": {
+        "images": 128,
+        "groups": 128,
+        "instances": {}
+      }
+    },
+    "uieb_challenge": {
+      "train": {
+        "images": 0,
+        "groups": 0,
+        "instances": {}
+      },
+      "selection": {
+        "images": 0,
+        "groups": 0,
+        "instances": {}
+      },
+      "calibration": {
+        "images": 0,
+        "groups": 0,
+        "instances": {}
+      },
+      "test": {
+        "images": 60,
+        "groups": 60,
+        "instances": {}
+      }
+    },
+    "uiis10k": {
+      "train": {
+        "images": 7033,
+        "groups": 6835,
+        "instances": {
+          "1": 351
+        }
+      },
+      "selection": {
+        "images": 754,
+        "groups": 754,
+        "instances": {
+          "1": 38
+        }
+      },
+      "calibration": {
+        "images": 753,
+        "groups": 753,
+        "instances": {
+          "1": 38
+        }
+      },
+      "test": {
+        "images": 1507,
+        "groups": 1507,
+        "instances": {
+          "1": 75
+        }
+      }
+    }
+  },
+  "grouping": {
+    "links": {
+      "perceptual": 2121,
+      "exact": 19
+    },
+    "groups": 10364,
+    "cross_dataset_groups": 660,
+    "largest_group": 3
+  },
+  "quarantined": [
+    {
+      "file": "D:\\CodexData\\optical_agent\\uiis10k\\data\\UIIS10K\\img\\train_0771.jpg",
+      "reason": "Box outside image or empty",
+      "action": "excluded; original file retained"
+    }
+  ],
+  "exposure": {
+    "profile": {
+      "name": "grid_17",
+      "target_median": 0.45,
+      "gamma_min": 0.8,
+      "gamma_max": 1.45,
+      "clahe_blend": 0.25
+    },
+    "validation": {
+      "legacy_v030": {
+        "images": 62,
+        "psnr": 17.01329012103625,
+        "psnr_p95": 21.938178568846237,
+        "ssim": 0.7696545260637062,
+        "ssim_p95": 0.9211734906174358,
+        "elapsed_ms": 162.30190483872408,
+        "elapsed_ms_p95": 302.36385499988495,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 58,
+          "underexposed": 4
+        },
+        "dark_fraction": 0.002203827962067843,
+        "bright_fraction": 0.0006762281182476178,
+        "noise_estimate": 0.004003068921048074
+      },
+      "grid_17": {
+        "images": 62,
+        "psnr": 17.00523547987845,
+        "psnr_p95": 22.13809417045649,
+        "ssim": 0.7700893239311377,
+        "ssim_p95": 0.9211734906174358,
+        "elapsed_ms": 156.986609677343,
+        "elapsed_ms_p95": 284.3557649997364,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 57,
+          "underexposed": 5
+        },
+        "dark_fraction": 0.0025673524229945805,
+        "bright_fraction": 0.0006731581301017099,
+        "noise_estimate": 0.003956181412797061
+      },
+      "grid_23": {
+        "images": 62,
+        "psnr": 16.996064185205924,
+        "psnr_p95": 22.13809417045649,
+        "ssim": 0.7700772371569439,
+        "ssim_p95": 0.9211734906174358,
+        "elapsed_ms": 151.9148629031406,
+        "elapsed_ms_p95": 266.0964849994798,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 58,
+          "underexposed": 4
+        },
+        "dark_fraction": 0.002534850674774772,
+        "bright_fraction": 0.0006766583541160467,
+        "noise_estimate": 0.0039620419281865315
+      },
+      "grid_11": {
+        "images": 62,
+        "psnr": 16.96193081620815,
+        "psnr_p95": 22.13809417045649,
+        "ssim": 0.7700197230701192,
+        "ssim_p95": 0.9211734906174358,
+        "elapsed_ms": 155.31892741936673,
+        "elapsed_ms_p95": 256.7849750000732,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 56,
+          "underexposed": 6
+        },
+        "dark_fraction": 0.0032114153090042796,
+        "bright_fraction": 0.0006684693653540993,
+        "noise_estimate": 0.00396204050286643
+      }
+    },
+    "validation_gates": {
+      "grid_17": {
+        "ssim": true,
+        "psnr": true,
+        "saturation": true,
+        "darkness": true,
+        "macro_recall": true,
+        "class_recall": true,
+        "fp": true
+      },
+      "grid_23": {
+        "ssim": true,
+        "psnr": true,
+        "saturation": true,
+        "darkness": true,
+        "macro_recall": true,
+        "class_recall": true,
+        "fp": true
+      },
+      "grid_11": {
+        "ssim": true,
+        "psnr": true,
+        "saturation": true,
+        "darkness": true,
+        "macro_recall": true,
+        "class_recall": true,
+        "fp": true
+      }
+    },
+    "test": {
+      "original": {
+        "images": 128,
+        "psnr": 16.513815742542562,
+        "psnr_p95": 22.315703133712642,
+        "ssim": 0.7308963058475546,
+        "ssim_p95": 0.9205017787657863,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 104,
+          "underexposed": 24
+        },
+        "dark_fraction": 0.008213378390039766,
+        "bright_fraction": 0.0004545033010139875,
+        "noise_estimate": 0.0032818026784962057
+      },
+      "legacy_v030": {
+        "images": 128,
+        "psnr": 16.740553374108103,
+        "psnr_p95": 21.902196682764174,
+        "ssim": 0.7435326635216751,
+        "ssim_p95": 0.9205017787657863,
+        "elapsed_ms": 170.88758281258265,
+        "elapsed_ms_p95": 318.7346399992748,
+        "quality_failures": 0,
+        "exposure_states": {
+          "mixed": 1,
+          "normal": 119,
+          "underexposed": 8
+        },
+        "dark_fraction": 0.002014014482503614,
+        "bright_fraction": 0.0005253699624208617,
+        "noise_estimate": 0.003642344833984134
+      },
+      "grid_17": {
+        "images": 128,
+        "psnr": 16.739266202720255,
+        "psnr_p95": 21.981500862250925,
+        "ssim": 0.7433912918326404,
+        "ssim_p95": 0.9205017787657863,
+        "elapsed_ms": 167.0835781249167,
+        "elapsed_ms_p95": 312.88716999943057,
+        "quality_failures": 0,
+        "exposure_states": {
+          "mixed": 1,
+          "normal": 115,
+          "underexposed": 12
+        },
+        "dark_fraction": 0.002817050991318513,
+        "bright_fraction": 0.0004910166926432785,
+        "noise_estimate": 0.00358556621527332
+      },
+      "gamma_reference": {
+        "images": 128,
+        "psnr": 16.68200587846233,
+        "psnr_p95": 21.554872879051782,
+        "ssim": 0.739630796715933,
+        "ssim_p95": 0.9205017787657863,
+        "elapsed_ms": 168.45720859362245,
+        "elapsed_ms_p95": 305.0465049993363,
+        "quality_failures": 0,
+        "exposure_states": {
+          "mixed": 1,
+          "normal": 118,
+          "underexposed": 9
+        },
+        "dark_fraction": 0.0022301630770026207,
+        "bright_fraction": 0.0005504939667419429,
+        "noise_estimate": 0.0034322653298479054
+      }
+    },
+    "test_gates": {
+      "ssim": false,
+      "psnr": true
+    },
+    "adoption_gate_passed": false
+  },
+  "facilities": {
+    "validation_gates": {
+      "macro_recall": true,
+      "class_recall": true,
+      "fp": false
+    },
+    "test_gates": {
+      "macro_recall": true,
+      "class_recall": false,
+      "fp": false
+    },
+    "adoption_gate_passed": false
+  },
+  "models": {
+    "facilities_control": {
+      "model": "facilities_control",
+      "original": {
+        "tp": 48,
+        "fp": 18,
+        "fn": 6,
+        "recall": 0.8888888888888888,
+        "precision": 0.7272727272727273,
+        "fp_per_image": 0.5,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.31,
+        "by_class": {
+          "propeller": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.8571428571428571,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.9759547383309762
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 6,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.4,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.7576186190047576
+          },
+          "red_fin": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "recall": 0.5,
+            "precision": 1.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.7524752475247525
+          },
+          "net": {
+            "tp": 9,
+            "fp": 3,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.75,
+            "fp_per_image": 0.08333333333333333,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.9783978397839781
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 2,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.8571428571428571,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.993145468392993
+          },
+          "pipe": {
+            "tp": 15,
+            "fp": 6,
+            "fn": 3,
+            "recall": 0.8333333333333334,
+            "precision": 0.7142857142857143,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8255736287914506
+          }
+        },
+        "macro_recall": 0.8555555555555555,
+        "map50": 0.8805275903048181
+      },
+      "model_sha256": "71c1a1518b477bb0f855d3d0c675b9b97243eaf78424b696f62f825e9e4e0ef0",
+      "corrected": {
+        "tp": 47,
+        "fp": 18,
+        "fn": 7,
+        "recall": 0.8703703703703703,
+        "precision": 0.7230769230769231,
+        "fp_per_image": 0.5,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.31,
+        "by_class": {
+          "propeller": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.8571428571428571,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.9759547383309762
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 6,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.4,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.717114568599717
+          },
+          "red_fin": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "recall": 0.5,
+            "precision": 1.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.504950495049505
+          },
+          "net": {
+            "tp": 9,
+            "fp": 3,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.75,
+            "fp_per_image": 0.08333333333333333,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.9881188118811886
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.9230769230769231,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 1.0
+          },
+          "pipe": {
+            "tp": 14,
+            "fp": 7,
+            "fn": 4,
+            "recall": 0.7777777777777778,
+            "precision": 0.6666666666666666,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.741797709182683
+          }
+        },
+        "macro_recall": 0.8462962962962962,
+        "map50": 0.8213227205073449
+      },
+      "selected": {
+        "tp": 47,
+        "fp": 18,
+        "fn": 7,
+        "recall": 0.8703703703703703,
+        "precision": 0.7230769230769231,
+        "fp_per_image": 0.5,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.31,
+        "by_class": {
+          "propeller": {
+            "tp": 6,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.8571428571428571,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.9759547383309762
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 6,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.4,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.717114568599717
+          },
+          "red_fin": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "recall": 0.5,
+            "precision": 1.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.504950495049505
+          },
+          "net": {
+            "tp": 9,
+            "fp": 3,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.75,
+            "fp_per_image": 0.08333333333333333,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 1.0
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.9230769230769231,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 1.0
+          },
+          "pipe": {
+            "tp": 14,
+            "fp": 7,
+            "fn": 4,
+            "recall": 0.7777777777777778,
+            "precision": 0.6666666666666666,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.741797709182683
+          }
+        },
+        "macro_recall": 0.8462962962962962,
+        "map50": 0.8233029185271469
+      },
+      "accepted": {
+        "tp": 30,
+        "fp": 3,
+        "fn": 24,
+        "recall": 0.5555555555555556,
+        "precision": 0.9090909090909091,
+        "fp_per_image": 0.08333333333333333,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.31,
+        "by_class": {
+          "propeller": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 6,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.0
+          },
+          "pipe_type2": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.0
+          },
+          "red_fin": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.0
+          },
+          "net": {
+            "tp": 6,
+            "fp": 0,
+            "fn": 3,
+            "recall": 0.6666666666666666,
+            "precision": 1.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.6633663366336634
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.9230769230769231,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 1.0
+          },
+          "pipe": {
+            "tp": 12,
+            "fp": 2,
+            "fn": 6,
+            "recall": 0.6666666666666666,
+            "precision": 0.8571428571428571,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.6633663366336634
+          }
+        },
+        "macro_recall": 0.38888888888888884,
+        "map50": 0.3877887788778878
+      },
+      "quality_failures": 0,
+      "unreliable_count": 14,
+      "unreliable_ratio": 0.3888888888888889,
+      "new_correction_false_positives": 2,
+      "latency_mean_ms": 517.713888888889,
+      "latency_p95_ms": 739.5250000000001,
+      "positive_images": 36,
+      "positive_groups": 36,
+      "instances": 54,
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 51,
+        "matched_boxes": 23,
+        "groups": 19,
+        "instances_by_class": {
+          "propeller": 3,
+          "pipe_type2": 2,
+          "red_fin": 2,
+          "net": 5,
+          "qr_codes": 7,
+          "pipe": 8
+        },
+        "class_status": {
+          "propeller": "insufficient",
+          "pipe_type2": "insufficient",
+          "red_fin": "insufficient",
+          "net": "validation_fitted_small_sample",
+          "qr_codes": "validation_fitted_small_sample",
+          "pipe": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "simulated_under": {
+        "tp": 47,
+        "fp": 17,
+        "fn": 7,
+        "recall": 0.8703703703703703,
+        "precision": 0.734375,
+        "fp_per_image": 0.4722222222222222,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.31,
+        "by_class": {
+          "propeller": {
+            "tp": 5,
+            "fp": 2,
+            "fn": 1,
+            "recall": 0.8333333333333334,
+            "precision": 0.7142857142857143,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.9579207920792079
+          },
+          "pipe_type2": {
+            "tp": 5,
+            "fp": 6,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.45454545454545453,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.8302687411598298
+          },
+          "red_fin": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 2,
+            "recall": 0.5,
+            "precision": 1.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.7524752475247525
+          },
+          "net": {
+            "tp": 9,
+            "fp": 3,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.75,
+            "fp_per_image": 0.08333333333333333,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 1.0
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 1,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.9230769230769231,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 1.0
+          },
+          "pipe": {
+            "tp": 14,
+            "fp": 5,
+            "fn": 4,
+            "recall": 0.7777777777777778,
+            "precision": 0.7368421052631579,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8219774335796279
+          }
+        },
+        "macro_recall": 0.851851851851852,
+        "map50": 0.8937737023905696
+      },
+      "exploratory_only": false
+    },
+    "facilities_improved": {
+      "model": "facilities_improved",
+      "original": {
+        "tp": 49,
+        "fp": 50,
+        "fn": 5,
+        "recall": 0.9074074074074074,
+        "precision": 0.494949494949495,
+        "fp_per_image": 1.3888888888888888,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.09999999999999999,
+        "by_class": {
+          "propeller": {
+            "tp": 5,
+            "fp": 7,
+            "fn": 1,
+            "recall": 0.8333333333333334,
+            "precision": 0.4166666666666667,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.7835926449787836
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 4,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.5,
+            "fp_per_image": 0.1111111111111111,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.7846534653465347
+          },
+          "red_fin": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 1,
+            "recall": 0.75,
+            "precision": 0.42857142857142855,
+            "fp_per_image": 0.1111111111111111,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.7524752475247525
+          },
+          "net": {
+            "tp": 9,
+            "fp": 5,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.6428571428571429,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.9881188118811886
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 6,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.6666666666666666,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.982178217821782
+          },
+          "pipe": {
+            "tp": 16,
+            "fp": 24,
+            "fn": 2,
+            "recall": 0.8888888888888888,
+            "precision": 0.4,
+            "fp_per_image": 0.6666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8379139012802379
+          }
+        },
+        "macro_recall": 0.8787037037037037,
+        "map50": 0.85482204813888
+      },
+      "model_sha256": "bc49c6a669b43a2ff3006f4cf3d063dc8799b182e5046a036efc7d5e672a6c69",
+      "corrected": {
+        "tp": 49,
+        "fp": 53,
+        "fn": 5,
+        "recall": 0.9074074074074074,
+        "precision": 0.4803921568627451,
+        "fp_per_image": 1.4722222222222223,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.09999999999999999,
+        "by_class": {
+          "propeller": {
+            "tp": 5,
+            "fp": 7,
+            "fn": 1,
+            "recall": 0.8333333333333334,
+            "precision": 0.4166666666666667,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.7835926449787836
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 5,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.4444444444444444,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.7227722772277227
+          },
+          "red_fin": {
+            "tp": 3,
+            "fp": 2,
+            "fn": 1,
+            "recall": 0.75,
+            "precision": 0.6,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.6905940594059405
+          },
+          "net": {
+            "tp": 9,
+            "fp": 10,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.47368421052631576,
+            "fp_per_image": 0.2777777777777778,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.9702970297029703
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 7,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.631578947368421,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.993145468392993
+          },
+          "pipe": {
+            "tp": 16,
+            "fp": 22,
+            "fn": 2,
+            "recall": 0.8888888888888888,
+            "precision": 0.42105263157894735,
+            "fp_per_image": 0.6111111111111112,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8185368536853684
+          }
+        },
+        "macro_recall": 0.8787037037037037,
+        "map50": 0.8298230555656297
+      },
+      "selected": {
+        "tp": 49,
+        "fp": 53,
+        "fn": 5,
+        "recall": 0.9074074074074074,
+        "precision": 0.4803921568627451,
+        "fp_per_image": 1.4722222222222223,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.09999999999999999,
+        "by_class": {
+          "propeller": {
+            "tp": 5,
+            "fp": 7,
+            "fn": 1,
+            "recall": 0.8333333333333334,
+            "precision": 0.4166666666666667,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.7835926449787836
+          },
+          "pipe_type2": {
+            "tp": 4,
+            "fp": 5,
+            "fn": 1,
+            "recall": 0.8,
+            "precision": 0.4444444444444444,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.7227722772277227
+          },
+          "red_fin": {
+            "tp": 3,
+            "fp": 4,
+            "fn": 1,
+            "recall": 0.75,
+            "precision": 0.42857142857142855,
+            "fp_per_image": 0.1111111111111111,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.6905940594059405
+          },
+          "net": {
+            "tp": 9,
+            "fp": 7,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.5625,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.9881188118811886
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 7,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.631578947368421,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.9777227722772277
+          },
+          "pipe": {
+            "tp": 16,
+            "fp": 23,
+            "fn": 2,
+            "recall": 0.8888888888888888,
+            "precision": 0.41025641025641024,
+            "fp_per_image": 0.6388888888888888,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8282935060423336
+          }
+        },
+        "macro_recall": 0.8787037037037037,
+        "map50": 0.8318490119688661
+      },
+      "accepted": {
+        "tp": 32,
+        "fp": 10,
+        "fn": 22,
+        "recall": 0.5925925925925926,
+        "precision": 0.7619047619047619,
+        "fp_per_image": 0.2777777777777778,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.09999999999999999,
+        "by_class": {
+          "propeller": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 6,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.0
+          },
+          "pipe_type2": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 5,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.0
+          },
+          "red_fin": {
+            "tp": 0,
+            "fp": 0,
+            "fn": 4,
+            "recall": 0.0,
+            "precision": 0.0,
+            "fp_per_image": 0.0,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.0
+          },
+          "net": {
+            "tp": 8,
+            "fp": 2,
+            "fn": 1,
+            "recall": 0.8888888888888888,
+            "precision": 0.8,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 0.8811881188118812
+          },
+          "qr_codes": {
+            "tp": 10,
+            "fp": 1,
+            "fn": 2,
+            "recall": 0.8333333333333334,
+            "precision": 0.9090909090909091,
+            "fp_per_image": 0.027777777777777776,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.8316831683168316
+          },
+          "pipe": {
+            "tp": 14,
+            "fp": 7,
+            "fn": 4,
+            "recall": 0.7777777777777778,
+            "precision": 0.6666666666666666,
+            "fp_per_image": 0.19444444444444445,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.7550063277004393
+          }
+        },
+        "macro_recall": 0.4166666666666667,
+        "map50": 0.41131293580485867
+      },
+      "quality_failures": 0,
+      "unreliable_count": 12,
+      "unreliable_ratio": 0.3333333333333333,
+      "new_correction_false_positives": 9,
+      "latency_mean_ms": 503.16388888888883,
+      "latency_p95_ms": 712.375,
+      "positive_images": 36,
+      "positive_groups": 36,
+      "instances": 54,
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 54,
+        "matched_boxes": 25,
+        "groups": 19,
+        "instances_by_class": {
+          "propeller": 3,
+          "pipe_type2": 2,
+          "red_fin": 2,
+          "net": 5,
+          "qr_codes": 7,
+          "pipe": 8
+        },
+        "class_status": {
+          "propeller": "insufficient",
+          "pipe_type2": "insufficient",
+          "red_fin": "insufficient",
+          "net": "validation_fitted_small_sample",
+          "qr_codes": "validation_fitted_small_sample",
+          "pipe": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "simulated_under": {
+        "tp": 49,
+        "fp": 50,
+        "fn": 5,
+        "recall": 0.9074074074074074,
+        "precision": 0.494949494949495,
+        "fp_per_image": 1.3888888888888888,
+        "small_recall": null,
+        "small_count": 0,
+        "images": 36,
+        "threshold": 0.09999999999999999,
+        "by_class": {
+          "propeller": {
+            "tp": 5,
+            "fp": 10,
+            "fn": 1,
+            "recall": 0.8333333333333334,
+            "precision": 0.3333333333333333,
+            "fp_per_image": 0.2777777777777778,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 6,
+            "ap50": 0.6964204112718964
+          },
+          "pipe_type2": {
+            "tp": 3,
+            "fp": 2,
+            "fn": 2,
+            "recall": 0.6,
+            "precision": 0.6,
+            "fp_per_image": 0.05555555555555555,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 5,
+            "ap50": 0.5544554455445545
+          },
+          "red_fin": {
+            "tp": 3,
+            "fp": 5,
+            "fn": 1,
+            "recall": 0.75,
+            "precision": 0.375,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 4,
+            "ap50": 0.6534653465346535
+          },
+          "net": {
+            "tp": 9,
+            "fp": 6,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.6,
+            "fp_per_image": 0.16666666666666666,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 9,
+            "ap50": 1.0
+          },
+          "qr_codes": {
+            "tp": 12,
+            "fp": 5,
+            "fn": 0,
+            "recall": 1.0,
+            "precision": 0.7058823529411765,
+            "fp_per_image": 0.1388888888888889,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 12,
+            "ap50": 0.982178217821782
+          },
+          "pipe": {
+            "tp": 17,
+            "fp": 22,
+            "fn": 1,
+            "recall": 0.9444444444444444,
+            "precision": 0.4358974358974359,
+            "fp_per_image": 0.6111111111111112,
+            "small_recall": null,
+            "small_count": 0,
+            "instances": 18,
+            "ap50": 0.8866975947087609
+          }
+        },
+        "macro_recall": 0.8546296296296297,
+        "map50": 0.7955361693136079
+      },
+      "exploratory_only": false
+    },
+    "robot_improved": {
+      "model": "robot_improved",
+      "original": {
+        "tp": 50,
+        "fp": 1375,
+        "fn": 25,
+        "recall": 0.6666666666666666,
+        "precision": 0.03508771929824561,
+        "fp_per_image": 0.9124087591240876,
+        "small_recall": 0.0,
+        "small_count": 3,
+        "images": 1507,
+        "threshold": 0.08,
+        "by_class": {
+          "underwater_robot": {
+            "tp": 50,
+            "fp": 1375,
+            "fn": 25,
+            "recall": 0.6666666666666666,
+            "precision": 0.03508771929824561,
+            "fp_per_image": 0.9124087591240876,
+            "small_recall": 0.0,
+            "small_count": 3,
+            "instances": 75,
+            "ap50": 0.18879663826698403
+          }
+        },
+        "macro_recall": 0.6666666666666666,
+        "map50": 0.18879663826698403
+      },
+      "model_sha256": "f442291d163a3fbe3d21f567cedbac62061969e3bdb54908c42376aa60ee9d4d",
+      "corrected": {
+        "tp": 52,
+        "fp": 1442,
+        "fn": 23,
+        "recall": 0.6933333333333334,
+        "precision": 0.03480589022757698,
+        "fp_per_image": 0.9568679495686795,
+        "small_recall": 0.0,
+        "small_count": 3,
+        "images": 1507,
+        "threshold": 0.08,
+        "by_class": {
+          "underwater_robot": {
+            "tp": 52,
+            "fp": 1442,
+            "fn": 23,
+            "recall": 0.6933333333333334,
+            "precision": 0.03480589022757698,
+            "fp_per_image": 0.9568679495686795,
+            "small_recall": 0.0,
+            "small_count": 3,
+            "instances": 75,
+            "ap50": 0.19744757841507796
+          }
+        },
+        "macro_recall": 0.6933333333333334,
+        "map50": 0.19744757841507796
+      },
+      "selected": {
+        "tp": 52,
+        "fp": 1442,
+        "fn": 23,
+        "recall": 0.6933333333333334,
+        "precision": 0.03480589022757698,
+        "fp_per_image": 0.9568679495686795,
+        "small_recall": 0.0,
+        "small_count": 3,
+        "images": 1507,
+        "threshold": 0.08,
+        "by_class": {
+          "underwater_robot": {
+            "tp": 52,
+            "fp": 1442,
+            "fn": 23,
+            "recall": 0.6933333333333334,
+            "precision": 0.03480589022757698,
+            "fp_per_image": 0.9568679495686795,
+            "small_recall": 0.0,
+            "small_count": 3,
+            "instances": 75,
+            "ap50": 0.19744757841507796
+          }
+        },
+        "macro_recall": 0.6933333333333334,
+        "map50": 0.19744757841507796
+      },
+      "accepted": {
+        "tp": 13,
+        "fp": 29,
+        "fn": 62,
+        "recall": 0.17333333333333334,
+        "precision": 0.30952380952380953,
+        "fp_per_image": 0.019243530192435302,
+        "small_recall": 0.0,
+        "small_count": 3,
+        "images": 1507,
+        "threshold": 0.08,
+        "by_class": {
+          "underwater_robot": {
+            "tp": 13,
+            "fp": 29,
+            "fn": 62,
+            "recall": 0.17333333333333334,
+            "precision": 0.30952380952380953,
+            "fp_per_image": 0.019243530192435302,
+            "small_recall": 0.0,
+            "small_count": 3,
+            "instances": 75,
+            "ap50": 0.06646274383535915
+          }
+        },
+        "macro_recall": 0.17333333333333334,
+        "map50": 0.06646274383535915
+      },
+      "quality_failures": 4,
+      "unreliable_count": 1465,
+      "unreliable_ratio": 0.9721300597213006,
+      "new_correction_false_positives": 138,
+      "latency_mean_ms": 164.68433974784338,
+      "latency_p95_ms": 217.78000000000003,
+      "positive_images": 66,
+      "positive_groups": 66,
+      "instances": 75,
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 892,
+        "matched_boxes": 27,
+        "groups": 753,
+        "instances_by_class": {
+          "underwater_robot": 38
+        },
+        "class_status": {
+          "underwater_robot": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "exploratory_only": false
+    }
+  },
+  "training": {
+    "facilities_control": {
+      "status": "complete",
+      "branch": "facilities",
+      "strategy": "control",
+      "seed": 20261001,
+      "initialization_sha256": "907ea3f91ff92242bc1baea8049276a3e76bca48ce7560bd268cc029f37977b5",
+      "training_code_sha256": "902d48c59051927906558fcf1f0c32d1a5059aef954bedae3b4ddc18749921b3",
+      "manifest_sha256": "5fed9e376d7b115ed3a6319b1d1f1ca8711ca8fec52b1c97d969f469713e9203",
+      "train_images": 166,
+      "train_positive_images": 166,
+      "selection_images": 19,
+      "calibration_images": 19,
+      "max_epochs": 12,
+      "patience": 3,
+      "lr": 0.0002,
+      "checkpoint_sha256": "71c1a1518b477bb0f855d3d0c675b9b97243eaf78424b696f62f825e9e4e0ef0",
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 51,
+        "matched_boxes": 23,
+        "groups": 19,
+        "instances_by_class": {
+          "propeller": 3,
+          "pipe_type2": 2,
+          "red_fin": 2,
+          "net": 5,
+          "qr_codes": 7,
+          "pipe": 8
+        },
+        "class_status": {
+          "propeller": "insufficient",
+          "pipe_type2": "insufficient",
+          "red_fin": "insufficient",
+          "net": "validation_fitted_small_sample",
+          "qr_codes": "validation_fitted_small_sample",
+          "pipe": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "best_primary_metric": 0.9481481481481481,
+      "pre_validation_manifest_sha256": "aeb654d2c88f10e6c72b85e6f340e5ba38880dc6a824f6cff1f8ba02997ddbec",
+      "pre_test_correction": "One invalid nonrobot calibration negative excluded; identical train/selection rows and weights retained."
+    },
+    "facilities_improved": {
+      "status": "complete",
+      "branch": "facilities",
+      "strategy": "improved",
+      "seed": 20261001,
+      "initialization_sha256": "907ea3f91ff92242bc1baea8049276a3e76bca48ce7560bd268cc029f37977b5",
+      "training_code_sha256": "902d48c59051927906558fcf1f0c32d1a5059aef954bedae3b4ddc18749921b3",
+      "manifest_sha256": "5fed9e376d7b115ed3a6319b1d1f1ca8711ca8fec52b1c97d969f469713e9203",
+      "train_images": 166,
+      "train_positive_images": 166,
+      "selection_images": 19,
+      "calibration_images": 19,
+      "max_epochs": 12,
+      "patience": 3,
+      "lr": 0.0002,
+      "checkpoint_sha256": "bc49c6a669b43a2ff3006f4cf3d063dc8799b182e5046a036efc7d5e672a6c69",
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 54,
+        "matched_boxes": 25,
+        "groups": 19,
+        "instances_by_class": {
+          "propeller": 3,
+          "pipe_type2": 2,
+          "red_fin": 2,
+          "net": 5,
+          "qr_codes": 7,
+          "pipe": 8
+        },
+        "class_status": {
+          "propeller": "insufficient",
+          "pipe_type2": "insufficient",
+          "red_fin": "insufficient",
+          "net": "validation_fitted_small_sample",
+          "qr_codes": "validation_fitted_small_sample",
+          "pipe": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "best_primary_metric": 0.9814814814814815,
+      "pre_validation_manifest_sha256": "aeb654d2c88f10e6c72b85e6f340e5ba38880dc6a824f6cff1f8ba02997ddbec",
+      "pre_test_correction": "One invalid nonrobot calibration negative excluded; identical train/selection rows and weights retained."
+    },
+    "robot_improved": {
+      "status": "complete",
+      "branch": "robot",
+      "strategy": "improved",
+      "seed": 20261001,
+      "initialization_sha256": "907ea3f91ff92242bc1baea8049276a3e76bca48ce7560bd268cc029f37977b5",
+      "training_code_sha256": "2dd9f40dd32dc415d4eb4061fb4bcad0ecc1971807f52910b55aba7771adff35",
+      "manifest_sha256": "5fed9e376d7b115ed3a6319b1d1f1ca8711ca8fec52b1c97d969f469713e9203",
+      "train_images": 1208,
+      "train_positive_images": 302,
+      "selection_images": 754,
+      "calibration_images": 753,
+      "max_epochs": 4,
+      "patience": 3,
+      "lr": 0.0002,
+      "rpn_score_threshold_policy": {
+        "training": 0.0,
+        "validation_and_inference": 0.05,
+        "reason": "Negative-only robot batches need nonempty RoI proposals"
+      },
+      "resume_sha256": "f5eadc75e74585f98372b0b5caa750a3a14059daa7c10853065554cbacc608c2",
+      "resume_source": "D:\\CodexData\\optical_agent\\vision_v040\\models\\aborted_empty_roi_robot_improved.pt",
+      "optimizer_state": "AdamW reset after numerical failure",
+      "checkpoint_sha256": "f442291d163a3fbe3d21f567cedbac62061969e3bdb54908c42376aa60ee9d4d",
+      "calibration": {
+        "status": "validation_fitted_small_sample",
+        "predicted_boxes": 892,
+        "matched_boxes": 27,
+        "groups": 753,
+        "instances_by_class": {
+          "underwater_robot": 38
+        },
+        "class_status": {
+          "underwater_robot": "validation_fitted_small_sample"
+        },
+        "warning": "Isotonic scores estimate box precision on a small validation sample; not a deployment guarantee."
+      },
+      "best_primary_metric": 0.8421052631578947,
+      "numerical_skips": []
+    }
+  },
+  "stress": {
+    "challenge": {
+      "original": {
+        "images": 60,
+        "quality_failures": 0,
+        "exposure_states": {
+          "mixed": 1,
+          "normal": 31,
+          "underexposed": 28
+        },
+        "dark_fraction": 0.01694106867283951,
+        "bright_fraction": 0.0007930359739936765,
+        "noise_estimate": 0.0007752202656771987
+      },
+      "legacy_v030": {
+        "images": 60,
+        "elapsed_ms": 6.665174999883068,
+        "elapsed_ms_p95": 15.374225000687147,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 51,
+          "overexposed": 1,
+          "underexposed": 8
+        },
+        "dark_fraction": 0.002503194926697531,
+        "bright_fraction": 0.0008941584180523185,
+        "noise_estimate": 0.001023537669852376
+      },
+      "grid_17": {
+        "images": 60,
+        "elapsed_ms": 6.555290000081489,
+        "elapsed_ms_p95": 14.10366500076634,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 41,
+          "overexposed": 1,
+          "underexposed": 18
+        },
+        "dark_fraction": 0.003871258519804527,
+        "bright_fraction": 0.0008149383016685736,
+        "noise_estimate": 0.0009750846672058107
+      },
+      "gamma_reference": {
+        "images": 60,
+        "elapsed_ms": 2.313721666693406,
+        "elapsed_ms_p95": 5.046244998902694,
+        "quality_failures": 0,
+        "exposure_states": {
+          "normal": 51,
+          "overexposed": 1,
+          "underexposed": 8
+        },
+        "dark_fraction": 0.0026424957400977365,
+        "bright_fraction": 0.000963482299225158,
+        "noise_estimate": 0.0008600100056082011
+      }
+    },
+    "moud": {
+      "original": {
+        "images": 24,
+        "quality_failures": 8,
+        "exposure_states": {
+          "underexposed": 24
+        },
+        "dark_fraction": 0.5745225309668046,
+        "bright_fraction": 0.0,
+        "noise_estimate": 0.0017866306890202393
+      },
+      "legacy_v030": {
+        "images": 24,
+        "elapsed_ms": 11.717587499864143,
+        "elapsed_ms_p95": 18.743984999764507,
+        "quality_failures": 8,
+        "exposure_states": {
+          "normal": 2,
+          "underexposed": 22
+        },
+        "dark_fraction": 0.39001868858968675,
+        "bright_fraction": 1.2890009357762017e-05,
+        "noise_estimate": 0.003936644741310738
+      },
+      "grid_17": {
+        "images": 24,
+        "elapsed_ms": 12.126504166417362,
+        "elapsed_ms_p95": 19.878525000603986,
+        "quality_failures": 8,
+        "exposure_states": {
+          "normal": 2,
+          "underexposed": 22
+        },
+        "dark_fraction": 0.46700176843232866,
+        "bright_fraction": 5.0020931836091415e-06,
+        "noise_estimate": 0.003088747169403359
+      },
+      "gamma_reference": {
+        "images": 24,
+        "elapsed_ms": 3.975895833415658,
+        "elapsed_ms_p95": 6.587285000205156,
+        "quality_failures": 8,
+        "exposure_states": {
+          "normal": 2,
+          "underexposed": 22
+        },
+        "dark_fraction": 0.40513597613155045,
+        "bright_fraction": 4.328734485815602e-06,
+        "noise_estimate": 0.003194730230746791
+      }
+    }
+  },
+  "default": "historical six-class default retained; new models/profile explicitly selectable as experiments",
+  "ap_scope": "Original AP50 uses internal score floor0.05 candidates; corrected/selected/accepted AP50 are operating-threshold-truncated diagnostics, not equal-floor AP comparisons.",
+  "paid_llm_requests": 0,
+  "cost_verification_scope": "Visual scripts do not call a paid provider; offline web records have zero HTTP model attempts; no independent billing ledger.",
+  "formal_agent_eval": "unchanged, not repeated in this visual experiment",
+  "runtime_revision": "v040_delivery_r1; frozen single-frame implementation unchanged",
+  "protocol_limits": {
+    "calibration": "One pooled isotonic curve per branch, fit on original validation images; no per-class or corrected-image calibration validation.",
+    "freeze": "MOUD 24-image diagnostics, some imported dependencies and provenance records were not included in the pre-test freeze; subsequent supplementary hashes are post-evaluation.",
+    "delivery": "Adaptive offline demo chooses gamma-only by rule; fixed-pipeline reported correction uses full local profile. They are distinct execution paths.",
+    "detector_latency": "Excludes model load, input decode, overlays, web rendering and LLM; timer stops before overlays.",
+    "exposure_latency": "Correction plus paired metric calculation where applicable; excludes before/after quality assessments and input decoding."
+  },
+  "training_recovery": {
+    "robot": "two runs aborted in epoch4; final resume of validation-selected weights, at most4epochs; AdamW reset; RPN threshold0 only in training, .05 validation/inference; same seed, at most12attemptedepochs total",
+    "skipped_batches": []
+  },
+  "independence": "pixel/perceptual groups; true scene independence not verified; one seed only",
+  "case_table": {
+    "images_including_model_repeats": 1579,
+    "detection_error_rows": 624,
+    "unreliable_rows": 1491
+  }
+}

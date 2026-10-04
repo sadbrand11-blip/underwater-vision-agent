@@ -1,0 +1,1022 @@
+{
+  "run_id": "step2-20260929-pilot",
+  "app_version": "0.2.3",
+  "qualification": "小样本调度验证；20条保留验收案例未运行；案例标签由本轮预设，未经过外部人工复核。",
+  "budget": {
+    "limit": 120,
+    "used": 93,
+    "remaining": 27
+  },
+  "model": "deepseek-flash",
+  "frozen_file_sha256": "591c631b185e82d90532b3cbf629d1f28a93d91cef1dd327e64e35a9b8238b6b",
+  "cases_sha256": "6732db346038c8a74821567dd32e2bcfb20dcd5fd67be6ab6a25dd428404c839",
+  "published_annotation_note": "发布仅更正标签来源说明，案例、消息与expected标签和冻结快照完全一致。",
+  "phases": {
+    "before": {
+      "metrics": {
+        "planned_cases": 10,
+        "executed_cases": 10,
+        "executed_turns": 13,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 1.0,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 1.0,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 1.0,
+        "argument_accuracy": 0.8846153846153846,
+        "independent_turn_completion_rate": 1.0,
+        "independent_case_completion_rate": 1.0,
+        "planned_case_completion_rate": 1.0,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "request_attempts": 43,
+        "model_calls": {
+          "mean": 4.3,
+          "p95": 7.549999999999999
+        },
+        "tool_calls": {
+          "mean": 2.6,
+          "p95": 7.549999999999999
+        },
+        "latency_ms": {
+          "mean": 6940.7,
+          "p95": 12348.0
+        },
+        "tokens": {
+          "mean": 5392.4,
+          "p95": 12906.3
+        },
+        "known_token_usage": {
+          "prompt_tokens": 52494,
+          "completion_tokens": 1430,
+          "total_tokens": 53924
+        },
+        "token_usage_turns": 13,
+        "failures": {
+          "intent": 0,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 3,
+          "computation": 0,
+          "report": 0,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "cache_repeat": {
+            "cases": 1,
+            "completed": 1
+          },
+          "comparison": {
+            "cases": 1,
+            "completed": 1
+          },
+          "conditional": {
+            "cases": 1,
+            "completed": 1
+          },
+          "corrected_followup": {
+            "cases": 1,
+            "completed": 1
+          },
+          "correction": {
+            "cases": 1,
+            "completed": 1
+          },
+          "detection": {
+            "cases": 1,
+            "completed": 1
+          },
+          "explanation": {
+            "cases": 1,
+            "completed": 1
+          },
+          "missing_corrected": {
+            "cases": 1,
+            "completed": 1
+          },
+          "quality": {
+            "cases": 1,
+            "completed": 1
+          },
+          "unsupported": {
+            "cases": 1,
+            "completed": 1
+          }
+        },
+        "pilot_targets_met": false
+      },
+      "versions": {
+        "code_commit": "46ef9ba4b6383a1654892c4f9ee579b562d66e26",
+        "source_sha256": {
+          "runtime.py": "5cf822d49e1510bc065506440cffdc706f9d05266659fd6d08851b36f94ba9fe",
+          "tasks.py": "dfb3d45cba71521e3af404e9a04582899ec472ee4e7612ecb323de9a5aed4b47",
+          "tools.py": "e75234e9026f027a221c70db5857eabd604cd88de943bf0f7767b1f51ad44a19",
+          "llm.py": "4fcc8f6afebefb8ab8b97ce1e3ef692148a4dd71c324c370503c28ef9e0d392c",
+          "independent_eval.py": "eff0f47c527385d9d98b734b7da12aa7da081fe5208ea61bd6f27440b65de5e7",
+          "request_budget.py": "2b0e5de03b28dc189be4a8efcf457454b860461307ded460fb29907a8b8000b2",
+          "reports.py": "ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55"
+        },
+        "prompt_sha256": "5b63d970d7757887d005d1546e585c5fbdf46ba0d4bda3b7e98595172675cc75"
+      },
+      "case_ids": [
+        "dev_01",
+        "dev_02",
+        "dev_03",
+        "dev_04",
+        "dev_05",
+        "dev_06",
+        "dev_07",
+        "dev_08",
+        "dev_09",
+        "dev_10"
+      ]
+    },
+    "fix1": {
+      "metrics": {
+        "planned_cases": 5,
+        "executed_cases": 5,
+        "executed_turns": 6,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 1.0,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 1.0,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "independent_turn_completion_rate": 1.0,
+        "independent_case_completion_rate": 1.0,
+        "planned_case_completion_rate": 1.0,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "request_attempts": 27,
+        "model_calls": {
+          "mean": 5.4,
+          "p95": 7.0
+        },
+        "tool_calls": {
+          "mean": 4.0,
+          "p95": 7.6
+        },
+        "latency_ms": {
+          "mean": 8684.6,
+          "p95": 11878.8
+        },
+        "tokens": {
+          "mean": 8834.0,
+          "p95": 16140.999999999998
+        },
+        "known_token_usage": {
+          "prompt_tokens": 43169,
+          "completion_tokens": 1001,
+          "total_tokens": 44170
+        },
+        "token_usage_turns": 6,
+        "failures": {
+          "intent": 0,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 0,
+          "computation": 0,
+          "report": 0,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "comparison": {
+            "cases": 1,
+            "completed": 1
+          },
+          "corrected_followup": {
+            "cases": 1,
+            "completed": 1
+          },
+          "correction": {
+            "cases": 1,
+            "completed": 1
+          },
+          "explanation": {
+            "cases": 1,
+            "completed": 1
+          },
+          "quality": {
+            "cases": 1,
+            "completed": 1
+          }
+        },
+        "pilot_targets_met": true
+      },
+      "versions": {
+        "code_commit": "46ef9ba4b6383a1654892c4f9ee579b562d66e26",
+        "source_sha256": {
+          "runtime.py": "dea08cdbce1b94d96e87870dc248e2426bb9693c54b683431735839048336c81",
+          "tasks.py": "dfb3d45cba71521e3af404e9a04582899ec472ee4e7612ecb323de9a5aed4b47",
+          "tools.py": "ca7bc10726294846fd5f2bccafeeffad62661fd9da7cda5b2dd208eb670daaa0",
+          "llm.py": "4fcc8f6afebefb8ab8b97ce1e3ef692148a4dd71c324c370503c28ef9e0d392c",
+          "independent_eval.py": "eff0f47c527385d9d98b734b7da12aa7da081fe5208ea61bd6f27440b65de5e7",
+          "request_budget.py": "2b0e5de03b28dc189be4a8efcf457454b860461307ded460fb29907a8b8000b2",
+          "reports.py": "ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55"
+        },
+        "prompt_sha256": "35acec93b8d11564f5eebb152b9aefbf9c0d1ed7fcd87f251a234aef2f6e2927"
+      },
+      "case_ids": [
+        "dev_01",
+        "dev_02",
+        "dev_04",
+        "dev_05",
+        "dev_06"
+      ]
+    },
+    "real": {
+      "metrics": {
+        "planned_cases": 5,
+        "executed_cases": 5,
+        "executed_turns": 6,
+        "parsing_coverage": 1.0,
+        "intent_accuracy_on_parsed": 1.0,
+        "image_accuracy_on_parsed": 1.0,
+        "intent_accuracy_all_requests": 1.0,
+        "image_accuracy_all_requests": 1.0,
+        "tool_selection_accuracy": 1.0,
+        "argument_accuracy": 1.0,
+        "independent_turn_completion_rate": 1.0,
+        "independent_case_completion_rate": 1.0,
+        "planned_case_completion_rate": 1.0,
+        "unregistered_tool_executions": 0,
+        "reliability_overrides": 0,
+        "request_attempts": 23,
+        "model_calls": {
+          "mean": 4.6,
+          "p95": 6.8
+        },
+        "tool_calls": {
+          "mean": 2.6,
+          "p95": 5.3999999999999995
+        },
+        "latency_ms": {
+          "mean": 7540.8,
+          "p95": 10878.6
+        },
+        "tokens": {
+          "mean": 6146.8,
+          "p95": 10721.199999999999
+        },
+        "known_token_usage": {
+          "prompt_tokens": 30029,
+          "completion_tokens": 705,
+          "total_tokens": 30734
+        },
+        "token_usage_turns": 6,
+        "failures": {
+          "intent": 0,
+          "image_reference": 0,
+          "tool_selection": 0,
+          "parameters": 0,
+          "computation": 0,
+          "report": 0,
+          "api": 0,
+          "budget": 0,
+          "parsing": 0,
+          "setup": 0,
+          "facts": 0
+        },
+        "formal_acceptance": false,
+        "by_kind": {
+          "comparison": {
+            "cases": 1,
+            "completed": 1
+          },
+          "corrected_followup": {
+            "cases": 1,
+            "completed": 1
+          },
+          "correction": {
+            "cases": 1,
+            "completed": 1
+          },
+          "detection": {
+            "cases": 1,
+            "completed": 1
+          },
+          "quality": {
+            "cases": 1,
+            "completed": 1
+          }
+        },
+        "pilot_targets_met": true
+      },
+      "versions": {
+        "code_commit": "46ef9ba4b6383a1654892c4f9ee579b562d66e26",
+        "source_sha256": {
+          "runtime.py": "dea08cdbce1b94d96e87870dc248e2426bb9693c54b683431735839048336c81",
+          "tasks.py": "dfb3d45cba71521e3af404e9a04582899ec472ee4e7612ecb323de9a5aed4b47",
+          "tools.py": "ca7bc10726294846fd5f2bccafeeffad62661fd9da7cda5b2dd208eb670daaa0",
+          "llm.py": "4fcc8f6afebefb8ab8b97ce1e3ef692148a4dd71c324c370503c28ef9e0d392c",
+          "independent_eval.py": "eff0f47c527385d9d98b734b7da12aa7da081fe5208ea61bd6f27440b65de5e7",
+          "request_budget.py": "2b0e5de03b28dc189be4a8efcf457454b860461307ded460fb29907a8b8000b2",
+          "reports.py": "ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55"
+        },
+        "prompt_sha256": "35acec93b8d11564f5eebb152b9aefbf9c0d1ed7fcd87f251a234aef2f6e2927"
+      },
+      "case_ids": [
+        "dev_01",
+        "dev_02",
+        "dev_03",
+        "dev_04",
+        "dev_06"
+      ]
+    }
+  },
+  "paired": {
+    "comparison": {
+      "paired_cases": 5,
+      "before_completed": 5,
+      "after_completed": 5,
+      "improved_ids": [],
+      "regressed_ids": []
+    },
+    "before_metrics": {
+      "planned_cases": 5,
+      "executed_cases": 5,
+      "executed_turns": 6,
+      "parsing_coverage": 1.0,
+      "intent_accuracy_on_parsed": 1.0,
+      "image_accuracy_on_parsed": 1.0,
+      "intent_accuracy_all_requests": 1.0,
+      "image_accuracy_all_requests": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "argument_accuracy": 0.8695652173913043,
+      "independent_turn_completion_rate": 1.0,
+      "independent_case_completion_rate": 1.0,
+      "planned_case_completion_rate": 1.0,
+      "unregistered_tool_executions": 0,
+      "reliability_overrides": 0,
+      "request_attempts": 29,
+      "model_calls": {
+        "mean": 5.8,
+        "p95": 7.8
+      },
+      "tool_calls": {
+        "mean": 4.6,
+        "p95": 7.8
+      },
+      "latency_ms": {
+        "mean": 9394.0,
+        "p95": 12563.0
+      },
+      "tokens": {
+        "mean": 8555.8,
+        "p95": 13117.8
+      },
+      "known_token_usage": {
+        "prompt_tokens": 41670,
+        "completion_tokens": 1109,
+        "total_tokens": 42779
+      },
+      "token_usage_turns": 6,
+      "failures": {
+        "intent": 0,
+        "image_reference": 0,
+        "tool_selection": 0,
+        "parameters": 3,
+        "computation": 0,
+        "report": 0,
+        "api": 0,
+        "budget": 0,
+        "parsing": 0,
+        "setup": 0,
+        "facts": 0
+      },
+      "formal_acceptance": false,
+      "by_kind": {
+        "comparison": {
+          "cases": 1,
+          "completed": 1
+        },
+        "corrected_followup": {
+          "cases": 1,
+          "completed": 1
+        },
+        "correction": {
+          "cases": 1,
+          "completed": 1
+        },
+        "explanation": {
+          "cases": 1,
+          "completed": 1
+        },
+        "quality": {
+          "cases": 1,
+          "completed": 1
+        }
+      },
+      "pilot_targets_met": false
+    },
+    "after_metrics": {
+      "planned_cases": 5,
+      "executed_cases": 5,
+      "executed_turns": 6,
+      "parsing_coverage": 1.0,
+      "intent_accuracy_on_parsed": 1.0,
+      "image_accuracy_on_parsed": 1.0,
+      "intent_accuracy_all_requests": 1.0,
+      "image_accuracy_all_requests": 1.0,
+      "tool_selection_accuracy": 1.0,
+      "argument_accuracy": 1.0,
+      "independent_turn_completion_rate": 1.0,
+      "independent_case_completion_rate": 1.0,
+      "planned_case_completion_rate": 1.0,
+      "unregistered_tool_executions": 0,
+      "reliability_overrides": 0,
+      "request_attempts": 27,
+      "model_calls": {
+        "mean": 5.4,
+        "p95": 7.0
+      },
+      "tool_calls": {
+        "mean": 4.0,
+        "p95": 7.6
+      },
+      "latency_ms": {
+        "mean": 8684.6,
+        "p95": 11878.8
+      },
+      "tokens": {
+        "mean": 8834.0,
+        "p95": 16140.999999999998
+      },
+      "known_token_usage": {
+        "prompt_tokens": 43169,
+        "completion_tokens": 1001,
+        "total_tokens": 44170
+      },
+      "token_usage_turns": 6,
+      "failures": {
+        "intent": 0,
+        "image_reference": 0,
+        "tool_selection": 0,
+        "parameters": 0,
+        "computation": 0,
+        "report": 0,
+        "api": 0,
+        "budget": 0,
+        "parsing": 0,
+        "setup": 0,
+        "facts": 0
+      },
+      "formal_acceptance": false,
+      "by_kind": {
+        "comparison": {
+          "cases": 1,
+          "completed": 1
+        },
+        "corrected_followup": {
+          "cases": 1,
+          "completed": 1
+        },
+        "correction": {
+          "cases": 1,
+          "completed": 1
+        },
+        "explanation": {
+          "cases": 1,
+          "completed": 1
+        },
+        "quality": {
+          "cases": 1,
+          "completed": 1
+        }
+      },
+      "pilot_targets_met": true
+    }
+  },
+  "all_executions": {
+    "planned_cases": 20,
+    "executed_cases": 20,
+    "executed_turns": 25,
+    "parsing_coverage": 1.0,
+    "intent_accuracy_on_parsed": 1.0,
+    "image_accuracy_on_parsed": 1.0,
+    "intent_accuracy_all_requests": 1.0,
+    "image_accuracy_all_requests": 1.0,
+    "tool_selection_accuracy": 1.0,
+    "argument_accuracy": 0.9491525423728814,
+    "independent_turn_completion_rate": 1.0,
+    "independent_case_completion_rate": 1.0,
+    "planned_case_completion_rate": 1.0,
+    "unregistered_tool_executions": 0,
+    "reliability_overrides": 0,
+    "request_attempts": 93,
+    "model_calls": {
+      "mean": 4.65,
+      "p95": 7.050000000000001
+    },
+    "tool_calls": {
+      "mean": 2.95,
+      "p95": 8.0
+    },
+    "latency_ms": {
+      "mean": 7526.7,
+      "p95": 12067.15
+    },
+    "tokens": {
+      "mean": 6441.4,
+      "p95": 13499.500000000004
+    },
+    "known_token_usage": {
+      "prompt_tokens": 125692,
+      "completion_tokens": 3136,
+      "total_tokens": 128828
+    },
+    "token_usage_turns": 25,
+    "failures": {
+      "intent": 0,
+      "image_reference": 0,
+      "tool_selection": 0,
+      "parameters": 3,
+      "computation": 0,
+      "report": 0,
+      "api": 0,
+      "budget": 0,
+      "parsing": 0,
+      "setup": 0,
+      "facts": 0
+    },
+    "formal_acceptance": false,
+    "by_kind": {
+      "cache_repeat": {
+        "cases": 1,
+        "completed": 1
+      },
+      "comparison": {
+        "cases": 3,
+        "completed": 3
+      },
+      "conditional": {
+        "cases": 1,
+        "completed": 1
+      },
+      "corrected_followup": {
+        "cases": 3,
+        "completed": 3
+      },
+      "correction": {
+        "cases": 3,
+        "completed": 3
+      },
+      "detection": {
+        "cases": 2,
+        "completed": 2
+      },
+      "explanation": {
+        "cases": 2,
+        "completed": 2
+      },
+      "missing_corrected": {
+        "cases": 1,
+        "completed": 1
+      },
+      "quality": {
+        "cases": 3,
+        "completed": 3
+      },
+      "unsupported": {
+        "cases": 1,
+        "completed": 1
+      }
+    },
+    "pilot_targets_met": false
+  },
+  "http_trace": {
+    "attempts": 93,
+    "http_200": 93,
+    "retries": 0
+  },
+  "failures": [
+    {
+      "case": "dev_02",
+      "turn": 0,
+      "category": "prerequisite",
+      "tool": "correct_image_exposure",
+      "arguments": {
+        "image_id": "original"
+      },
+      "reason": "请先调用 assess_image_quality 评估原图",
+      "recovered": true
+    },
+    {
+      "case": "dev_04",
+      "turn": 0,
+      "category": "prerequisite",
+      "tool": "compare_detection_evidence",
+      "arguments": {
+        "original_image_id": "original",
+        "corrected_image_id": "corrected"
+      },
+      "reason": "缺少 corrected 的质量或检测结果，请先完成相应工具",
+      "recovered": true
+    },
+    {
+      "case": "dev_06",
+      "turn": 0,
+      "category": "prerequisite",
+      "tool": "correct_image_exposure",
+      "arguments": {
+        "image_id": "original"
+      },
+      "reason": "请先调用 assess_image_quality 评估原图",
+      "recovered": true
+    }
+  ],
+  "real_images": [
+    {
+      "case": "dev_01",
+      "index": 6,
+      "source": "frame_13833_433s_802ms_original.jpg",
+      "image_sha256": "386c35279b6cf0154b785e6fc21e252051c06c4b1767140bd3e0918b0a2dd294",
+      "turns": [
+        {
+          "message": "只检查这张原图的曝光，不要识别目标。",
+          "contract": {
+            "task_type": "quality",
+            "task_name": "检查曝光",
+            "image_reference": "original",
+            "image_id": "original",
+            "start_image_id": "original",
+            "required_evidence_ids": [
+              "quality:original"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "原图：曝光评估"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": null,
+          "cv_counts": {},
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 1,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        }
+      ]
+    },
+    {
+      "case": "dev_02",
+      "index": 7,
+      "source": "frame_1431_44s_797ms_original.jpg",
+      "image_sha256": "1514aec8c009bb29547bc0a8c7afdc95345445bddcd38847c00c0e24bbdb9d03",
+      "turns": [
+        {
+          "message": "只校正原图曝光，给我候选图和处理参数。",
+          "contract": {
+            "task_type": "correction",
+            "task_name": "只校正曝光",
+            "image_reference": "original",
+            "image_id": "original",
+            "start_image_id": "original",
+            "required_evidence_ids": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "原图：校正候选图与处理参数"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": null,
+          "cv_counts": {},
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 2,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        }
+      ]
+    },
+    {
+      "case": "dev_03",
+      "index": 8,
+      "source": "frame_14940_896s_74ms_original.jpg",
+      "image_sha256": "31bacc9ba26d6d01593f57925cc5cb93edd587942c9ab2055c0a6a59b34fe75f",
+      "turns": [
+        {
+          "message": "识别原图中的目标，给出检测候选。",
+          "contract": {
+            "task_type": "detection",
+            "task_name": "识别目标",
+            "image_reference": "original",
+            "image_id": "original",
+            "start_image_id": "original",
+            "required_evidence_ids": [
+              "detections:original"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "原图：目标检测结果（允许没有候选框）"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": null,
+          "cv_counts": {
+            "original": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 2,
+              "recall": 0.3333333333333333,
+              "precision": 0.5,
+              "fp_per_image": 1.0,
+              "small_recall": null,
+              "small_count": 0
+            }
+          },
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 1,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        }
+      ]
+    },
+    {
+      "case": "dev_04",
+      "index": 9,
+      "source": "frame_15438_928s_767ms_original.jpg",
+      "image_sha256": "005f57b7525dcdbdc1de0ce13d66e9b3d01911cf4b26e4395a15f5887ab5c41c",
+      "turns": [
+        {
+          "message": "比较校正前后识别有没有改善。",
+          "contract": {
+            "task_type": "comparison",
+            "task_name": "比较校正前后",
+            "image_reference": "current",
+            "image_id": "original",
+            "start_image_id": "original",
+            "required_evidence_ids": [
+              "comparison:original"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "原图：完整前后比较证据"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": "reliable",
+          "cv_counts": {
+            "original": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "recall": 1.0,
+              "precision": 0.5,
+              "fp_per_image": 1.0,
+              "small_recall": null,
+              "small_count": 0
+            },
+            "corrected": {
+              "tp": 1,
+              "fp": 1,
+              "fn": 0,
+              "recall": 1.0,
+              "precision": 0.5,
+              "fp_per_image": 1.0,
+              "small_recall": null,
+              "small_count": 0
+            },
+            "accepted": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "recall": 1.0,
+              "precision": 1.0,
+              "fp_per_image": 0.0,
+              "small_recall": null,
+              "small_count": 0
+            }
+          },
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 6,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        }
+      ]
+    },
+    {
+      "case": "dev_06",
+      "index": 10,
+      "source": "frame_17355_968s_640ms_original.jpg",
+      "image_sha256": "b3287f2d2cd12411191adee7427f152dcef8f6960632c184d6f859613a1acf20",
+      "turns": [
+        {
+          "message": "只校正原图曝光。",
+          "contract": {
+            "task_type": "correction",
+            "task_name": "只校正曝光",
+            "image_reference": "original",
+            "image_id": "original",
+            "start_image_id": "original",
+            "required_evidence_ids": [
+              "correction:original"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "原图：校正候选图与处理参数"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": null,
+          "cv_counts": {},
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 2,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        },
+        {
+          "message": "识别校正后的那张图中的目标。",
+          "contract": {
+            "task_type": "detection",
+            "task_name": "识别目标",
+            "image_reference": "corrected",
+            "image_id": "corrected",
+            "start_image_id": "corrected",
+            "required_evidence_ids": [
+              "detections:corrected"
+            ],
+            "requires_citations": false,
+            "requirements": [
+              "校正图：目标检测结果（允许没有候选框）"
+            ],
+            "disposition": "ready",
+            "question": ""
+          },
+          "status": "completed",
+          "vision_status": null,
+          "cv_counts": {
+            "corrected": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 0,
+              "recall": 1.0,
+              "precision": 1.0,
+              "fp_per_image": 0.0,
+              "small_recall": null,
+              "small_count": 0
+            }
+          },
+          "score": {
+            "parsed": true,
+            "intent_correct": true,
+            "image_correct": true,
+            "tool_selection_correct": true,
+            "evidence_correct": true,
+            "citations_correct": true,
+            "fact_match": true,
+            "task_completed": true,
+            "setup_ok": true,
+            "original_preserved": true,
+            "cache_correct": true,
+            "tool_call_count": 1,
+            "invalid_argument_count": 0,
+            "unregistered_tool_executions": 0,
+            "reliability_overrides": 0,
+            "failure_categories": []
+          }
+        }
+      ]
+    }
+  ],
+  "environment": {
+    "python": "3.11.5",
+    "packages": {
+      "numpy": "1.26.3",
+      "torch": "2.2.0+cu118",
+      "torchvision": "0.17.0+cu118",
+      "requests": "2.31.0",
+      "scikit-learn": "1.3.0"
+    }
+  },
+  "vision_weights": {
+    "path": "models/sodd_detector.pt",
+    "sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a",
+    "retrained": false
+  },
+  "web_check": {
+    "app_version": "0.2.3",
+    "python_tests_passed": 92,
+    "ui_cases_passed": 8,
+    "new_session_tasks": [
+      "quality:original",
+      "comparison:original",
+      "detections:corrected"
+    ],
+    "original_preserved": true,
+    "cloud_requests": 0
+  },
+  "final_offline_budget_hardening": {
+    "description": "已初始化计数文件丢失时禁止归零；仅离线测试，不新增云端请求",
+    "versions": {
+      "code_commit": "46ef9ba4b6383a1654892c4f9ee579b562d66e26",
+      "source_sha256": {
+        "runtime.py": "dea08cdbce1b94d96e87870dc248e2426bb9693c54b683431735839048336c81",
+        "tasks.py": "dfb3d45cba71521e3af404e9a04582899ec472ee4e7612ecb323de9a5aed4b47",
+        "tools.py": "ca7bc10726294846fd5f2bccafeeffad62661fd9da7cda5b2dd208eb670daaa0",
+        "llm.py": "4fcc8f6afebefb8ab8b97ce1e3ef692148a4dd71c324c370503c28ef9e0d392c",
+        "independent_eval.py": "eff0f47c527385d9d98b734b7da12aa7da081fe5208ea61bd6f27440b65de5e7",
+        "request_budget.py": "525182d5cd8fb9d144546645af627be679abc924d6b771129d1c1c8ca398d51b",
+        "reports.py": "ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55"
+      },
+      "prompt_sha256": "35acec93b8d11564f5eebb152b9aefbf9c0d1ed7fcd87f251a234aef2f6e2927"
+    },
+    "budget": {
+      "limit": 120,
+      "used": 93,
+      "remaining": 27
+    }
+  }
+}

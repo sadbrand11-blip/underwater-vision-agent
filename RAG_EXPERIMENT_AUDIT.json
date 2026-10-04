@@ -1,0 +1,98 @@
+{
+  "audit_skill": "experiment-audit",
+  "version": "0.5.0",
+  "run_id": "rag_v050_20261003",
+  "verdict": "WARN",
+  "reason_code": "qualified_proxy_scope_and_historical_freeze_limitations",
+  "summary": "Numerical retrieval scores independently reproduced. Delivery defects corrected; mixed historical README is warned rather than fully isolated, and initial index/publication identities were not prefrozen.",
+  "audited_input_hashes": {
+    "eval/rag_questions.json": "ff51b070eb2bec46b9bb4b66921a6dc0891ae4e7e176cce2bf81aebc99c6b541",
+    "original_freeze.json": "aa1cdf2113c7e6a1d78c0e757891e7faf0feaecba86a35ea399a976cd7bf7803",
+    "dev.json": "7a412ee63f13f2be63d213043e4131d5d8bf59b44a4de1c0f17d1ff52b76753b",
+    "test.json": "fbfbf6aaf13d19bf74a63dc2d80cbdb5be44190225744f12e6d286960c1ff115",
+    "selection.json": "f1051cf55933b25ca76cbed19bf132cdeffbf75add1851dba1fe25a562a6a7cd"
+  },
+  "trace_path": "D:\\CodexData\\optical_agent\\rag\\runs\\rag_v050_20261003\\audit",
+  "agent_id": "/root/rag_experiment_audit",
+  "verdict_id": "rag_v050_20261003_experiment_WARN",
+  "executor_model": "Codex/GPT-6 family; exact backend unverified",
+  "executor_family": "openai",
+  "reviewer_model_requested": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning_requested": "ultra",
+  "reviewer_identity_verified": false,
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-10-03T11:13:02.136003+00:00",
+  "date": "2026-10-03",
+  "overall_verdict": "warn",
+  "integrity_status": "warn",
+  "checks": {
+    "gt_provenance": {
+      "status": "warn",
+      "details": "100 questions, 41 evidence groups, 60 source quotations independently checked. Automatic source-anchored labels, without external human acceptance. Historical README receives explicit scope warning; chunk-level scope isolation remains incomplete."
+    },
+    "score_normalization": {
+      "status": "pass",
+      "details": "All 780 records independently recomputed, zero discrepancies. Recall uses evidence-group denominators; negatives excluded from Recall/MRR."
+    },
+    "result_existence": {
+      "status": "warn",
+      "details": "All 89 original frozen files and local model/index assets verified. Clean reconstruction repaired and tested. Original freeze did not anchor index/publication policy; future freezes strengthened without rewriting history."
+    },
+    "dead_code": {
+      "status": "pass",
+      "details": "Metrics and 10 grouped-bootstrap intervals executed and independently reproduced. error_citations empty placeholder is not interpreted as a measured error rate."
+    },
+    "scope": {
+      "status": "pass_with_qualifiers",
+      "details": "Limited 100-question proxy experiment, one split. Holdout thresholds frozen from development. Five timing repetitions are not five independent evaluations. Improvement CI spans zero."
+    },
+    "eval_type": "automatic_source_anchored_retrieval_QA_proxy"
+  },
+  "claims": [
+    {
+      "id": "C1_calibrated_delivered_recall_gain",
+      "impact": "supported_with_small_sample_qualifier",
+      "recall3_gain": 0.125,
+      "ci95": [
+        -0.05555555555555555,
+        0.2717391304347826
+      ]
+    },
+    {
+      "id": "C2_statistically_established_superiority",
+      "impact": "unsupported"
+    },
+    {
+      "id": "C3_improved_LLM_answer_or_visual_accuracy",
+      "impact": "not_evaluated"
+    },
+    {
+      "id": "C4_complete_historical_source_isolation",
+      "impact": "unsupported; explicit warnings implemented"
+    }
+  ],
+  "labels": {
+    "initial_verdict": "FAIL",
+    "final_label_gate": "PASS",
+    "final_scope": "WARN",
+    "external_human_acceptance": false,
+    "corrections_before_rank_evaluation": true
+  },
+  "delivery_checks": {
+    "python_tests_passed": 176,
+    "python_warning_count": 1,
+    "web_diagnostic_cases_passed": 9,
+    "clean_corpus_reconstruction": "exact C0/C1 fingerprint match",
+    "paid_api_requests": 0,
+    "rag_delivery_revision": "v050_rag_delivery_r3"
+  },
+  "retained_limitations": [
+    "initial indexes and publisher not frozen before ranking experiment",
+    "mixed historical README scoped using warnings rather than complete chunk filtering",
+    "strict negative return is an abstention proxy, not an LLM hallucination rate",
+    "reviewers from same model family; provisional semantic judgment",
+    "remote bytes not all independently redownloaded by reviewer"
+  ]
+}

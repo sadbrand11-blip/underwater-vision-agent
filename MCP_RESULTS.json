@@ -1,0 +1,77 @@
+{
+  "app_version": "0.5.3",
+  "timestamp_utc": "2026-10-04T05:33:01.670336+00:00",
+  "mcp_version": "2.3.0",
+  "transport": "stdio",
+  "initialization": "legacy_initialize",
+  "tools": [
+    "assess_image_quality",
+    "detect_objects",
+    "generate_exposure_candidate"
+  ],
+  "source_file": "frame_13833_433s_802ms_original.jpg",
+  "source_index": 6,
+  "source_sha256": "ec4fad7bf77cd67269cc368c941d6766d40e268768a213170246c0d43796b442",
+  "code_sha256": {
+    "serve_mcp.py": "7a13e46ffd61523fbe7fc64cd37fd380c7db88a3d55a0854e60c3c121edad59c",
+    "demo_mcp.py": "bcc131ca15d07ccde38c919e24f164b8f112164c21cd0b7525927495befeb32f",
+    "optical_agent/mcp_adapter.py": "7600423ee45a69ca71db555680c7d715fd5273254c533b6873684d6322cb16be",
+    "optical_agent/mcp_server.py": "b797da7bc045a702a6ccec6fb6bb28aab93874e4b9e04acaed370b77c8a9e82f",
+    "optical_agent/adaptive_tools.py": "ee24213b97f444fcdc68d229d0b6d88a5a2f12edb93ed3b8b64a26c8b645e9d9",
+    "optical_agent/adaptive_goals.py": "b11e8dd9c85b1ef174f155de7622efd32c5b99523efd9cc4af3a8a50dcb93dab",
+    "quality.py": "a9d33cd1cbc2c282bff8d641e01140ebef998f2fefb0bca60c596e17c3b4c512",
+    "detector.py": "5145e8513bc45370dcac1e3517f704af4d2d9830a660cd0236875ff0fd2f7a24"
+  },
+  "model_sha256": "e467287adc7bc62021ab98597c8ecb411d99464b6b5488b9259b0b3666eabb1a",
+  "configuration_sha256": "c4f59bdfcdd8ffefc1fb85ca11df691102c18946d1b70339717604878725835d",
+  "checks": {
+    "original_quality_equal": true,
+    "candidate_quality_equal": true,
+    "correction_parameters_equal": true,
+    "original_boxes_equal": true,
+    "candidate_boxes_equal": true,
+    "configuration_equal": true,
+    "model_equal": true,
+    "cache_reused": true,
+    "original_file_preserved": true
+  },
+  "all_checks_passed": true,
+  "tool_calls": 8,
+  "paid_api_requests": 0,
+  "exposure_state": "normal",
+  "candidate_applied": false,
+  "original_candidate_count": 4,
+  "corrected_candidate_count": 4,
+  "direct_computation_counts": {
+    "quality": 2,
+    "detection": 2,
+    "correction": 1,
+    "comparison": 0
+  },
+  "existing_python_tests_passed": 237,
+  "regression_run": {
+    "passed": 251,
+    "skipped": 3,
+    "seconds": 172.98,
+    "notes": "Before final MCP-only taxonomy/error guards. All existing tests passed; includes 14 overlapping new adapter tests. Two protocol cases skipped in this environment."
+  },
+  "final_mcp_test_run": {
+    "passed": 17,
+    "skipped": 1,
+    "seconds": 7.75,
+    "skip_reason": "Windows token cannot create symbolic links. Resolved outside-root paths are separately tested."
+  },
+  "web_checks": {
+    "frontend_cases_passed": 22,
+    "health_http": 200,
+    "agent_http": 200,
+    "running_web_version": "0.5.2",
+    "existing_web_process_preserved": true
+  },
+  "scope": "真实 MCP 协议及现有视觉工具一致性验证；不代表 LLM 调度或视觉精度提高。",
+  "not_claimed": [
+    "LLM orchestration improvement",
+    "Detection accuracy improvement",
+    "Formal Agent Eval re-acceptance"
+  ]
+}
