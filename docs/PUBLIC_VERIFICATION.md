@@ -102,6 +102,21 @@ suites. This verifies a fresh Linux setup independently of the local Windows
 environment. The initial failed jobs are retained rather than replaced.
 
 The anonymous clone was fast-forwarded to this commit and its eight public-entry
-tests passed. GitHub renders the Mermaid diagram and loaded the actual 960 x1540
+tests passed. GitHub renders the Mermaid diagram and loaded the actual demonstration
 GIF. The machine-readable [delivery summary](PUBLIC_DELIVERY.json) records the
 checkpoint, corpus identity and verification scope without raw session logs.
+
+## Final preview and recording fix
+
+The first pipe-analysis recording exposed an original-preview HTTP 409: CPU
+analysis acquired the session lock before the image request finished. The page
+now awaits image decoding before starting analysis, retaining the session lock.
+A real CPU browser rerun returned HTTP 200 for both the original and candidate,
+completed the same six tools and retained the zero-candidate/unreliable result.
+The offline label remains visible while scrolling through evidence.
+
+The revised GIF contains four actual result views over 22 seconds (960 x1431):
+quality, correction, pipe-analysis images and the reliability/execution section.
+It replaces the broken original-preview frame on `main`; the initial tag and
+failed recording are retained as provenance rather than rewritten. This is a
+page-loading fix, not a change in inference, quality metrics or reliability rules.

@@ -5,7 +5,7 @@
   "visibility": "public",
   "fresh_source_history": true,
   "initial_tag_commit": "822ac5301f1d3872b1fb86c215ea49c39bd2770d",
-  "tested_code_commit": "1064be5f8c191f2c67f36e1ef958c85feb58cce4",
+  "combined_runtime_tested_commit": "1064be5f8c191f2c67f36e1ef958c85feb58cce4",
   "release": "https://github.com/sadbrand11-blip/underwater-vision-agent/releases/tag/v0.5.3-public.1",
   "license": {
     "project_source_and_checkpoint": "MIT",
@@ -48,13 +48,23 @@
     },
     "mermaid_rendered_on_github": true,
     "gif_loaded_on_github": true,
+    "subsequent_preview_fix": {
+      "method": "await original preview decoding before inference acquires the session lock",
+      "actual_cpu_browser_verified": true,
+      "original_http_status": 200,
+      "candidate_http_status": 200,
+      "tool_calls": 6,
+      "vision_status": "unreliable"
+    },
     "paid_llm_requests": 0,
     "model_training_runs": 0
   },
   "gif": {
     "path": "assets/demo.gif",
     "duration_seconds": 22,
-    "frames": 3,
+    "frames": 4,
+    "width": 960,
+    "height": 1431,
     "scheduler": "offline scripted",
     "visual_tools": "actual SODD checkpoint and exposure functions",
     "input": "licensed SODD example with simulated brightness multiplication by 0.6",
@@ -72,7 +82,7 @@
     "other experimental checkpoints"
   ],
   "known_boundaries": [
-    "Initial optional SDK install failure remains in CI history; main contains compatibility fixes",
+    "Initial optional SDK install failure and preview defect remain in history; main contains fixes",
     "The immutable initial source tag is not moved; clone main for current instructions",
     "Historical experiment scores retain separate versions and denominators",
     "Labels have not received external human review",

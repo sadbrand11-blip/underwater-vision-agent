@@ -29,7 +29,9 @@ No paid API calls or model retraining were performed for public delivery.
 The immutable initial source tag is retained. `main` includes the subsequent
 optional SDK compatibility fix (Pydantic 2.13.5 for LangGraph + MCP), explicit
 optional Embedding dependency errors, readable vertical architecture layout,
-and anonymous publication verification. The
+and anonymous publication verification. The preview now loads before inference
+acquires the session lock, and the updated GIF preserves the actual unreliable
+result with the original image visible. The
 checkpoint bytes and visual algorithms are unchanged. Clone `main` for current
 instructions; the Release continues to host the original verified checkpoint.
 

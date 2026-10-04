@@ -7,6 +7,8 @@ el('run').onclick=async()=>{el('run').disabled=true;text('status','Executing act
  const form=new FormData();form.append('rag_mode','tfidf');form.append('vision_mode','legacy');
  if(el('upload').files.length)form.append('image',el('upload').files[0]);else{form.append('demo','true');form.append('demo_variant',el('variant').value);}
  const session=await json('/api/sessions',{method:'POST',body:form});el('before').src=session.image_refs.original;
+ // Load the immutable preview before inference acquires the session lock.
+ await el('before').decode();
  text('provenance',session.input_provenance.kind==='simulated_exposure_perturbation'?'SIMULATED exposure perturbation of a licensed SODD frame.':'Original uploaded or licensed SODD image.');
  const result=await json('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:session.session_id,message:prompts[el('task').value],mode:'scripted',agent_mode:'adaptive',runtime_engine:'native'})});
  window.lastPublicResult=result;
