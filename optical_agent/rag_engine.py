@@ -294,5 +294,6 @@ def create_retriever(root, mode=None, vision_mode='legacy', *, encoder=None, all
                                 thresholds=config.get('profiles',{}).get('tfidf',config['thresholds']),
                                 corpus_name=config.get('corpus', 'C1'))
         original = retriever.metadata
-        retriever.metadata = lambda: dict(original(), requested_mode=selected, fallback_reason=str(exc))
+        reason = str(exc)
+        retriever.metadata = lambda: dict(original(), requested_mode=selected, fallback_reason=reason)
         return retriever

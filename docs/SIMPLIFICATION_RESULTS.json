@@ -152,11 +152,11 @@
   "experiment_commands": 32,
   "python_tests": {
     "public": {
-      "passed": 292,
+      "passed": 295,
       "skipped": 2
     },
     "private": {
-      "passed": 283,
+      "passed": 286,
       "skipped": 3
     }
   },
@@ -197,5 +197,15 @@
     "five repeats are not five independent tasks",
     "historical scores were not rerun or relabelled",
     "public-sanitized-v2 has no new Recall/MRR claim"
+  ],
+  "commands_help_checked": {
+    "public": 32,
+    "private": 32
+  },
+  "frozen_source_bytes_verified": 24,
+  "recovery_checks": [
+    "nested experiment imports use qualified package names",
+    "historical C0/C1 reconstruction checks original bytes",
+    "missing Embedding fallback metadata remains available after exception cleanup"
   ]
 }

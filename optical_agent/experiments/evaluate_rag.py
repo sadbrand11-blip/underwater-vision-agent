@@ -16,7 +16,7 @@ BASE_COMMIT='8d2d59212d011eb025e7a7dabe0a6e1c46e8508f'
 
 def snapshots():
     """Reconstruct C0 from the pinned project commit, never from new reports."""
-    from prepare_rag_corpus import snapshots as reconstruct
+    from optical_agent.experiments.prepare_rag_corpus import snapshots as reconstruct
     return reconstruct()
 
 

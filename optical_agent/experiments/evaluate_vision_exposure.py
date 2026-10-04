@@ -111,7 +111,7 @@ def search(manifest_path):
 
 def select(manifest_path):
     from detector import TorchDetector
-    from train_vision_detectors import fixed_report, SODD_CLASSES
+    from optical_agent.experiments.train_vision_detectors import fixed_report, SODD_CLASSES
     manifest=load_manifest(manifest_path); folder=ROOT/'vision_v040/exposure'
     searched=json.loads((folder/'search.json').read_text())
     if searched['manifest_sha256']!=digest(manifest_path):
@@ -159,7 +159,7 @@ def select(manifest_path):
 
 
 def test(manifest_path):
-    from evaluate_vision_detectors import freeze
+    from optical_agent.experiments.evaluate_vision_detectors import freeze
     freeze()  # Shared complete-model/data/code freeze; never inspect a held-out image first.
     manifest=load_manifest(manifest_path); folder=ROOT/'vision_v040/exposure'
     selected=json.loads((folder/'selection.json').read_text())

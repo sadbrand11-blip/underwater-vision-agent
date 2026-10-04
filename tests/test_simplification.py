@@ -131,3 +131,34 @@ def test_capability_probe_is_local_and_never_loads_models(tmp_path):
     assert not result['detector']['available']
     assert not result['embedding']['available']
     assert all(not mode['available'] and mode['reason'] for mode in result['vision_modes'].values())
+
+
+def test_nested_experiment_imports_use_package_names():
+    import ast
+    for path in (PROJECT_ROOT/'optical_agent').rglob('*.py'):
+        for node in ast.walk(ast.parse(path.read_text(encoding='utf8'))):
+            if isinstance(node,ast.ImportFrom):
+                assert (node.module or '').split('.')[0] not in cli.COMMANDS, (path,node.lineno)
+
+def test_frozen_manifest_reconstruction_never_uses_changed_live_source(tmp_path):
+    from types import SimpleNamespace
+    from optical_agent.experiments import prepare_rag_corpus as source
+    old=b'{"source":"frozen"}\n'
+    (tmp_path/'manifest.json').write_bytes(b'{"source":"modified"}\n')
+    spec={'newline':'LF','sha256':hashlib.sha256(old).hexdigest()}
+    with patch.object(source,'REPO',tmp_path),patch.object(source.subprocess,'run',return_value=SimpleNamespace(returncode=0,stdout=old)) as read:
+        assert source.frozen_source('manifest.json',spec)==old
+        read.assert_called_once_with(['git','show',source.RAG_SOURCE_COMMIT+':manifest.json'],cwd=tmp_path,capture_output=True)
+    assert (tmp_path/'manifest.json').read_bytes()==b'{"source":"modified"}\n'
+
+
+def test_missing_embedding_fallback_metadata_survives_exception_cleanup(tmp_path):
+    from optical_agent import rag_engine as rag
+    from test_rag_v050 import chunks
+    config={'mode':'hybrid','thresholds':{'tfidf':.01,'dense':.6},'corpus_hash':rag.fingerprint(chunks())}
+    with patch.object(rag,'release_config',return_value=config),patch.object(rag,'build_chunks',return_value=chunks()),patch.object(rag,'LocalEncoder',side_effect=rag.RagUnavailable('fixture missing embedding')):
+        retriever=rag.create_retriever(tmp_path,allow_fallback=True)
+    metadata=retriever.metadata()
+    assert metadata['mode']=='tfidf'
+    assert metadata['requested_mode']=='hybrid'
+    assert metadata['fallback_reason']=='fixture missing embedding'
