@@ -111,6 +111,14 @@ def test_recursive_freeze_covers_shared_and_nested_modules(tmp_path):
     nested.write_text('changed',encoding='utf8')
     second=version_metadata(tmp_path)['source_sha256']
     assert first['experiments/only.py']!=second['experiments/only.py']
+    from optical_agent import rag_eval
+    with patch.object(rag_eval,'DATA_ROOT',tmp_path/'rag'),patch.object(rag_eval,'file_hash',return_value='fixture'):
+        assert str(nested) in rag_eval.freeze_files(tmp_path)
+    pytest.importorskip('torch')
+    from optical_agent.experiments import evaluate_vision_detectors as vision
+    with patch.object(vision,'BASE',tmp_path),patch.object(vision,'FOLDER',tmp_path/'vision'),patch.object(vision,'digest',return_value='fixture'):
+        assert str(nested) in vision.frozen_inputs()
+
 
 def test_navigation_and_knowledge_do_not_depend_on_homepage():
     assert len(list(PROJECT_ROOT.glob('*.py')))<=12

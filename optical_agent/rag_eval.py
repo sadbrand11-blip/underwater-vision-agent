@@ -2,6 +2,7 @@
 from collections import Counter, defaultdict
 import json
 from pathlib import Path
+from optical_agent.paths import code_files
 from time import perf_counter
 
 import numpy as np
@@ -176,6 +177,7 @@ def freeze_files(repo):
     paths=[repo/'optical_agent/experiments/evaluate_rag.py',repo/'optical_agent/experiments/prepare_rag.py',repo/'optical_agent/experiments/prepare_rag_corpus.py',repo/'optical_agent/experiments/publish_rag.py',
            repo/'knowledge/corpus_layout.json',repo/'optical_agent/experiments/build_rag_questions.py',repo/'optical_agent/rag.py',
            repo/'optical_agent/rag_engine.py',repo/'optical_agent/rag_eval.py',repo/'eval/rag_questions.json']
+    paths.extend(code_files(repo))
     for name in CORPORA:
         paths.append(DATA_ROOT/(name.lower()+'_chunks.json'))
         paths.extend(p for p in (DATA_ROOT/(name.lower()+'_source')).rglob('*') if p.is_file())

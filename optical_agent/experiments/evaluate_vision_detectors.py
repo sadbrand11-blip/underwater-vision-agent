@@ -1,5 +1,5 @@
 """Freeze first, evaluate held-out data once; never select a test threshold."""
-from optical_agent.paths import PROJECT_ROOT
+from optical_agent.paths import PROJECT_ROOT, code_files
 from dataclasses import asdict
 import json
 from pathlib import Path
@@ -24,7 +24,8 @@ def frozen_inputs():
         *[FOLDER/'models'/f for f in ['facilities_control.pt','facilities_improved.pt','robot_improved.pt']],
         *[BASE/f for f in ['quality.py','detector.py','agent.py','metrics.py','optical_agent/experiments/train_vision_detectors.py',
                           'optical_agent/experiments/evaluate_vision_exposure.py','optical_agent/experiments/evaluate_vision_detectors.py','optical_agent/vision_data.py','optical_agent/vision_router.py']]]
-    return {str(p):digest(p) for p in files}
+    files.extend(code_files(BASE))
+    return {str(p):digest(p) for p in sorted(set(files))}
 
 
 def verify_dataset_sources(manifest):
