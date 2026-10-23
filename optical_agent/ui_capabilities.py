@@ -19,6 +19,7 @@ def probe_capabilities(model_path, embedding_root, *, experimental=True):
             '实验权重未准备，不能将不可用解释为没有目标。' if experimental else
             '公开版本不提供机器人实验权重；使用本地开发版进行实验。')
         modes[mode] = {'available':ready, 'reason':reason}
+    modes['general_rgb_v1'] = {'available': True, 'reason': '普通照片配置；曝光工具无需检测权重。'}
     return {'detector':{'available':detector_ready,'reason':'检测资源已准备；实际加载仍验证模型。' if detector_ready else
         '检测资源未准备；可先评估与校正曝光，目标检测会明确报告不可用。'},
         'embedding':{'available':dense_ready,'reason':'本地向量模型已准备。' if dense_ready else

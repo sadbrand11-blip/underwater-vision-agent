@@ -1,16 +1,16 @@
-# Underwater Vision Agent
+# General Image Analysis Agent
 
-**Local underwater exposure assessment, bounded correction and evidence-checked object recognition.**
+**Exposure assessment, bounded correction and evidence-checked detection for ordinary photographs.**
 
-[中文指南](docs/QUICK_START_ZH.md) · [Architecture](docs/ARCHITECTURE.md) · [MIT](LICENSE) · [Attribution](THIRD_PARTY_NOTICES.md)
+[中文操作](docs/QUICK_START_ZH.md) · [Architecture](docs/GENERAL_IMAGE_AGENT.md) · [MIT](LICENSE)
 
-![Offline scripted scheduling with actual local visual tools](assets/demo.gif)
+![Offline rules with real local visual tools; simulated variants are labeled](assets/demo.gif)
 
-*Offline scripted scheduler, actual SODD detector. The dark input uses simulated brightness ×0.6. Unreliable results are retained; this recording made no cloud LLM calls.*
+The workbench accepts 8-bit JPEG/PNG photos. A local official COCO detector supports 80 common object categories with Chinese aliases. Images stay local; the optional cloud model receives task text and tool observations. Detector scores are candidate scores, not correctness probabilities.
 
 ## Quick Start
 
-Python 3.11, CPU. The default demo needs no API key or detector weights. In Windows PowerShell:
+Python 3.11, CPU; the exposure demo needs no model weights or API key:
 
 ```powershell
 git clone https://github.com/sadbrand11-blip/underwater-vision-agent.git
@@ -21,40 +21,37 @@ $agentPython = "D:\CodexData\optical_agent\public\venv\Scripts\python.exe"
 & $agentPython run_demo.py
 ```
 
-Open **http://127.0.0.1:7860/showcase**, choose exposure assessment or correction, and run the local tools. Use the included licensed sample or upload an image. Missing detection resources are reported as unavailable. Use `--port 7861` when 7860 is occupied.
+Open **http://127.0.0.1:7860/showcase**. Upload a photo or use the local example. Without a prepared photo the example is an explicitly labeled procedural exposure fixture. Missing detection is reported as unavailable.
 
-For actual recognition, install the optional CPU detector and start with `--with-detector`; the launcher verifies the released checkpoint's SHA256. See the [Chinese guide](docs/QUICK_START_ZH.md) for exact commands, supported classes and other platforms.
+For real detection, install `requirements-detector.txt`, then run `python run_demo.py --with-detector`. This verifies the official COCO checkpoint SHA256. Use `--port 7861` when needed. The `/agent` page provides Chinese tasks and follow-ups; cloud scheduling is opt-in and may incur charges. [Exact instructions](docs/QUICK_START_ZH.md).
 
-The `/agent` workbench supports image tasks, follow-up questions and expandable evidence. Its offline mode supports example tasks; free-text cloud scheduling requires a locally configured key and may incur charges. Image processing stays local. Downloads, caches and memory use the configured data directory on D drive.
-
-## Architecture
+## Evidence-driven execution
 
 ```mermaid
 flowchart TD
     G[Understand task] --> A[Choose action]
-    A --> T[Run visual tools]
-    T --> O[Observe evidence]
+    A --> T[Local quality / correction / detection]
+    T --> O[Measured observations]
     O --> A
     O --> V[Program verifier]
     V -->|missing evidence| A
-    V -->|complete| R[Result and reliability]
+    V --> R[Result and reliability]
 ```
 
-Native is the default runtime. RAG and local memory supply context; optional LangGraph exposes the same stages, and MCP publishes three visual tools. Measurements and reliability come from executed tools. [Detailed architecture](docs/ARCHITECTURE.md).
+Native remains the default; optional LangGraph executes the same stages. Versioned local RAG and SQLite memory provide context. An independent MCP server exposes three tools. Quality-only tasks do not load a detector.
 
-## Versioned evidence
+## Versioned evaluation
 
-| Experiment | Result | Version and sample |
-|---|---|---|
-| [Formal Agent Eval](docs/reports/FORMAL_EVALUATION_RESULTS.md) | 59/60 complete | 0.2.3 behavior; 20 tasks ×3 |
-| [Adaptive development](docs/reports/ADAPTIVE_EVALUATION_RESULTS.md) | 3/6; fixed workflow 6/6 | 0.3.0; three inputs ×2 |
-| [RAG](docs/reports/RAG_RESULTS.md) | Recall@3: TF-IDF 35.0%, Hybrid 47.5% | 0.5.0 C1; 40 answerable +10 unknown |
-| [MCP parity](docs/reports/MCP_RESULTS.md) | Three tools, 9/9 checks | 0.5.3; actual stdio calls |
+| 0.6.0 measurement | Result and scope |
+|---|---|
+| COCO detection | AP 24.12%, AP50 39.46%; 1,000 held-out project-split images |
+| Runtime equivalence | Native/LangGraph 3/3 deterministic real-vision cases |
+| MCP transport | 3 tools; 9/9 direct/protocol checks |
 
-These historical results retain their original scope. Repetitions share tasks; labels lack external human review. The public corpus is independently versioned. [Evaluation details](docs/EVALUATION.md).
+0.6.0 uses a new general-photo profile, corpus and memory namespace. Its [evaluation report](docs/GENERAL_EVALUATION.md) separates COCO ground-truth results, simulated exposure diagnostics, offline runtime tests and unavailable SICE experiments. A development gate determines whether correction can become the default selected image. Explicit candidate comparison remains available.
 
-## Boundaries and docs
+## Boundaries
 
-Enhancement cannot establish lost texture. Candidate boxes and scores need program checks. Open-water transfer remains unproven; the default six-class detector was trained on SODD pool images.
+Supported categories are listed in `/api/capabilities`. Medical images, remote sensing, tiny industrial defects and arbitrary text-described objects need separate models and validation. Enhancement cannot establish lost texture; calibration does not guarantee transfer to enhanced or out-of-domain photos. No-target output does not prove absence.
 
-[Optional modes](docs/OPTIONAL_MODES.md) · [Experiment commands](docs/CLI_MIGRATION.md) · [0.5.4 verification](docs/SIMPLIFICATION.md) · [History](docs/VERSION_HISTORY.md)
+The original underwater release and scores remain [archived](docs/ARCHIVE_UNDERWATER.md). They do not describe this version. [Experiments](docs/CLI_MIGRATION.md) · [Optional components](docs/OPTIONAL_MODES.md) · [Source notices](THIRD_PARTY_NOTICES.md).

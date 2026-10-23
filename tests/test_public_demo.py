@@ -61,7 +61,7 @@ def test_public_correction_and_black_guard(client):
 
 def test_detection_unavailable_not_empty(client):
     sid=create(client)
-    result=ask(client,sid,'只识别管道')
+    result=ask(client,sid,'只识别人')
     assert result['task_status']!='completed'
     failures=[t for t in result['trace'] if t.get('tool')=='detect_objects']
     assert failures and all(t.get('error_category')=='model_unavailable' for t in failures)
@@ -73,7 +73,7 @@ def test_public_routes_and_corpus(client):
     assert client.get('/agent').status_code==200
     health=client.get('/health').json
     assert not health['model_present']
-    assert health['rag_release']['corpus']=='public-sanitized-v2'
+    assert health['rag_release']['corpus']=='general-natural-v1'
     response=client.post('/api/knowledge/search',json={'query':'管道 检测 候选 准确率','modes':['tfidf']})
     assert response.status_code==200
     assert response.json['comparisons']['tfidf']['available']

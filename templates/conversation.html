@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>水下图像分析</title><link rel="stylesheet" href="/static/conversation.css"></head>
-<body><main><header><p class="eyebrow">水下图像分析 Agent</p><h1>上传图片，说明你想检查什么</h1>
-<p>曝光评估、自动校正与目标候选识别；结果由实际工具和程序校验产生。</p>
+<title>通用图像分析</title><link rel="stylesheet" href="/static/conversation.css"></head>
+<body><main><header><p class="eyebrow">通用图像分析 Agent</p><h1>上传图片，说明你想检查什么</h1>
+<p>普通JPEG/PNG照片的曝光评估、有界校正与COCO80类目标候选识别。任务完成、图像质量和识别可靠性分别判断。</p>
 <nav><a href="/">图像分析首页</a> · <a href="/knowledge">知识检索</a> · <a href="/memory">偏好与历史</a></nav></header>
 <div class="workspace"><aside class="card"><h2>1 · 选择图片</h2>
-<input id="image-file" type="file" accept="image/*"><div class="button-row"><button id="upload">上传图片</button><button id="demo" class="secondary">使用示例</button></div>
+<input id="image-file" type="file" accept="image/jpeg,image/png"><div class="button-row"><button id="upload">上传图片</button><button id="demo" class="secondary">使用示例</button></div>
 <p id="session-status" role="status">尚未选择图片</p><img id="original-preview" alt="上传的原图" hidden>
 <button id="new-session" class="secondary">换一张 / 新会话</button>
 <h2>2 · 选择运行方式</h2><label for="mode" class="sr-only">运行方式</label><select id="mode"><option value="scripted">离线脚本演示（不调用云端）</option><option value="cloud">云端大模型（可能产生费用）</option></select>
 <p class="small">离线模式支持示例任务；自由中文任务请选择云端。密钥：{{ '已配置' if cloud_configured else '未配置' }}。</p>
-<h2>快捷任务</h2><div id="examples"><button class="prompt">只检查曝光</button><button class="prompt">只校正曝光</button><button class="prompt">只识别管道</button><button class="prompt">比较校正前后</button></div>
+<h2>快捷任务</h2><div id="examples"><button class="prompt">只检查曝光</button><button class="prompt">只校正曝光</button><button class="prompt">只识别人</button><button class="prompt">比较校正前后</button></div>
 <details id="advanced-settings" class="advanced-settings"><summary>高级设置与实验对照</summary>
-<p class="small">设置沿用原有默认值。图片会话固定配置；切换已固定的配置时请创建新会话。</p>
-<label for="vision-mode">视觉配置</label><select id="vision-mode"><option value="legacy">默认六类模型</option><option value="experiment_control" {% if not capabilities.vision_modes.experiment_control.available %}disabled{% endif %}>重训对照＋机器人{% if not capabilities.vision_modes.experiment_control.available %} · 不可用{% endif %}</option><option value="experiment_candidate" {% if not capabilities.vision_modes.experiment_candidate.available %}disabled{% endif %}>改进候选＋机器人{% if not capabilities.vision_modes.experiment_candidate.available %} · 不可用{% endif %}</option></select>
+<p class="small">通用配置独立于历史水下实验。图片会话固定配置；切换已固定的配置时请创建新会话。</p>
+<label for="vision-mode">视觉配置</label><select id="vision-mode"><option value="general_rgb_v1">普通照片 · COCO80类</option></select>
 <p class="small">{{ capabilities.detector.reason }}</p><p class="small">{{ capabilities.vision_modes.experiment_candidate.reason }}</p>
-<label for="rag-mode">知识检索</label><select id="rag-mode"><option value="">发布默认</option><option value="legacy">旧 TF-IDF 对照</option><option value="tfidf">结构化 TF-IDF</option><option value="embedding" {% if not capabilities.embedding.available %}disabled{% endif %}>Embedding{% if not capabilities.embedding.available %} · 不可用{% endif %}</option><option value="hybrid" {% if not capabilities.embedding.available %}disabled{% endif %}>Hybrid{% if not capabilities.embedding.available %} · 不可用{% endif %}</option></select><p class="small">{{ capabilities.embedding.reason }}</p>
+<label for="rag-mode">知识检索</label><select id="rag-mode"><option value="">发布默认</option><option value="tfidf">结构化 TF-IDF</option><option value="embedding" {% if not capabilities.embedding.available %}disabled{% endif %}>Embedding{% if not capabilities.embedding.available %} · 不可用{% endif %}</option><option value="hybrid" {% if not capabilities.embedding.available %}disabled{% endif %}>Hybrid{% if not capabilities.embedding.available %} · 不可用{% endif %}</option></select><p class="small">{{ capabilities.embedding.reason }}</p>
 <label for="runtime-engine">运行器</label><select id="runtime-engine"><option value="native">native（默认）</option><option value="langgraph" {% if not langgraph_available %}disabled{% endif %}>LangGraph（等价对照）{% if not langgraph_available %} · 依赖未安装{% endif %}</option></select>
 <label for="agent-mode">调度策略</label><select id="agent-mode"><option value="adaptive">动态目标与规划</option><option value="legacy">原有受限调度（对照）</option></select>
-<label for="demo-variant">示例输入</label><select id="demo-variant"><option value="normal">SODD 原始示例</option><option value="dark">模拟偏暗：亮度 ×0.6</option><option value="lost">模拟信息丢失：全黑</option></select><p class="small">偏暗与全黑由示例生成，不是相机重拍。机器人为实验能力，不细分 AUV/ROV。</p>
+<label for="demo-variant">示例输入</label><select id="demo-variant"><option value="normal">本地原始示例</option><option value="dark">模拟偏暗：亮度 ×0.45</option><option value="lost">模拟信息丢失：全黑</option></select><p class="small">偏暗与全黑由示例生成，不是相机重拍。COCO列表以外目标会明确提示不支持；水下版本已归档。</p>
 </details></aside>
 <section class="card"><h2>3 · 提出任务，查看结果</h2><div id="messages" aria-live="polite"><p class="empty">选择图片后，输入问题或点击快捷任务。</p></div>
-<form id="chat-form"><label for="message">本轮任务</label><textarea id="message" rows="3" placeholder="例如：检查这张图，必要时校正曝光，然后只识别管道，说明是否可靠。" required></textarea>
+<form id="chat-form"><label for="message">本轮任务</label><textarea id="message" rows="3" placeholder="例如：检查这张图，必要时校正曝光，然后只识别人，说明是否可靠。" required></textarea>
 <div class="submit-row"><span id="running" role="status"></span><button id="send" type="submit">开始分析</button></div></form></section></div>
 <footer>目标框是候选证据。增强不能确定已丢失的真实纹理；任务完成与视觉可靠性分别判断。</footer></main>
 <script src="/static/conversation.js"></script></body></html>

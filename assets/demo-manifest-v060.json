@@ -1,0 +1,21 @@
+{
+  "version": "0.6.0",
+  "frames": [
+    "01-quality.png",
+    "02-correction.png",
+    "03-person.png",
+    "04-evidence.png",
+    "05-black.png"
+  ],
+  "duration_seconds": 20,
+  "width": 860,
+  "height": 833,
+  "bytes": 1188523,
+  "sha256": "69eedf00382421395f1848ebcca7125bc552a9497b5fe2c1f46d10d8a85b6a94",
+  "scheduler": "offline deterministic rules, no LLM calls",
+  "visual_tools": "actual official TorchVision COCO80 model, exposure and bounded correction",
+  "photo": "NASA Eileen Collins / scikit-image astronaut, public domain",
+  "variants": "original, simulated brightness x0.45, simulated all-black",
+  "ground_truth": "no object labels; recording is not accuracy evaluation",
+  "paid_api_requests": 0
+}

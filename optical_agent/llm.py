@@ -154,10 +154,11 @@ class ScriptedClient:
             data = json.loads(next(m['content'] for m in messages if m['role'] == 'user'))
             # 明确为规则夹具；澄清答复不足以独立理解时才合并原问题。
             text = data['message']
-            parsed = scripted_intent(text)
+            profile = 'general_rgb_v1' if 'GENERAL_PROFILE=general_rgb_v1' in messages[0]['content'] else None
+            parsed = scripted_intent(text, profile_id=profile)
             if parsed['task_type'] == 'clarify' and data.get('pending_clarification'):
                 explicit_ref = parsed['image_reference']
-                parsed = scripted_intent(data['pending_clarification']['original_message'] + '；补充：' + text)
+                parsed = scripted_intent(data['pending_clarification']['original_message'] + '；补充：' + text, profile_id=profile)
                 if explicit_ref != 'unspecified':
                     parsed['image_reference'] = explicit_ref
             return {'message': {'role': 'assistant', 'content': json.dumps(parsed, ensure_ascii=False)}, 'usage': {}, 'http_attempts': 0}

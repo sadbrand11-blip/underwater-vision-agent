@@ -1,0 +1,2 @@
+# Optional official COCO evaluation; existing Torch stays unchanged.
+pycocotools==2.0.10

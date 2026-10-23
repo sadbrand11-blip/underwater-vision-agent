@@ -1,0 +1,756 @@
+{
+  "version": "0.6.0",
+  "evaluation_date": "2026-10-23",
+  "evaluation_status": "COCO visual baseline complete; SICE not run; no real LLM evaluation",
+  "dataset": {
+    "source": "https://cocodataset.org/#download",
+    "name": "COCO val2017",
+    "images": 5000,
+    "development_images": 3000,
+    "calibration_images": 1000,
+    "heldout_test_images": 1000,
+    "classes": 80,
+    "test_noncrowd_instances": 7448,
+    "test_crowd_instances": 96,
+    "quarantined_images": 0,
+    "seed": 20261023,
+    "grouping": "pixel SHA256 and pHash radius4, no linked duplicates found; true scene independence not guaranteed"
+  },
+  "test": {
+    "coco_AP_50_95": 0.24120508670617372,
+    "coco_AP50": 0.39455022761428565,
+    "coco_AP75": 0.2499008601840823,
+    "AP_implementation": "pycocotools.COCOeval2.0.10",
+    "prediction_score_floor": 0.05,
+    "original_images": 1000,
+    "evaluated_classes_with_gt": 80,
+    "frozen_class_thresholds": {
+      "tp": 2499,
+      "fp": 1086,
+      "fn": 4949,
+      "gt": 7448,
+      "micro_recall": 0.3355263157894737,
+      "macro_recall": 0.368512215841278,
+      "false_positives_per_image": 1.086
+    },
+    "fixed_0_35_threshold": {
+      "tp": 2708,
+      "fp": 1525,
+      "fn": 4740,
+      "gt": 7448,
+      "micro_recall": 0.3635875402792696,
+      "macro_recall": 0.38316853317653937,
+      "false_positives_per_image": 1.525
+    },
+    "image_quality_pass_counts": {
+      "True": 1000
+    },
+    "experimental_processing_ms": {
+      "mean": 110.28760790000888,
+      "p95": 132.97880500194879
+    }
+  },
+  "calibration": {
+    "sufficient_classes_on_calibration_set": 22,
+    "supported_classes": 80,
+    "insufficient_classes": 58,
+    "scope": "COCO originals only; does not automatically apply to enhanced images",
+    "calibrated_classes_test_micro_precision": 0.8104575163398693,
+    "calibrated_classes_test_micro_recall": 0.3925962006819289,
+    "calibrated_classes_below_0_8_test_precision": 10,
+    "limitation": "Calibration-set engineering gates do not guarantee per-class test precision, individual-box correctness, or field reliability."
+  },
+  "correction": {
+    "default_selected_method": "original",
+    "selection_basis": "Neither bounded correction method passed the predeclared development gate. Explicit correction and comparison remain available.",
+    "test_diagnostic_base_images": 30,
+    "variants_per_image": 4,
+    "methods_per_variant": 3,
+    "diagnostic_result_rows": 360,
+    "synthetic_variants": [
+      "brightness_x0.6",
+      "brightness_x1.4",
+      "horizontal_brightness_x0.6_to_x1.4"
+    ],
+    "limitation": "These are synthetic perturbations, not real multi-exposure capture; no enhancement accuracy gain established."
+  },
+  "sice": {
+    "status": "not_run",
+    "reason": "Both author Google Drive files returned HTTP 200 quota-exceeded HTML; three author Baidu links require a browser/account download client.",
+    "attempted_author_sources": 5,
+    "paired_reference_PSNR_SSIM": "not_computed",
+    "unknown_mirrors_used": false
+  },
+  "computation": {
+    "unique_prediction_artifacts_in_current_frozen_evidence": 5990,
+    "unique_actual_model_forward_evidence": 5790,
+    "aggregation_recompute_new_inferences": 0,
+    "paid_api_requests": 0,
+    "training_epochs": 0
+  },
+  "integrity": {
+    "heldout_test_runs": 1,
+    "test_retesting_for_selection": false,
+    "frozen_source_files": 86,
+    "frozen_source_unchanged_after_test": true,
+    "data_manifest_sha256": "0c92f18b6e155d99c398b61e35d58352d1f8fda024fafcd1f843941b39cefc97",
+    "freeze_sha256": "32d37066aa9df6d6463bb8fe478c0688f7a36daccbb9bd36e305e7e9510fe63d",
+    "calibration_sha256": "9485e953fc2de3aa1aaa66b03975c6e7a06762988af0877aa829493682073b4c",
+    "aggregation_identity_sha256": "09cc8293b2667e3104820e9a4167860944afe80df9999bb9bec9bc25f3fbab65",
+    "aggregation_numeric_equivalence": {
+      "development": true,
+      "calibration": true
+    },
+    "old_raw_prediction_signatures_preserved": true,
+    "test_predictions_use_current_signature": true
+  },
+  "provenance": {
+    "raw_development_calibration_identity": "evaluation_identity.json",
+    "aggregation_repair_identity": "aggregation_identity.json",
+    "frozen_test_identity": "freeze.json",
+    "old_summary_archive": "before_aggregation_boundary_fix",
+    "raw_signature_preservation": "Original cached signatures retained; new test predictions use the current frozen signature."
+  },
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+    "torch": "2.2.0+cu118",
+    "torchvision": "0.17.0+cu118",
+    "python": "3.11.5"
+  },
+  "limitations": [
+    "Public COCO validation split is not proof of entirely unseen model-training scenes.",
+    "No visual model training or paid API calls.",
+    "Visual detection, scripted orchestration, and true LLM performance are separate claims.",
+    "Latency covers local single-image experimental reading, quality and inference before cache writing; includes cold/concurrent-system effects, not an Agent realtime SLA."
+  ],
+  "test_quality_diagnostics": {
+    "base_images": 30,
+    "result_rows": 360,
+    "independent_samples": 30,
+    "source": "Actual frozen test prediction caches, quality_before.global and quality_after.global; descriptive aggregation only",
+    "metrics": {
+      "original:original": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.05775921972964657,
+            "after_mean": 0.05775921972964657,
+            "paired_delta_mean": 0.0
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0161843139000144,
+            "after_mean": 0.0161843139000144,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.40352942124009133,
+            "after_mean": 0.40352942124009133,
+            "paired_delta_mean": 0.0
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.22840359235803287,
+            "after_mean": 0.22840359235803287,
+            "paired_delta_mean": 0.0
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2869871102273464,
+            "after_mean": 0.2869871102273464,
+            "paired_delta_mean": 0.0
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.039976341649889946,
+            "after_mean": 0.039976341649889946,
+            "paired_delta_mean": 0.0
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.007279767309492454,
+            "after_mean": 0.007279767309492454,
+            "paired_delta_mean": 0.0
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "original:gamma_only": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.05775921972964657,
+            "after_mean": 0.0298459557362042,
+            "paired_delta_mean": -0.027913263993442374
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0161843139000144,
+            "after_mean": 0.01735657525428775,
+            "paired_delta_mean": 0.0011722613542733513
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.40352942124009133,
+            "after_mean": 0.4322875902056694,
+            "paired_delta_mean": 0.02875816896557808
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.22840359235803287,
+            "after_mean": 0.22791820441683133,
+            "paired_delta_mean": -0.0004853879412015279
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2869871102273464,
+            "after_mean": 0.29343049724896747,
+            "paired_delta_mean": 0.006443387021621069
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.039976341649889946,
+            "after_mean": 0.040481831327391166,
+            "paired_delta_mean": 0.0005054896775012215
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.007279767309492454,
+            "after_mean": 0.007849058908000589,
+            "paired_delta_mean": 0.0005692915985081344
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "original:local_bounded": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.05775921972964657,
+            "after_mean": 0.026115986036367035,
+            "paired_delta_mean": -0.03164323369327954
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0161843139000144,
+            "after_mean": 0.01662573694533081,
+            "paired_delta_mean": 0.00044142304531640886
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.40352942124009133,
+            "after_mean": 0.4375163480639458,
+            "paired_delta_mean": 0.033986926823854444
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.22840359235803287,
+            "after_mean": 0.2272846904893716,
+            "paired_delta_mean": -0.0011189018686612448
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2869871102273464,
+            "after_mean": 0.311275539547205,
+            "paired_delta_mean": 0.02428842931985855
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.039976341649889946,
+            "after_mean": 0.044929376368721324,
+            "paired_delta_mean": 0.00495303471883138
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.007279767309492454,
+            "after_mean": 0.008394124764613807,
+            "paired_delta_mean": 0.0011143574551213532
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "dark_06:original": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.10984010925245465,
+            "after_mean": 0.10984010925245465,
+            "paired_delta_mean": 0.0
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0,
+            "after_mean": 0.0,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.24196079137424628,
+            "after_mean": 0.24196079137424628,
+            "paired_delta_mean": 0.0
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.13702694724003475,
+            "after_mean": 0.13702694724003475,
+            "paired_delta_mean": 0.0
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.17249421315888563,
+            "after_mean": 0.17249421315888563,
+            "paired_delta_mean": 0.0
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.014422908638759205,
+            "after_mean": 0.014422908638759205,
+            "paired_delta_mean": 0.0
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.0045543970633205024,
+            "after_mean": 0.0045543970633205024,
+            "paired_delta_mean": 0.0
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "dark_06:gamma_only": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.10984010925245465,
+            "after_mean": 0.02192059542954092,
+            "paired_delta_mean": -0.08791951382291373
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0,
+            "after_mean": 0.0,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.24196079137424628,
+            "after_mean": 0.3473202680548032,
+            "paired_delta_mean": 0.10535947668055694
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.13702694724003475,
+            "after_mean": 0.15062393272916477,
+            "paired_delta_mean": 0.01359698548913002
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.17249421315888563,
+            "after_mean": 0.1958277323593696,
+            "paired_delta_mean": 0.023333519200483956
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.014422908638759205,
+            "after_mean": 0.017725531089430053,
+            "paired_delta_mean": 0.003302622450670848
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.0045543970633205024,
+            "after_mean": 0.005535526205003262,
+            "paired_delta_mean": 0.0009811291416827591
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "dark_06:local_bounded": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.10984010925245465,
+            "after_mean": 0.01799264625291818,
+            "paired_delta_mean": -0.09184746299953646
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.0,
+            "after_mean": 0.0,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.24196079137424628,
+            "after_mean": 0.36104575743277867,
+            "paired_delta_mean": 0.1190849660585324
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.13702694724003475,
+            "after_mean": 0.15652082363764444,
+            "paired_delta_mean": 0.01949387639760971
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.17249421315888563,
+            "after_mean": 0.22329447095592816,
+            "paired_delta_mean": 0.05080025779704253
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.014422908638759205,
+            "after_mean": 0.022293987032026053,
+            "paired_delta_mean": 0.007871078393266846
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.0045543970633205024,
+            "after_mean": 0.006589327417463064,
+            "paired_delta_mean": 0.0020349303541425615
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "bright_14:original": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.037167014372287185,
+            "after_mean": 0.037167014372287185,
+            "paired_delta_mean": 0.0
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.15517929925383933,
+            "after_mean": 0.15517929925383933,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.5593464203178883,
+            "after_mean": 0.5593464203178883,
+            "paired_delta_mean": 0.0
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.27165014669299126,
+            "after_mean": 0.27165014669299126,
+            "paired_delta_mean": 0.0
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.344068601479133,
+            "after_mean": 0.344068601479133,
+            "paired_delta_mean": 0.0
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.06072526962185899,
+            "after_mean": 0.06072526962185899,
+            "paired_delta_mean": 0.0
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006456102256802842,
+            "after_mean": 0.006456102256802842,
+            "paired_delta_mean": 0.0
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "bright_14:gamma_only": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.037167014372287185,
+            "after_mean": 0.04641811351267916,
+            "paired_delta_mean": 0.009251099140391976
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.15517929925383933,
+            "after_mean": 0.14815314343618632,
+            "paired_delta_mean": -0.007026155817653008
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.5593464203178883,
+            "after_mean": 0.5352941279609998,
+            "paired_delta_mean": -0.024052292356888452
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.27165014669299126,
+            "after_mean": 0.284447330981493,
+            "paired_delta_mean": 0.01279718428850174
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.344068601479133,
+            "after_mean": 0.36698516632119815,
+            "paired_delta_mean": 0.022916564842065175
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.06072526962185899,
+            "after_mean": 0.06990143897322317,
+            "paired_delta_mean": 0.009176169351364175
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006456102256802842,
+            "after_mean": 0.006904264202304184,
+            "paired_delta_mean": 0.0004481619455013425
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "bright_14:local_bounded": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.037167014372287185,
+            "after_mean": 0.04086210463507731,
+            "paired_delta_mean": 0.0036950902627901263
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.15517929925383933,
+            "after_mean": 0.1454006767420428,
+            "paired_delta_mean": -0.009778622511796535
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.5593464203178883,
+            "after_mean": 0.5373856325944265,
+            "paired_delta_mean": -0.021960787723461786
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.27165014669299126,
+            "after_mean": 0.28282698467373846,
+            "paired_delta_mean": 0.011176837980747223
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.344068601479133,
+            "after_mean": 0.3907232150435448,
+            "paired_delta_mean": 0.0466546135644118
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.06072526962185899,
+            "after_mean": 0.0764069002121687,
+            "paired_delta_mean": 0.0156816305903097
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006456102256802842,
+            "after_mean": 0.008042865349445491,
+            "paired_delta_mean": 0.00158676309264265
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "mixed_06_14:original": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.06326006647502277,
+            "after_mean": 0.06326006647502277,
+            "paired_delta_mean": 0.0
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.039465550891265945,
+            "after_mean": 0.039465550891265945,
+            "paired_delta_mean": 0.0
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.38601308117310207,
+            "after_mean": 0.38601308117310207,
+            "paired_delta_mean": 0.0
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.24536489595969518,
+            "after_mean": 0.24536489595969518,
+            "paired_delta_mean": 0.0
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2798655033111572,
+            "after_mean": 0.2798655033111572,
+            "paired_delta_mean": 0.0
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.03989618075235436,
+            "after_mean": 0.03989618075235436,
+            "paired_delta_mean": 0.0
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006213842709152959,
+            "after_mean": 0.006213842709152959,
+            "paired_delta_mean": 0.0
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "mixed_06_14:gamma_only": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.06326006647502277,
+            "after_mean": 0.02810755995332575,
+            "paired_delta_mean": -0.03515250652169702
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.039465550891265945,
+            "after_mean": 0.038719050664016444,
+            "paired_delta_mean": -0.0007465002272495051
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.38601308117310207,
+            "after_mean": 0.42496732821067174,
+            "paired_delta_mean": 0.03895424703756968
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.24536489595969518,
+            "after_mean": 0.24484056383371353,
+            "paired_delta_mean": -0.0005243321259816488
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2798655033111572,
+            "after_mean": 0.2862924431761106,
+            "paired_delta_mean": 0.006426939864953359
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.03989618075235436,
+            "after_mean": 0.04014106763061136,
+            "paired_delta_mean": 0.00024488687825699647
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006213842709152959,
+            "after_mean": 0.006892156060524284,
+            "paired_delta_mean": 0.0006783133513713255
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      },
+      "mixed_06_14:local_bounded": {
+        "images": 30,
+        "metrics": {
+          "dark_fraction": {
+            "status": "measured",
+            "before_mean": 0.06326006647502277,
+            "after_mean": 0.023837195516268513,
+            "paired_delta_mean": -0.03942287095875426
+          },
+          "bright_fraction": {
+            "status": "measured",
+            "before_mean": 0.039465550891265945,
+            "after_mean": 0.036810037173546375,
+            "paired_delta_mean": -0.0026555137177195673
+          },
+          "median": {
+            "status": "measured",
+            "before_mean": 0.38601308117310207,
+            "after_mean": 0.4322875892122587,
+            "paired_delta_mean": 0.046274508039156594
+          },
+          "contrast": {
+            "status": "measured",
+            "before_mean": 0.24536489595969518,
+            "after_mean": 0.24332872182130813,
+            "paired_delta_mean": -0.0020361741383870444
+          },
+          "edge_strength": {
+            "status": "measured",
+            "before_mean": 0.2798655033111572,
+            "after_mean": 0.30815372864405316,
+            "paired_delta_mean": 0.028288225332895916
+          },
+          "sharpness": {
+            "status": "measured",
+            "before_mean": 0.03989618075235436,
+            "after_mean": 0.04552381520625204,
+            "paired_delta_mean": 0.005627634453897675
+          },
+          "noise_estimate": {
+            "status": "measured",
+            "before_mean": 0.006213842709152959,
+            "after_mean": 0.007788500709235668,
+            "paired_delta_mean": 0.0015746580000827088
+          }
+        },
+        "missing_fields": [],
+        "quality_pass_counts": {
+          "True": 30
+        }
+      }
+    },
+    "units": {
+      "dark_fraction": "fraction of grayscale pixels<=12",
+      "bright_fraction": "fraction of grayscale pixels>=250",
+      "median": "per-image grayscale median divided by255, then arithmetic mean across images",
+      "contrast": "per-image grayscale standard deviation on0..1, mean across images",
+      "edge_strength": "Sobel magnitude on0..1 grayscale",
+      "sharpness": "Laplacian variance on0..1 grayscale",
+      "noise_estimate": "MAD high-frequency residual in locally flat regions on0..1 grayscale; heuristic, not measured physical sensor noise/SNR"
+    },
+    "limitations": "No reference camera exposure truth. Lower dark/highlight fractions or larger sharpness alone do not establish better object detection or scene texture recovery."
+  }
+}

@@ -10,7 +10,7 @@ from pathlib import Path
 from optical_agent.llm import LLMError
 from optical_agent.diagnostics import details, redact, response_preview
 from optical_agent.reports import build_report, evidence_map
-from optical_agent.tasks import INTENT_SYSTEM, parse_contract, validate_completion
+from optical_agent.tasks import INTENT_SYSTEM, intent_system, parse_contract, validate_completion
 from optical_agent.tools import execute_tool, get_tool_descriptions
 from optical_agent.memory import MemoryTurn
 
@@ -30,6 +30,15 @@ TASK_CONTRACT 是程序固定的任务与验收条件，不能修改、降低或
 最终报告必须选用契约要求的证据，知识引用只能来自实际检索的 citation_id。
 缺少证据时通过原生 tool_calls 补齐，不得伪装工具调用或编造数值。
 '''
+
+
+def dispatch_system(context):
+    if getattr(getattr(context, 'detector', None), 'profile_id', None) != 'general_rgb_v1':
+        return SYSTEM
+    text = SYSTEM.replace('水下图像分析', '普通自然图像分析').replace(
+        '仅支持 propeller、pipe、pipe_type2、red_fin、net、qr_codes，不支持鱼或珊瑚。',
+        '仅支持当前COCO类别列表，管道、二维码、鱼等列表外目标不能映成其他类别。')
+    return text + '\nGENERAL_PROFILE=general_rgb_v1。检测结果未经独立校准时只作为候选，不能因分数高、质量通过或稳定就宣称可靠识别。\n支持类别=' + json.dumps(tuple(context.detector.classes)[1:], ensure_ascii=False)
 
 
 def observation_for_model(result):
@@ -103,14 +112,14 @@ class AgentRuntime:
                 state['available_evidence_ids'] = list(evidence_map(ctx))
                 state['available_citation_ids'] = list(ctx.citations)
                 if contract is None:
-                    request_messages = [{'role': 'system', 'content': INTENT_SYSTEM}] + intent_messages
+                    request_messages = [{'role': 'system', 'content': intent_system(ctx)}] + intent_messages
                     request_tools, tool_choice = None, 'auto'
                 else:
                     ready = validate_completion(contract, ctx, {
                         'evidence_ids': list(contract.required_evidence_ids),
                         'citation_ids': list(ctx.citations)})['passed']
                     tool_choice = 'auto' if ready else 'required'
-                    system = SYSTEM + '\nSESSION_STATE=' + json.dumps(state, ensure_ascii=False)
+                    system = dispatch_system(ctx) + '\nSESSION_STATE=' + json.dumps(state, ensure_ascii=False)
                     system += '\nTASK_CONTRACT=' + json.dumps(contract.as_dict(), ensure_ascii=False) + '\n'
                     request_messages = [{'role': 'system', 'content': system}] + messages
                     request_tools = tools

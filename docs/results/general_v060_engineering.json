@@ -1,0 +1,43 @@
+{
+  "version": "0.6.0",
+  "kind": "offline engineering evidence; no LLM or visual accuracy claim",
+  "private_final_tests": {
+    "passed": 361,
+    "skipped": 4
+  },
+  "public_full_before_final_patches": {
+    "passed": 364,
+    "skipped": 3
+  },
+  "public_final_targeted": {
+    "passed": 48,
+    "skipped": 1
+  },
+  "official_metric_tests": {
+    "passed": 17,
+    "skipped": 0
+  },
+  "node_ui": {
+    "passed": 27,
+    "total": 27
+  },
+  "clean_cpu_http": {
+    "passed": 23,
+    "total": 23,
+    "memory_redirected_in_process": true
+  },
+  "native_langgraph_equivalence": {
+    "passed": 3,
+    "total": 3,
+    "scheduler": "deterministic offline rules"
+  },
+  "mcp": {
+    "tools": 3,
+    "checks_passed": 9,
+    "checks_total": 9,
+    "transport": "stdio"
+  },
+  "paid_api_requests": 0,
+  "rag_retrieval_acceptance": "not_evaluated_for_new_corpus",
+  "boundaries": "synthetic exposure fixtures are not camera recapture; no real LLM acceptance; clean clone has no local calibration artifacts"
+}

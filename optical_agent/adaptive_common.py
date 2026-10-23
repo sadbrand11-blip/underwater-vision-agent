@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 
 from optical_agent.adaptive_goals import goal_system
 from optical_agent.adaptive_tools import allowed_names, compact, descriptions, scope_id, validate_finish
-from optical_agent.adaptive_prompts import PLAN_SYSTEM, ACTION_SYSTEM
+from optical_agent.adaptive_prompts import PLAN_SYSTEM, ACTION_SYSTEM, action_system
 from optical_agent.diagnostics import details, redact
 from optical_agent.llm import LLMError
 from optical_agent.memory import MemoryTurn, MEMORY_RULE
@@ -85,7 +85,7 @@ def build_request(runtime, f, phase):
                     {'role': 'user', 'content': json.dumps(snapshot, ensure_ascii=False)}] + f.plan_history
         tools, choice = None, 'auto'
     else:
-        messages = [{'role': 'system', 'content': ACTION_SYSTEM + ('\n' + MEMORY_RULE if memory and memory.active else '') + '\nSTATE=' + json.dumps(snapshot, ensure_ascii=False)}] + f.history
+        messages = [{'role': 'system', 'content': action_system(state) + ('\n' + MEMORY_RULE if memory and memory.active else '') + '\nSTATE=' + json.dumps(snapshot, ensure_ascii=False)}] + f.history
         tools = [t for t in descriptions() if t['function']['name'] in allowed_names(goal)]
         relevant = [oid for oid, o in state.observations.items() if o['type'] in {'quality', 'correction', 'knowledge'} or oid.endswith(':' + scope_id(goal))]
         if goal.task_type == 'quality':

@@ -52,6 +52,17 @@ UNDERWATER_QUALITY_CONFIG = QualityConfig(
     calibration_label="underwater_background_tolerant_heuristic_pilot_v1",
 )
 
+# Ordinary photographs may intentionally contain a large black background,
+# white wall or night sky. Those pixels are risk indicators, not proof that
+# the entire photograph failed. Only near-constant endpoint frames stop this
+# profile; object-region risk remains visible in the report.
+GENERAL_QUALITY_CONFIG = QualityConfig(
+    max_lost_tiles_fraction=1.0,
+    max_global_dark_fraction=1.0,
+    max_global_bright_fraction=1.0,
+    calibration_label='general_rgb_observable_quality_heuristic_v1',
+)
+
 
 def _luminance(rgb: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
@@ -85,6 +96,7 @@ def assess(rgb: np.ndarray, cfg: QualityConfig | None = None) -> tuple[dict, np.
     does not pretend to localize a defect.
     """
     cfg = cfg or QualityConfig()
+    general = cfg.calibration_label.startswith('general_rgb_')
     if rgb.dtype != np.uint8 or rgb.ndim != 3 or rgb.shape[2] != 3:
         raise ValueError("Expected an RGB uint8 image")
     gray = _luminance(rgb)
@@ -141,6 +153,13 @@ def assess(rgb: np.ndarray, cfg: QualityConfig | None = None) -> tuple[dict, np.
                   and global_metrics["dark_fraction"] <= cfg.max_global_dark_fraction
                   and global_metrics["bright_fraction"] <= cfg.max_global_bright_fraction)
         reason = "整图仍有大面积不可辨像素" if not passed else "图像质量通过启发式检查"
+        if general:
+            near_endpoint = ((float(np.mean(gray <= 2)) >= .995
+                              or float(np.mean(gray >= 253)) >= .995)
+                             and int(gray.max()) - int(gray.min()) <= 8)
+            passed = not near_endpoint
+            reason = ('图像几乎全部处于亮度端点，当前单帧无法提供足够可辨结构'
+                      if not passed else '完成可观察亮度检查；局部明暗端点仅标记疑似剪切风险')
     report = {
         "exposure_state": state,
         "quality_pass": passed,
@@ -151,6 +170,16 @@ def assess(rgb: np.ndarray, cfg: QualityConfig | None = None) -> tuple[dict, np.
         "global": global_metrics,
         "tiles": tiles,
     }
+    if general:
+        report.update({
+            'profile_id': 'general_rgb_v1',
+            'measurement_scope': 'observable_image_luminance_not_camera_exposure_or_EV',
+            'risk_interpretation': '暗部与高亮占比不能区分场景固有颜色和曝光剪切；热图不证明真实纹理已丢失',
+            'suspected_clipping_tile_fraction': lost_count / tile_count,
+            'quality_status': 'unassessable' if passed is None else 'failed' if not passed else 'passed_with_local_risk' if lost_count else 'passed',
+        })
+        for tile in tiles:
+            tile['suspected_clipping_risk'] = tile['information_loss']
     return report, heat
 
 
@@ -162,7 +191,9 @@ def correct_exposure(rgb: np.ndarray, before: dict, profile: ExposureProfile | N
         raise ValueError('Unknown bounded correction method')
     if before.get('quality_pass') is False:
         return rgb.copy(), {'applied': False, 'method': 'identity', 'profile': profile.name,
-                            'reason': '原图信息丢失，停止恢复；增强不能成为可靠证据'}
+                            'reason': ('原图近乎全黑或全白，停止恢复；亮度映射无法验证丢失的真实结构'
+                                       if before.get('profile_id') == 'general_rgb_v1' else
+                                       '原图信息丢失，停止恢复；增强不能成为可靠证据')}
     if before["exposure_state"] in {"normal", "preprocessed_binary"}:
         return rgb.copy(), {"applied": False, "method": "identity", "reason": "无需校正或输入不适合曝光估计"}
     gray = _luminance(rgb).astype(np.float32) / 255.0

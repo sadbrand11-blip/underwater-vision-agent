@@ -45,10 +45,10 @@ class RagWebTests(unittest.TestCase):
              patch.object(web,'release_config',side_effect=lambda root:dict(config)),\
              patch.object(web,'build_chunks',return_value=[{'citation_id':'x','text':'a'}]),\
              patch.object(web,'create_retriever',side_effect=lambda root,mode,vision,**kw:StubRetriever(mode or 'tfidf',vision)):
-            old=web.get_retriever()
-            self.assertIs(old,web.get_retriever())
+            old=web._get_archived_retriever()
+            self.assertIs(old,web._get_archived_retriever())
             config['thresholds']={'tfidf':.2,'dense':.6}
-            new=web.get_retriever()
+            new=web._get_archived_retriever()
             self.assertIsNot(old,new)
             self.assertEqual(old.metadata()['corpus_hash'],'fixed')
 

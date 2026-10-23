@@ -75,7 +75,7 @@ def test_frozen_native_and_graph_requests_and_core(expected):
 
 def test_dispatch_registry_is_fixed_lazy_and_preserves_arguments():
     files={p.stem for p in (PROJECT_ROOT/'optical_agent/experiments').glob('*.py') if p.stem not in {'__init__','__main__'}}
-    assert files==set(cli.COMMANDS) and len(files)==32
+    assert files==set(cli.COMMANDS) and len(files)==34
     for command,module in cli.COMMANDS.items():
         if command in cli.NO_ARGUMENT_COMMANDS:continue
         observed=[]
@@ -138,7 +138,8 @@ def test_capability_probe_is_local_and_never_loads_models(tmp_path):
         result=ui_capabilities.probe_capabilities(tmp_path/'missing.pt',tmp_path/'embedding',experimental=False)
     assert not result['detector']['available']
     assert not result['embedding']['available']
-    assert all(not mode['available'] and mode['reason'] for mode in result['vision_modes'].values())
+    assert all(not mode['available'] and mode['reason'] for key,mode in result['vision_modes'].items() if key.startswith('experiment_'))
+    assert result['vision_modes']['general_rgb_v1']['available']
 
 
 def test_nested_experiment_imports_use_package_names():

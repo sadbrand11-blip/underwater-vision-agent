@@ -20,3 +20,14 @@ compare_candidates给出每种候选的采用图片和可靠性。最终所选�
 工具与格式出错可修正；达到预算则停止。'''
 ACTION_SYSTEM += '\n每轮最多10次模型调用，目标理解与初始规划已使用2次。优先把已满足前提的多个工具放在同一tool_calls批次，按顺序执行，留出最终提交的一次调用；新候选的质量和检测可同批。重新规划与后续动作也可同批，引用必须来自之前已得到的观察。'
 ACTION_SYSTEM += '\n初始计划只描述动作。候选比较返回effect_degraded=true时，结束前必须调用revise_plan，引用实际comparison观察，明确改为保留原图或从原图尝试另一方法。不得只在最终图片选择中隐含改变计划。'
+
+
+def action_system(state):
+    from optical_agent.adaptive_goals import is_general
+    if not is_general(state):
+        return ACTION_SYSTEM
+    return ACTION_SYSTEM.replace('水下视觉Agent', '通用自然图像Agent') + '''
+GENERAL_PROFILE=general_rgb_v1。支持类别只来自固定GOAL及会话提供的COCO类别列表。
+亮度、截断和噪声是当前图片的可观察指标，不是相机曝光参数；局部明暗风险不自动表示整图失败。
+COCO预训练分数未经本项目独立校准时只能作候选。质量通过和跨候选稳定均不自动构成可靠识别。
+旧水下校准、知识、历史目标框和偏好不能作为本轮图像证据；工具报告缺失模型时不得写为没有目标。'''

@@ -1,15 +1,15 @@
 const el = id => document.getElementById(id);
-const prompts = {quality:'只检查曝光',correction:'只校正曝光',analysis:'检查这张水下图，必要时校正曝光，然后只识别管道，说明结果是否可靠。'};
+const prompts = {quality:'只检查曝光',correction:'只校正曝光',analysis:'检查这张图，必要时校正曝光，然后只识别人，说明结果是否可靠。'};
 function text(id, value){el(id).textContent=value;}
 async function json(url,options){const r=await fetch(url,options);const data=await r.json();if(!r.ok)throw new Error(data.error||`HTTP ${r.status}`);return data;}
-fetch('/health').then(r=>r.json()).then(d=>text('model',d.detector_available?'SODD six-class checkpoint and detector dependencies available. Detection returns candidates.':'Detection unavailable. Exposure assessment/correction work without weights. See --with-detector.'));
+fetch('/health').then(r=>r.json()).then(d=>text('model',d.detector_available?'Official COCO80 checkpoint and detector dependencies available. Detection returns candidates.':'Detection unavailable. Exposure assessment/correction work without weights. See --with-detector.'));
 el('run').onclick=async()=>{el('run').disabled=true;text('status','Executing actual local tools…');el('actions').replaceChildren();try{
- const form=new FormData();form.append('rag_mode','tfidf');form.append('vision_mode','legacy');
+ const form=new FormData();form.append('rag_mode','tfidf');form.append('vision_mode','general_rgb_v1');
  if(el('upload').files.length)form.append('image',el('upload').files[0]);else{form.append('demo','true');form.append('demo_variant',el('variant').value);}
  const session=await json('/api/sessions',{method:'POST',body:form});el('before').src=session.image_refs.original;
  // Load the immutable preview before inference acquires the session lock.
  await el('before').decode();
- text('provenance',session.input_provenance.kind==='simulated_exposure_perturbation'?'SIMULATED exposure perturbation of a licensed SODD frame.':'Original uploaded or licensed SODD image.');
+ text('provenance',session.input_provenance.kind==='simulated_information_loss'?'SIMULATED all-black information-loss stress input.':session.input_provenance.kind==='simulated_exposure_perturbation'?'SIMULATED brightness x0.45 perturbation of a local example.':'Original uploaded or local example image; see actual source metadata.');
  const result=await json('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:session.session_id,message:prompts[el('task').value],mode:'scripted',agent_mode:'adaptive',runtime_engine:'native'})});
  window.lastPublicResult=result;
  const refs=result.image_refs||{};const keys=Object.keys(refs);const selected=result.selected_image_id||'original';
@@ -18,7 +18,7 @@ el('run').onclick=async()=>{el('run').disabled=true;text('status','Executing act
  const evidence=result.evidence||result.observations||{};
  const quality=findQuality(result);const g=quality?.global||{};el('metrics').replaceChildren();
  for(const [label,value] of [['Exposure',quality?.exposure_state||'not measured'],['Dark ratio',g.dark_fraction],['Bright ratio',g.bright_fraction],['Candidates',result.target_count],['Tools',result.tool_calls],['Cloud requests',result.request_attempts??0]]){let p=document.createElement('p'),b=document.createElement('b');b.textContent=typeof value==='number'?value.toFixed(label.includes('ratio')?3:0):String(value??'—');p.append(b,document.createTextNode(label));el('metrics').append(p);}
- const goal=result.goal_contract||{};text('scope',`Goal: ${goal.task_type||'unknown'} · classes: ${(goal.target_classes||[]).join(', ')||'not requested'} · correction: ${goal.correction_policy||'not requested'}`);
+ const goal=result.goal_contract||{};const targets=goal.target_classes||[];const scope=['quality','correction'].includes(goal.task_type)?'not requested':targets.length===80?'COCO80 (all supported)':targets.join(', ')||'not requested';text('scope',`Goal: ${goal.task_type||'unknown'} · classes: ${scope} · correction: ${goal.correction_policy||'not requested'}`);
  text('status',`Task: ${result.task_status||result.status} · actual tools: ${result.tool_calls??0} · cloud requests: ${result.request_attempts??0}`);
  text('conclusion',`Execution: ${result.execution_status||result.task_status}. Reliability: ${findReliability(result)||'not assessed for this task'}.`);
  text('reasons',result.answer||result.error||'');

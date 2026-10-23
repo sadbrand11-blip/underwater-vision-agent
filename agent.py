@@ -9,7 +9,8 @@ import cv2
 import numpy as np
 
 from metrics import iou
-from quality import ExposureProfile, QualityConfig, UNDERWATER_QUALITY_CONFIG, assess, correct_exposure
+from quality import (ExposureProfile, QualityConfig, UNDERWATER_QUALITY_CONFIG,
+                     GENERAL_QUALITY_CONFIG, assess, correct_exposure)
 
 
 class Detector(Protocol):
@@ -54,6 +55,147 @@ def _overlay(rgb: np.ndarray, boxes: list[dict], lost: list[list[int]]) -> np.nd
         cv2.putText(output, label, (x0, max(12, y0 - 4)), cv2.FONT_HERSHEY_SIMPLEX,
                     0.4, color, 1, cv2.LINE_AA)
     return output
+
+
+def _general_accepted(detector, boxes):
+    """No absent-calibration default of 1.0 for the general-photo profile."""
+    statuses = (getattr(detector, 'calibration_status', None) or {}).get('class_status', {})
+    if not getattr(detector, 'calibration', None):
+        return []
+    return [box for box in boxes
+            if statuses.get(box['class_name']) == 'validated'
+            and box.get('calibration_status') == 'validated'
+            and box['score'] >= box.get('operating_threshold', detector.threshold)
+            and isinstance(box.get('estimated_box_precision'), (int, float))
+            and .5 <= box['estimated_box_precision'] <= 1.0]
+
+
+def _general_roi_quality(rgb, boxes, cfg):
+    """Measurements inside actual candidate boxes; never independent GT evidence."""
+    height, width = rgb.shape[:2]
+    outputs = []
+    for item in boxes:
+        x0, y0, x1, y1 = item['box']
+        x0, y0 = max(0, int(np.floor(x0))), max(0, int(np.floor(y0)))
+        x1, y1 = min(width, int(np.ceil(x1))), min(height, int(np.ceil(y1)))
+        if x1 <= x0 or y1 <= y0:
+            continue
+        quality, _ = assess(rgb[y0:y1, x0:x1], cfg)
+        outputs.append({'class_id': item['class_id'], 'class_name': item['class_name'],
+            'box': [x0, y0, x1, y1], 'global': quality['global'],
+            'suspected_clipping_tile_fraction': quality['lost_tile_fraction'],
+            'near_uniform_endpoint': quality['quality_pass'] is False,
+            'interpretation': '候选框内亮度风险；黑白物体本色也可能产生相同测量，不能据此确认曝光损失'})
+    return outputs
+
+
+def _compare_general_evidence(detector, rgb, corrected, before, after, correction,
+                              raw_boxes, corrected_boxes, raw_heat, corrected_heat, start):
+    import copy
+    start = time.perf_counter() if start is None else start
+    correction = copy.deepcopy(correction)
+    threshold = detector.threshold
+    raw_candidates = [d for d in raw_boxes if d['score'] >= min(threshold, d.get('operating_threshold', threshold))]
+    corrected_candidates = [d for d in corrected_boxes if d['score'] >= min(threshold, d.get('operating_threshold', threshold))]
+    stable = _consistent(raw_candidates, corrected_candidates)
+    selected_variant = 'corrected' if correction['applied'] else 'original'
+    if correction['applied'] and before['quality_pass'] is True:
+        # Choose on observable quality and candidate consistency. A sum of
+        # detector scores or number of boxes is not an accuracy measurement.
+        b, a = before['global'], after['global']
+        degradation = (after['quality_pass'] is False
+            or a['bright_fraction'] > b['bright_fraction'] + .02
+            or a['dark_fraction'] > b['dark_fraction'] + .02
+            or a['noise_estimate'] > max(b['noise_estimate'] * 1.5, b['noise_estimate'] + .005)
+            or a['contrast'] < b['contrast'] * .75)
+        if degradation or not stable:
+            selected_variant = 'original'
+            correction['selection_reason'] = ('候选的可观察质量下降或目标候选不一致，采用原图；框数和分数变化不代表准确率变化')
+        else:
+            correction['selection_reason'] = '候选通过有界质量与一致性检查；没有真值标注，不能据此声称检测精度提高'
+    policy = getattr(detector, 'exposure_policy', {})
+    if correction['applied'] and policy.get('status') == 'development_selected':
+        method = 'gamma_only' if correction.get('method') == 'bounded_gamma' else 'local_bounded'
+        if policy['selected_method'] == 'original' or method != policy['selected_method']:
+            selected_variant = 'original'
+            correction['selection_reason'] = '独立开发集未支持将此校正方法作为默认采用图；保留原图，候选仍可查看'
+    correction['selected_as_candidate'] = selected_variant == 'corrected' and correction['applied']
+    selected_boxes = corrected_boxes if selected_variant == 'corrected' else raw_boxes
+    accepted = _general_accepted(detector, selected_boxes)
+    tentative = [item for item in selected_boxes if item not in accepted]
+    reasons = []
+    if before['exposure_state'] == 'preprocessed_binary':
+        reasons.append('输入接近二值图，无法判断原始曝光与普通照片可辨性')
+    if before['quality_pass'] is False:
+        reasons.append('原图近乎全黑或全白，缺少可辨结构；单帧增强不能验证真实纹理')
+    if correction['applied'] and not stable:
+        reasons.append('原图与校正图目标候选不一致，不能把新增框或升高分数当作识别改善')
+    if not getattr(detector, 'calibration', None):
+        reasons.append('通用COCO检测器没有可用的独立校准，检测框仅作候选识别')
+    elif tentative:
+        reasons.append('部分候选类别校准不足或未达到独立校准阈值')
+    if not accepted:
+        reasons.append('没有可自动接受的目标证据；不能据此证明画面中没有目标')
+    if selected_variant == 'corrected' and getattr(detector, 'calibration', None):
+        reasons.append('独立校准来自未校正COCO图片，尚未验证校准能迁移到该增强候选')
+    if not 0 < threshold < 1:
+        reasons.append('检测阈值无效')
+    status = 'unreliable' if reasons else 'reliable'
+    if before['quality_pass'] is False:
+        status = 'quality_failure'
+    elif before['exposure_state'] == 'preprocessed_binary':
+        status = 'quality_unassessable'
+    if status != 'reliable':
+        accepted = []
+        tentative = list(selected_boxes)
+    selected_rgb = corrected if selected_variant == 'corrected' else rgb
+    selected_quality = after if selected_variant == 'corrected' else before
+    cfg = (QualityConfig(**detector.quality_config) if getattr(detector, 'quality_config', None)
+           else GENERAL_QUALITY_CONFIG)
+    region_quality = {'original': _general_roi_quality(rgb, raw_boxes, cfg),
+                      'corrected': _general_roi_quality(corrected, corrected_boxes, cfg)}
+    region_quality['selected'] = region_quality[selected_variant]
+    original_risks, corrected_risks = _lost_boxes(before), _lost_boxes(after)
+    correction['accepted'] = bool(correction['selected_as_candidate'] and status == 'reliable')
+    correction['accuracy_improvement_verified'] = False
+    result = {
+        'status': status, 'target_conclusion': 'automatic' if status == 'reliable' else 'unreliable',
+        'defect_conclusion': None,
+        'next_action': ('accept_result' if status == 'reliable' else
+            'provide_unprocessed_image' if status == 'quality_unassessable' else
+            'provide_aligned_alternative_exposure' if status == 'quality_failure' else
+            'inspect_candidates_and_calibration_limits'),
+        'reasons': reasons, 'quality_before': before, 'quality_after': after,
+        'quality_selected': selected_quality, 'correction': correction,
+        'detections_original': raw_boxes, 'detections_corrected': corrected_boxes,
+        'detections_selected': selected_boxes, 'accepted_detections': accepted,
+        'tentative_detections': tentative, 'selected_image': selected_variant,
+        # Legacy keys remain for wire compatibility; general interpretation is
+        # explicitly risk-based rather than confirmed physical information loss.
+        'irrecoverable_regions': original_risks, 'remaining_problem_regions': corrected_risks,
+        'region_interpretation': 'suspected_brightness_clipping_not_confirmed_texture_loss',
+        'target_region_quality': region_quality,
+        'reliability_layers': {
+            'quality': selected_quality.get('quality_status'),
+            'detection_stability': 'single_image_only' if not correction['applied'] else 'consistent' if stable else 'conflicting',
+            'calibration': getattr(detector, 'calibration_status', {'status': 'unavailable'}),
+            'accuracy_improvement': 'not_evaluated_without_ground_truth'},
+        'evidence_scope': 'single_image_internal_rules_no_cross_exposure_evidence' if not correction['applied'] else 'original_candidate_internal_consistency_not_accuracy',
+        'detector_threshold': threshold, 'detector_training_domain': detector.dataset,
+        'detector_checkpoint_sha256': getattr(detector, 'model_sha256', None),
+        'detector_calibration_status': getattr(detector, 'calibration_status', None),
+        'detector_models': detector.metadata() if hasattr(detector, 'metadata') else None,
+        'detector_score_warning': '分数为排序分数；仅有独立校准且样本充分的类别参与自动接受，仍不保证分布外可靠性',
+        'profile_id': detector.profile_id, 'ontology_version': getattr(detector, 'ontology_version', None),
+        'latency_ms': round((time.perf_counter() - start) * 1000, 1),
+    }
+    images = {'original': rgb, 'corrected': corrected, 'selected': selected_rgb,
+        'quality_heatmap_before': raw_heat, 'quality_heatmap_after': corrected_heat,
+        'detections_original': _overlay(rgb, raw_boxes, original_risks),
+        'detections_corrected': _overlay(corrected, corrected_boxes, corrected_risks),
+        'detections_selected': _overlay(selected_rgb, selected_boxes,
+            corrected_risks if selected_variant == 'corrected' else original_risks)}
+    return result, images
 
 
 class OpticalAgent:
@@ -135,6 +277,9 @@ class OpticalAgent:
 
 def compare_evidence(detector, rgb, corrected, before, after, correction, raw_boxes, corrected_boxes, raw_heat, corrected_heat, start=None):
     """Apply the same deterministic gate to already computed observations."""
+    if getattr(detector, 'profile_id', None) == 'general_rgb_v1':
+        return _compare_general_evidence(detector, rgb, corrected, before, after, correction,
+            raw_boxes, corrected_boxes, raw_heat, corrected_heat, start)
     import copy
     correction = copy.deepcopy(correction)
     start = time.perf_counter() if start is None else start

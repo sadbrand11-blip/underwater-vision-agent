@@ -20,17 +20,17 @@ TOOLS = {'assess_image_quality', 'generate_exposure_candidate', 'detect_objects'
 
 def direct_results(path, method):
     from data import read_rgb
-    from optical_agent.adaptive_goals import CLASSES, Goal
+    from optical_agent.adaptive_goals import Goal
     from optical_agent.adaptive_tools import AdaptiveState, execute
     from optical_agent.mcp_adapter import load_default_detector
     from optical_agent.tools import ToolContext
     detector = load_default_detector()
     if not getattr(detector, 'model_available', True):
-        raise RuntimeError('检测模型不可用，请检查 models/sodd_detector.pt。')
+        raise RuntimeError('通用检测模型不可用，请检查官方COCO权重。')
     state = AdaptiveState(ToolContext(detector, read_rgb(path)))
 
     def run(kind, image_id, name, args):
-        state.begin(Goal(kind, image_id, CLASSES, 'always' if kind == 'correction' else 'never', False))
+        state.begin(Goal(kind, image_id, tuple(detector.classes[1:]), 'always' if kind == 'correction' else 'never', False))
         result = execute(state, name, args)
         if not result['ok']:
             raise RuntimeError('直接视觉对照未完成：' + result.get('error_category', 'unknown'))
@@ -124,12 +124,12 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--image', type=Path)
     parser.add_argument('--method', choices=['gamma_only', 'local_bounded'], default='gamma_only')
-    parser.add_argument('--output', type=Path, default=MCP_ROOT / 'runs' / 'demo_v053.json')
+    parser.add_argument('--output', type=Path, default=MCP_ROOT / 'runs' / 'demo_v060.json')
     args = parser.parse_args()
     if args.image is None:
-        from data import SODDDataset
-        dataset = SODDDataset(DATA_ROOT / 'sodd' / 'SODD' / 'data', 'test')
-        args.image = dataset.items[6][0]
+        args.image = DATA_ROOT / 'general_v060' / 'demo' / 'astronaut.png'
+        if not args.image.is_file():
+            parser.error('请使用 --image 指定D盘内的8位JPEG/PNG普通照片。')
     if not args.output.resolve().is_relative_to(MCP_ROOT.resolve()):
         parser.error('演示记录必须保存在 D 盘 MCP 目录内。')
     asyncio.run(run_demo(args.image.resolve(), args.output.resolve(), args.method))

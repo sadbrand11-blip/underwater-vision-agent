@@ -43,3 +43,12 @@ python -m optical_agent.experiments --list
 | `python train_detector.py …` | `python -m optical_agent.experiments train_detector …` |
 | `python train_vision_detectors.py …` | `python -m optical_agent.experiments train_vision_detectors …` |
 | `python verify_vision_web.py …` | `python -m optical_agent.experiments verify_vision_web …` |
+
+## 0.6.0 通用自然照片实验
+
+```text
+python -m optical_agent.experiments prepare_general_data --help
+python -m optical_agent.experiments evaluate_general_vision --help
+```
+
+下载/解压/检查/分组与开发、校准、冻结、保留测试显式分阶段执行。旧32条命令继续保持原历史含义，当前共34条白名单命令。参见 [GENERAL_DATA.md](GENERAL_DATA.md)。

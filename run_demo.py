@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent
 
 
 def download_detector(destination):
-    manifest = json.loads((ROOT / 'models/release.json').read_text(encoding='utf8'))
+    manifest = json.loads((ROOT / 'models/general_release.json').read_text(encoding='utf8'))
     destination = Path(destination)
     def checksum(path):
         h = hashlib.sha256()
@@ -41,10 +41,10 @@ def download_detector(destination):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--with-detector', action='store_true', help='Download verified SODD weights; requires optional torch/torchvision.')
+    parser.add_argument('--with-detector', action='store_true', help='Download verified official COCO weights; requires optional torch/torchvision.')
     parser.add_argument('--port', type=int, default=7860)
     args = parser.parse_args()
-    from optical_agent.public_config import MODEL_PATH
+    from optical_agent.general_vision import DEFAULT_CHECKPOINT as MODEL_PATH
     if args.with_detector:
         try:
             import torch
@@ -53,6 +53,10 @@ def main():
             parser.error('Install requirements-detector.txt first. Exposure mode needs no Torch.')
         download_detector(MODEL_PATH)
     import app as web
+    if not args.with_detector:
+        from optical_agent.public_config import PUBLIC_ROOT
+        web.MODEL = PUBLIC_ROOT / 'no-detector-selected.pth'
+        web._agent = None
     if args.with_detector:
         detector = web.get_agent().detector
         if getattr(detector, 'model_available', True) is False:

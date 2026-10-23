@@ -51,7 +51,7 @@ def create_server(adapter=None):
                 return CallToolResult(content=[TextContent(type='text', text=json.dumps(value, ensure_ascii=False))],
                                       structured_content=value, is_error=True)
 
-    server = ContractServer('Underwater Optical Tools', version=__version__, instructions=(
+    server = ContractServer('Natural Image Optical Tools', version=__version__, instructions=(
         '三个本地视觉工具；先登记图片并评估曝光，再按需校正或检测。'
         '只返回候选识别，不提供完整可靠性验收。图片通过本地路径查看。'))
     hints = ToolAnnotations(read_only_hint=False, destructive_hint=False,
@@ -59,7 +59,7 @@ def create_server(adapter=None):
 
     @server.tool(annotations=hints)
     def assess_image_quality(image_path: str | None = None, image_id: str | None = None) -> CallToolResult:
-        """测量水下曝光质量。首次传数据目录内 image_path，后续传 image_id；必须二选一。返回真实指标和热图路径。"""
+        """测量普通自然图片的曝光与可辨性。首次传数据目录内 image_path，后续传 image_id；必须二选一。返回真实指标和热图路径。"""
         return response('assess_image_quality', dict(image_path=image_path, image_id=image_id))
 
     @server.tool(annotations=hints)
@@ -69,7 +69,7 @@ def create_server(adapter=None):
 
     @server.tool(annotations=hints)
     def detect_objects(image_id: str, target_classes: list[str] | None = None) -> CallToolResult:
-        """SODD 六类候选检测；省略类别检测全部，管道对应 pipe/pipe_type2。分数不能代表可靠性，模型缺失明确报错。"""
+        """COCO80类候选检测；省略类别检测全部支持类别，可传人、汽车、猫等中文别名。分数不能代表可靠性，模型缺失明确报错。"""
         return response('detect_objects', dict(image_id=image_id, target_classes=target_classes))
 
     return server

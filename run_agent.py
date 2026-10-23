@@ -9,8 +9,9 @@ from pathlib import Path
 
 from optical_agent.vision_delivery import DeliveryOpticalAgent
 from optical_agent.vision_data import ROOT
-from data import read_rgb, save_rgb
-from detector import TorchDetector
+from data import save_rgb
+from optical_agent.general_vision import GeneralDetector, DEFAULT_CHECKPOINT
+from optical_agent.image_input import read_image_bytes
 
 
 def main():
@@ -18,14 +19,14 @@ def main():
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     parser = argparse.ArgumentParser()
     parser.add_argument("images", nargs="+", help="Single image or aligned exposure frames")
-    parser.add_argument("--model", default=str(Path(__file__).parent / "models" / "sodd_detector.pt"))
-    parser.add_argument("--output", default=str(ROOT / 'vision_v040' / 'cli_latest'))
+    parser.add_argument("--model", default=str(DEFAULT_CHECKPOINT), help="Official verified COCO checkpoint")
+    parser.add_argument("--output", default=str(ROOT / 'general_v060' / 'cli_latest'))
     parser.add_argument("--device", choices=["cpu", "cuda"])
     args = parser.parse_args()
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
-    detector = TorchDetector(args.model, device=args.device)
-    report, images = DeliveryOpticalAgent(detector).inspect([read_rgb(path) for path in args.images])
+    detector = GeneralDetector(args.model, device=args.device)
+    report, images = DeliveryOpticalAgent(detector).inspect([read_image_bytes(Path(path).read_bytes()) for path in args.images])
     for name, image in images.items():
         save_rgb(output / f"{name}.png", image)
     report["input_files"] = [str(Path(path).resolve()) for path in args.images]

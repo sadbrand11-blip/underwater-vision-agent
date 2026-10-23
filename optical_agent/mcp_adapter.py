@@ -23,8 +23,8 @@ from optical_agent.adaptive_tools import AdaptiveState, execute, pixel_hash
 from optical_agent.diagnostics import redact
 from optical_agent.tools import ToolContext
 
-from optical_agent.public_config import DATA_ROOT, PUBLIC_ROOT
-MCP_ROOT = PUBLIC_ROOT / 'mcp'
+DATA_ROOT = Path(r'D:\CodexData\optical_agent')
+MCP_ROOT = DATA_ROOT / 'mcp'
 MAX_BYTES = 32 * 1024 * 1024
 MAX_PIXELS = 16_000_000
 
@@ -46,19 +46,8 @@ class UnavailableDetector:
 
 
 def load_default_detector():
-    from optical_agent.public_config import MODEL_PATH
-    path = MODEL_PATH
-    if not path.is_file() or path.stat().st_size < 1_000_000:
-        return UnavailableDetector()
-    try:
-        from detector import TorchDetector
-        detector = TorchDetector(path)
-        if tuple(detector.classes) != ('background', *CLASSES) or detector.dataset != 'sodd':
-            return UnavailableDetector()
-        return detector
-    except Exception as exc:
-        logging.getLogger('optical_mcp').warning('检测权重加载失败：%s', type(exc).__name__)
-        return UnavailableDetector()
+    from optical_agent.general_vision import GeneralDetector
+    return GeneralDetector()
 
 
 @dataclass
@@ -97,8 +86,8 @@ class VisionMCPAdapter:
             path = path.resolve(strict=True)
             if not path.is_relative_to(self.data_root) or not path.is_file():
                 raise AdapterError('invalid_path', '输入图片必须位于指定的 D 盘数据目录内。')
-            if path.suffix.lower() not in {'.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff', '.webp'}:
-                raise AdapterError('invalid_image', '仅接受 JPEG、PNG、BMP、TIFF 或 WebP 图片。')
+            if path.suffix.lower() not in {'.jpg', '.jpeg', '.png'}:
+                raise AdapterError('invalid_image', '仅接受8位JPEG或PNG图片。')
             with path.open('rb') as stream:
                 if path.stat().st_size > MAX_BYTES:
                     raise AdapterError('size_limit', '图片文件超过 32 MiB 上限。')
@@ -117,6 +106,9 @@ class VisionMCPAdapter:
             if decoded is None:
                 raise AdapterError('invalid_image', '图片无法解码。')
             pixels = cv2.cvtColor(decoded, cv2.COLOR_BGR2RGB)
+            if path.suffix.lower() in {'.jpg', '.jpeg', '.png'}:
+                from optical_agent.image_input import read_image_bytes
+                pixels = read_image_bytes(content)
             return path, hashlib.sha256(content).hexdigest(), pixels
         except AdapterError:
             raise
@@ -181,10 +173,10 @@ class VisionMCPAdapter:
                 ctx.last_used = self.clock()
                 ctx.active -= 1
 
-    def _run(self, ctx, kind, image_id, tool, arguments, classes=CLASSES):
+    def _run(self, ctx, kind, image_id, tool, arguments, classes=None):
         state = ctx.state
         state.check_integrity()
-        state.begin(Goal(kind, image_id, tuple(classes), 'always' if kind == 'correction' else 'never', False))
+        state.begin(Goal(kind, image_id, tuple(classes if classes is not None else getattr(state.detector, 'classes', ('background', *CLASSES))[1:]), 'always' if kind == 'correction' else 'never', False))
         result = execute(state, tool, arguments)
         if not result['ok']:
             # The adapter already checks every public prerequisite. The legacy
@@ -212,18 +204,23 @@ class VisionMCPAdapter:
                 temporary.unlink(missing_ok=True)
         return str(path)
 
-    def _targets(self, values):
+    def _targets(self, values, detector=None):
+        supported = tuple(getattr(detector, 'classes', ('background', *CLASSES)))[1:]
+        aliases = ALIASES
+        if getattr(detector, 'profile_id', None) == 'general_rgb_v1':
+            from optical_agent.general_catalog import GENERAL_ALIASES
+            aliases = GENERAL_ALIASES
         if values is None:
-            return CLASSES
-        if not isinstance(values, list) or not 1 <= len(values) <= 12 or any(not isinstance(x, str) for x in values):
-            raise AdapterError('parameters', 'target_classes 须为非空类别列表；省略时检测全部六类。')
+            return supported
+        if not isinstance(values, list) or not values or any(not isinstance(v, str) for v in values):
+            raise AdapterError('parameters', 'target_classes必须是非空类别列表，或省略以检测全部支持类别。')
         selected = set()
         for value in values:
-            for name in ALIASES.get(value, (value,)):
-                if name not in CLASSES:
-                    raise AdapterError('unsupported_class', '该服务只支持现有 SODD 六类；管道包含 pipe 和 pipe_type2。')
+            for name in aliases.get(value, (value,)):
+                if name not in supported:
+                    raise AdapterError('unsupported_class', f'当前模型不支持类别：{value}。请查看实际类别清单。')
                 selected.add(name)
-        return tuple(x for x in CLASSES if x in selected)
+        return tuple(x for x in supported if x in selected)
 
     def call(self, name, arguments):
         """Uniform secret-safe result envelope, including operation failures."""
@@ -293,11 +290,16 @@ class VisionMCPAdapter:
                 '校正候选已生成。' if data['parameters']['applied'] else '本图无需调整，返回未调整候选。', cached
 
     def _detect_objects(self, image_id, target_classes=None):
-        targets = self._targets(target_classes)
         with self._lease(image_id) as (ctx, internal):
             detector = ctx.state.detector
+            targets = self._targets(target_classes, detector)
+            if getattr(detector, 'profile_id', None) == 'general_rgb_v1':
+                from optical_agent.general_catalog import COCO_CLASSES
+                expected_classes = ('background', *COCO_CLASSES)
+            else:
+                expected_classes = ('background', *CLASSES)
             if (not getattr(detector, 'model_available', True)
-                    or tuple(getattr(detector, 'classes', ('background', *CLASSES))) != ('background', *CLASSES)):
+                    or tuple(getattr(detector, 'classes', expected_classes)) != expected_classes):
                 raise AdapterError('model_unavailable', '检测权重不可用；这不表示图中没有目标。')
             with self.gpu_lock:
                 data, cached = self._run(ctx, 'detection', internal, 'detect_objects', {'image_id': internal}, targets)
@@ -309,7 +311,9 @@ class VisionMCPAdapter:
                     'count': data['count'], 'status': 'candidate_only', 'annotated_image_path': view,
                     'model': {'dataset': getattr(detector, 'dataset', 'unknown'),
                               'sha256': getattr(detector, 'model_sha256', None),
-                              'threshold': float(detector.threshold), 'classes': list(CLASSES)},
+                              'threshold': float(detector.threshold), 'classes': list(detector.classes[1:]),
+                              'profile_id': getattr(detector, 'profile_id', 'legacy'),
+                              'ontology_version': getattr(detector, 'ontology_version', None)},
                     'calibration': {'available': bool(detector.calibration),
                                     'status': copy.deepcopy(getattr(detector, 'calibration_status', None)),
                                     'warning': '模型分数及校准统计不等于当前图的可靠识别结论。'},

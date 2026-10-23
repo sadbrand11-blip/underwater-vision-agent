@@ -1,0 +1,1523 @@
+{
+  "audit_skill": "experiment-audit",
+  "verdict": "PASS",
+  "reason_code": "verified_retained_evidence_and_scoped_claims",
+  "summary": "No active concrete experiment-integrity mismatch found. Retained COCO metrics, GT, split isolation, frozen source and cache bridge reproduce; claims are appropriately limited.",
+  "agent_id": "/root/v060_final_experiment_audit",
+  "verdict_id": "v060-final-experiment-audit-20261023",
+  "executor_model": "codex-gpt-6-astra",
+  "executor_family": "openai",
+  "reviewer_model": "gpt-6-astra",
+  "reviewer_family": "openai",
+  "reviewer_reasoning": "ultra",
+  "review_independence": "same-family",
+  "acceptance_status": "provisional",
+  "generated_at": "2026-10-23T09:28:40.771260+00:00",
+  "date": "2026-10-23",
+  "auditor": "gpt-6-astra-ultra",
+  "overall_verdict": "pass",
+  "integrity_status": "pass",
+  "source_read_only": true,
+  "paid_api_requests_by_auditor": 0,
+  "model_inference_requests_by_auditor": 0,
+  "checks": {
+    "A": {
+      "name": "Ground-truth provenance",
+      "status": "PASS",
+      "details": "All 5,000 manifest image IDs exactly equal official COCO val2017 annotation IDs; every manifest ground-truth box/class/crowd/annotation ID matches the annotation source, and every cached GT matches the manifest. Original-image AP uses pycocotools.COCOeval. No model output becomes ground truth. SICE is explicitly not_run with no reference PSNR/SSIM.",
+      "evidence": [
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/prepare_general_data.py",
+          "line": 270
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/prepare_general_data.py",
+          "line": 276
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 112
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 131
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/data_summary.json",
+          "line": 33
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/sice/acquisition.json",
+          "line": 37
+        }
+      ]
+    },
+    "B": {
+      "name": "Score normalization",
+      "status": "PASS",
+      "details": "IoU uses intersection over union; recall uses noncrowd GT counts; precision uses TP+FP; FP/image includes all evaluated images. No reported accuracy metric is divided by prediction max/min/mean. Raw COCO AP and operating-point metrics are separate. Image quality uses fixed 255 scaling and descriptive pixel statistics, expressly not exposure truth.",
+      "evidence": [
+        {
+          "path": "PROJECT_ROOT/optical_agent/general_eval.py",
+          "line": 150
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/general_eval.py",
+          "line": 159
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/general_eval.py",
+          "line": 188
+        },
+        {
+          "path": "PROJECT_ROOT/quality.py",
+          "line": 71
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 19
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 28
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 77
+        }
+      ]
+    },
+    "C": {
+      "name": "Result existence, numbers and completion",
+      "status": "PASS",
+      "details": "All 5,990 expected unique cache artifacts exist, with no extra/missing keys or identity mismatches; they contain 5,790 non-reused forwards and 200 exact reused prediction arrays with zero inference_ms. All original and 36 diagnostic operating summaries, all three official AP summaries, the complete calibration object, development policy, fixed-0.35 test comparison and public quality aggregates reproduce. The public engineering log counts match. The one initially stale UI hash is superseded by a separately preserved final node verification whose seven hashes and log hash match current files.",
+      "evidence": [
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/test_summary.json",
+          "line": 5
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/test_summary.json",
+          "line": 663
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/public_summary.json",
+          "line": 19
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/public_summary.json",
+          "line": 84
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/public_summary.json",
+          "line": 126
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/final_frozen_verification.json",
+          "line": 55
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/validation/node_final_verification.json",
+          "line": 5
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 103
+        }
+      ]
+    },
+    "D": {
+      "name": "Metric reachability and execution",
+      "status": "PASS",
+      "details": "All in-scope detection, calibration, quality-failure and latency metric functions are invoked by the evaluator and have outputs in real result files. Official COCOeval is called directly; hand-checked duplicate/crowd/empty-image/sparse-calibration/single-box AP tests cover meaningful metric boundaries. No claimed PSNR/SSIM or other dead metric was found.",
+      "evidence": [
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 131
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 141
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 319
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 328
+        },
+        {
+          "path": "PROJECT_ROOT/tests/test_general_eval.py",
+          "line": 17
+        },
+        {
+          "path": "PROJECT_ROOT/tests/test_general_eval.py",
+          "line": 115
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/official_eval.log",
+          "line": 2
+        }
+      ]
+    },
+    "E": {
+      "name": "Scope, configurations and isolation",
+      "status": "PASS",
+      "details": "Evidence is one public COCO validation corpus, one split seed (20261023), 3,000/1,000/1,000 images, and 30 diagnostic base images per split under four variants and three methods. The text correctly distinguishes 360 correlated test rows from 30 independent base images, acknowledges public-data and scene-independence limits, 58 insufficient classes, 10/22 calibrated classes below 0.8 test precision, and SICE/real-LLM/RAG accuracy not evaluated. Freeze precedes retained test cache mtimes and all test signatures are frozen-current; old archives contain no test rows.",
+      "evidence": [
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 13
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 15
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 36
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 37
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 99
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 126
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/freeze.json",
+          "line": 53
+        }
+      ]
+    },
+    "F": {
+      "name": "Evaluation-type classification",
+      "status": "PASS",
+      "details": "COCO original detection and its calibration/test operating metrics are real_gt. Digital brightness/blackout experiments are simulation_only input experiments, with dataset GT retained for COCO detector scoring; they are not model-generated-reference synthetic_proxy. Image-only exposure/quality indicators and scripted workflow equivalence are self_supervised_proxy/engineering checks, not human_eval or semantic accuracy. SICE is not_run and real LLM acceptance is not_run.",
+      "evidence": [
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 18
+        },
+        {
+          "path": "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py",
+          "line": 22
+        },
+        {
+          "path": "PROJECT_ROOT/quality.py",
+          "line": 173
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/validation/runtime_visual/summary.json",
+          "line": 2
+        },
+        {
+          "path": "LOCAL_DATA_ROOT/general_v060/recording/gif-manifest.json",
+          "line": 15
+        },
+        {
+          "path": "PROJECT_ROOT/docs/GENERAL_EVALUATION.md",
+          "line": 122
+        }
+      ]
+    }
+  },
+  "active_findings": [],
+  "resolved_findings": [
+    {
+      "id": "R1",
+      "title": "Historical public UI hash superseded by final verification",
+      "status": "resolved",
+      "old_evidence": {
+        "path": "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/final_frozen_verification.json",
+        "line": 55
+      },
+      "current_evidence": {
+        "path": "LOCAL_DATA_ROOT/general_v060/validation/node_final_verification.json",
+        "line": 7
+      },
+      "details": "The older record hashes conversation.js as bc6422cb04768ce2c8be4ea52f8965619809b13ac0bfd7141f711d356011350c; current file is 2c9c0668578f3369c9b2f860d3d2a5a5b62195d101373a1e95b416976c45ecbe. A separately retained final record binds all seven UI/source test files and its actual 27-pass log to the current files. No experiment/source edit by auditor."
+    }
+  ],
+  "evaluation_types": [
+    {
+      "scope": "COCO original detector benchmark, calibration and held-out operating-point scores",
+      "type": "real_gt"
+    },
+    {
+      "scope": "COCO digitally perturbed exposure diagnostics",
+      "type": "simulation_only",
+      "ground_truth_source": "real_gt retained dataset boxes; no model-generated reference"
+    },
+    {
+      "scope": "Observable luminance/quality and no-GT scripted workflow/MCP equivalence",
+      "type": "self_supervised_proxy",
+      "subtype": "engineering measurements, not semantic accuracy"
+    },
+    {
+      "scope": "SICE real multi-exposure / reference PSNR-SSIM",
+      "type": null,
+      "status": "not_run"
+    },
+    {
+      "scope": "True LLM scheduling acceptance",
+      "type": null,
+      "status": "not_run"
+    },
+    {
+      "scope": "Human evaluation",
+      "type": null,
+      "status": "not_run"
+    }
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "Frozen 1,000-image COCO project test AP=.24120508670617372; AP50=.39455022761428565",
+      "impact": "supported",
+      "qualification": "Public validation project split; .05 score floor; one retained frozen run."
+    },
+    {
+      "id": "C2",
+      "claim": "Frozen class thresholds TP2499 FP1086 FN4949 / GT7448; micro recall .3355263157894737",
+      "impact": "supported"
+    },
+    {
+      "id": "C3",
+      "claim": "22/80 classes pass calibration engineering gates, 10/22 fall below .8 test precision",
+      "impact": "supported",
+      "qualification": "No per-class correctness or deployment reliability guarantee."
+    },
+    {
+      "id": "C4",
+      "claim": "Default original selected by development exposure gate; no enhancement accuracy gain established",
+      "impact": "supported"
+    },
+    {
+      "id": "C5",
+      "claim": "27 UI tests, 23 HTTP checks, 3 fixture equivalences, 3 MCP tools/9 checks",
+      "impact": "supported",
+      "qualification": "Offline engineering evidence, not real LLM/visual accuracy."
+    },
+    {
+      "id": "C6",
+      "claim": "Real SICE exposure accuracy, arbitrary-scene generalization, new RAG accuracy or real LLM acceptance",
+      "impact": "unsupported_and_explicitly_not_claimed"
+    }
+  ],
+  "action_items": [],
+  "scope_limits": [
+    "No detector or LLM inference replay was requested or performed; inference provenance was audited from preserved inputs, source and actual prediction caches.",
+    "One seed and one retained frozen public-validation test do not establish external scene independence or field reliability; the current documentation explicitly preserves these limits.",
+    "Historical first-pass development/calibration archive is superseded and not included in final scores or inference counts; its recorded incomplete old source snapshot is not silently presented as exact reproduction."
+  ],
+  "trace_path": "LOCAL_DATA_ROOT/general_v060/audit/EXPERIMENT_AUDIT.json#deterministic_verification",
+  "deterministic_verification": {
+    "cache_and_source": {
+      "manifest": {
+        "sha_ok": true,
+        "annotation_sha_ok": true,
+        "record_count": 5000,
+        "annotation_images": 5000,
+        "all_annotation_count": 36781,
+        "categories": 80,
+        "gt_mismatch_ids": [],
+        "id_unique": true,
+        "quarantine": [],
+        "sice_status": "not_run_source_unavailable"
+      },
+      "sources": {
+        "ids_exact": true,
+        "paths_exist": true
+      },
+      "split_counts": {
+        "development": {
+          "images": 3000,
+          "all": 21844,
+          "noncrowd": 21578
+        },
+        "calibration": {
+          "images": 1000,
+          "all": 7393,
+          "noncrowd": 7309
+        },
+        "test": {
+          "images": 1000,
+          "all": 7544,
+          "noncrowd": 7448
+        }
+      },
+      "grouping_recomputed": {
+        "equal": true,
+        "assignments_identical": true
+      },
+      "freeze": {
+        "files": 86,
+        "current_mismatches": [],
+        "snapshot_mismatches": [],
+        "runtime_snapshot_mismatches": [],
+        "artifact_hashes": {
+          "development_summary.json": true,
+          "calibration_summary.json": true
+        },
+        "calibration": true,
+        "policy": true,
+        "identity": true,
+        "bridge": true,
+        "bridge_signatures": true
+      },
+      "bridge_proof_recomputed_equal": true,
+      "caches": {
+        "expected": 5990,
+        "actual": 5990,
+        "missing": [],
+        "unexpected": [],
+        "errors": [],
+        "by_split": {
+          "test": 1330,
+          "development": 3330,
+          "calibration": 1330
+        },
+        "actual_inferences": {
+          "test": 1264,
+          "development": 3266,
+          "calibration": 1260
+        },
+        "total_actual_inferences": 5790,
+        "min_max_predictions": [
+          0,
+          89
+        ],
+        "sample": [
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\104572.json",
+            "id": "coco:000000104572",
+            "split": "test",
+            "gt": 6,
+            "predictions": 6,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\117914.json",
+            "id": "coco:000000117914",
+            "split": "test",
+            "gt": 3,
+            "predictions": 4,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\128654.json",
+            "id": "coco:000000128654",
+            "split": "development",
+            "gt": 2,
+            "predictions": 2,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 37,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 17,
+            "reused": true
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\gamma_only\\285.json",
+            "id": "coco:000000000285",
+            "split": "test",
+            "gt": 1,
+            "predictions": 1,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\local_bounded\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 36,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\local_bounded\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 17,
+            "reused": true
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\local_bounded\\285.json",
+            "id": "coco:000000000285",
+            "split": "test",
+            "gt": 1,
+            "predictions": 1,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\original\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 32,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\original\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 17,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\bright_14\\original\\285.json",
+            "id": "coco:000000000285",
+            "split": "test",
+            "gt": 1,
+            "predictions": 1,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\gamma_only\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 27,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\gamma_only\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 11,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\gamma_only\\285.json",
+            "id": "coco:000000000285",
+            "split": "test",
+            "gt": 1,
+            "predictions": 1,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\local_bounded\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 29,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\local_bounded\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 12,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\local_bounded\\285.json",
+            "id": "coco:000000000285",
+            "split": "test",
+            "gt": 1,
+            "predictions": 1,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\original\\139.json",
+            "id": "coco:000000000139",
+            "split": "calibration",
+            "gt": 20,
+            "predictions": 28,
+            "reused": false
+          },
+          {
+            "path": "LOCAL_DATA_ROOT\\general_v060\\predictions\\dark_06\\original\\23937.json",
+            "id": "coco:000000023937",
+            "split": "development",
+            "gt": 6,
+            "predictions": 14,
+            "reused": false
+          }
+        ]
+      },
+      "metrics": {
+        "development": {
+          "all_original_fields_equal": true,
+          "diagnostic_mismatches": [],
+          "original": {
+            "images": 3000,
+            "tp": 8045,
+            "fp": 4462,
+            "fn": 13533,
+            "gt": 21578,
+            "micro_recall": 0.372833441468162,
+            "macro_recall": 0.3741863587271053,
+            "false_positives_per_image": 1.4873333333333334,
+            "quality_failure_rate": 0,
+            "latency_ms": {
+              "mean": 94.63597066668201,
+              "p95": 110.59821499966347
+            },
+            "actual_inferences": 3000
+          },
+          "AP": {
+            "implementation": "pycocotools.COCOeval",
+            "images": 3000,
+            "AP_50_95": 0.228590821272435,
+            "AP50": 0.38034887386009786,
+            "AP75": 0.23288998869145405,
+            "AP_small": 0.020590791221165358,
+            "AP_medium": 0.22094583685484243,
+            "AP_large": 0.4460034292200027,
+            "AR100": 0.29402403654877995,
+            "prediction_score_floor": 0.05,
+            "max_detections_per_image": 100
+          }
+        },
+        "calibration": {
+          "all_original_fields_equal": true,
+          "diagnostic_mismatches": [],
+          "original": {
+            "images": 1000,
+            "tp": 2696,
+            "fp": 1462,
+            "fn": 4613,
+            "gt": 7309,
+            "micro_recall": 0.368860309207826,
+            "macro_recall": 0.38177149748292344,
+            "false_positives_per_image": 1.462,
+            "quality_failure_rate": 0,
+            "latency_ms": {
+              "mean": 92.14899299993704,
+              "p95": 108.74004999895988
+            },
+            "actual_inferences": 1000
+          },
+          "AP": {
+            "implementation": "pycocotools.COCOeval",
+            "images": 1000,
+            "AP_50_95": 0.2373437372450171,
+            "AP50": 0.3939959587858896,
+            "AP75": 0.24101981819254203,
+            "AP_small": 0.034843594600292245,
+            "AP_medium": 0.23374188677496693,
+            "AP_large": 0.48291578496791215,
+            "AR100": 0.2960654948892254,
+            "prediction_score_floor": 0.05,
+            "max_detections_per_image": 100
+          }
+        },
+        "test": {
+          "all_original_fields_equal": true,
+          "diagnostic_mismatches": [],
+          "original": {
+            "images": 1000,
+            "tp": 2499,
+            "fp": 1086,
+            "fn": 4949,
+            "gt": 7448,
+            "micro_recall": 0.3355263157894737,
+            "macro_recall": 0.368512215841278,
+            "false_positives_per_image": 1.086,
+            "quality_failure_rate": 0,
+            "latency_ms": {
+              "mean": 110.28760790000888,
+              "p95": 132.97880500194879
+            },
+            "actual_inferences": 1000
+          },
+          "AP": {
+            "implementation": "pycocotools.COCOeval",
+            "images": 1000,
+            "AP_50_95": 0.24120508670617372,
+            "AP50": 0.39455022761428565,
+            "AP75": 0.2499008601840823,
+            "AP_small": 0.03273284187844364,
+            "AP_medium": 0.2411702683880453,
+            "AP_large": 0.47254038896939865,
+            "AR100": 0.30130727307526145,
+            "prediction_score_floor": 0.05,
+            "max_detections_per_image": 100
+          }
+        }
+      },
+      "policy_recomputed_equal": true,
+      "archive_equals": {
+        "calibration.json": true,
+        "exposure_policy.json": true
+      },
+      "calibration_counts": {
+        "validated": 22,
+        "insufficient": 58
+      }
+    },
+    "official_ap_and_calibration": {
+      "development": {
+        "AP_fields_equal": {
+          "implementation": true,
+          "images": true,
+          "AP_50_95": true,
+          "AP50": true,
+          "AP75": true,
+          "AP_small": true,
+          "AP_medium": true,
+          "AP_large": true,
+          "AR100": true,
+          "prediction_score_floor": true,
+          "max_detections_per_image": true
+        },
+        "AP50": 0.38034887386009786,
+        "AP_50_95": 0.228590821272435
+      },
+      "calibration": {
+        "AP_fields_equal": {
+          "implementation": true,
+          "images": true,
+          "AP_50_95": true,
+          "AP50": true,
+          "AP75": true,
+          "AP_small": true,
+          "AP_medium": true,
+          "AP_large": true,
+          "AR100": true,
+          "prediction_score_floor": true,
+          "max_detections_per_image": true
+        },
+        "AP50": 0.3939959587858896,
+        "AP_50_95": 0.2373437372450171
+      },
+      "calibration_full_equal": true,
+      "test": {
+        "AP_fields_equal": {
+          "implementation": true,
+          "images": true,
+          "AP_50_95": true,
+          "AP50": true,
+          "AP75": true,
+          "AP_small": true,
+          "AP_medium": true,
+          "AP_large": true,
+          "AR100": true,
+          "prediction_score_floor": true,
+          "max_detections_per_image": true
+        },
+        "AP50": 0.39455022761428565,
+        "AP_50_95": 0.24120508670617372
+      },
+      "decoded_image_samples": [
+        {
+          "id": "coco:000000397133",
+          "split": "development",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000397133.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000037777",
+          "split": "development",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000037777.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000252219",
+          "split": "development",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000252219.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000087038",
+          "split": "development",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000087038.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000296649",
+          "split": "development",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000296649.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000386912",
+          "split": "calibration",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000386912.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000502136",
+          "split": "calibration",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000502136.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000017627",
+          "split": "calibration",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000017627.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000386912",
+          "split": "calibration",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000386912.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000370677",
+          "split": "calibration",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000370677.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000480985",
+          "split": "test",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000480985.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000522713",
+          "split": "test",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000522713.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000297343",
+          "split": "test",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000297343.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000406611",
+          "split": "test",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000406611.jpg",
+          "full_fingerprint_equal": true
+        },
+        {
+          "id": "coco:000000089648",
+          "split": "test",
+          "file": "LOCAL_DATA_ROOT\\general_v060\\coco\\val2017\\000000089648.jpg",
+          "full_fingerprint_equal": true
+        }
+      ],
+      "all_source_image_hashes": {
+        "checked": 5000,
+        "mismatch_ids": []
+      }
+    },
+    "public_claims": {
+      "test_classes_with_gt": 80,
+      "test_classes_without_gt": [],
+      "fixed_035_claim_matches": true,
+      "calibrated_subset": {
+        "images": 1000,
+        "tp": 1612,
+        "fp": 377,
+        "fn": 2494,
+        "gt": 4106,
+        "micro_recall": 0.3925962006819289,
+        "macro_recall": 0.4833037153849585,
+        "false_positives_per_image": 0.377
+      },
+      "calibrated_micro_precision": 0.8104575163398693,
+      "below80_count": 10,
+      "quality_differences": [],
+      "cache_times": {
+        "development": {
+          "first_modified": "2026-10-23T08:49:23.636036+00:00",
+          "last_modified": "2026-10-23T08:54:14.710818+00:00"
+        },
+        "calibration": {
+          "first_modified": "2026-10-23T08:55:13.474129+00:00",
+          "last_modified": "2026-10-23T08:56:48.535522+00:00"
+        },
+        "test": {
+          "first_modified": "2026-10-23T09:04:01.510501+00:00",
+          "last_modified": "2026-10-23T09:05:50.219624+00:00"
+        }
+      },
+      "runtime_validation": [
+        {
+          "variant": "normal",
+          "engine": "native",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 6,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 1,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "reliable"
+        },
+        {
+          "variant": "normal",
+          "engine": "langgraph",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 6,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 1,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "reliable"
+        },
+        {
+          "variant": "normal",
+          "engine": "fixed_full_pipeline",
+          "model": null,
+          "execution_mode": null,
+          "request_attempts": null,
+          "model_request_attempts": null,
+          "task_validation": null,
+          "counts": null,
+          "vision_status": null
+        },
+        {
+          "variant": "dark",
+          "engine": "native",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 6,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 1,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "reliable"
+        },
+        {
+          "variant": "dark",
+          "engine": "langgraph",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 6,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 1,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "reliable"
+        },
+        {
+          "variant": "dark",
+          "engine": "fixed_full_pipeline",
+          "model": null,
+          "execution_mode": null,
+          "request_attempts": null,
+          "model_request_attempts": null,
+          "task_validation": null,
+          "counts": null,
+          "vision_status": null
+        },
+        {
+          "variant": "lost",
+          "engine": "native",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 5,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 0,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "quality_failure"
+        },
+        {
+          "variant": "lost",
+          "engine": "langgraph",
+          "model": "offline_adaptive_rule_fixture",
+          "execution_mode": "scripted",
+          "request_attempts": 0,
+          "model_request_attempts": 5,
+          "task_validation": {
+            "passed": true,
+            "missing": []
+          },
+          "counts": {
+            "quality": 1,
+            "detection": 0,
+            "correction": 0,
+            "comparison": 1
+          },
+          "vision_status": "quality_failure"
+        },
+        {
+          "variant": "lost",
+          "engine": "fixed_full_pipeline",
+          "model": null,
+          "execution_mode": null,
+          "request_attempts": null,
+          "model_request_attempts": null,
+          "task_validation": null,
+          "counts": null,
+          "vision_status": null
+        }
+      ],
+      "gif_files": [],
+      "recording_frames": {
+        "01-quality.png": {
+          "exists": true,
+          "hash_ok": true
+        },
+        "02-correction.png": {
+          "exists": true,
+          "hash_ok": true
+        },
+        "03-person.png": {
+          "exists": true,
+          "hash_ok": true
+        },
+        "04-evidence.png": {
+          "exists": true,
+          "hash_ok": true
+        },
+        "05-black.png": {
+          "exists": true,
+          "hash_ok": true
+        }
+      },
+      "public_summary_matches_checked_in": true,
+      "gif_files_search_root": "LOCAL_DATA_ROOT/general_v060/recording"
+    },
+    "supplementary": {
+      "near_duplicate_pairs": [],
+      "weights_sha256": "907ea3f91ff92242bc1baea8049276a3e76bca48ce7560bd268cc029f37977b5",
+      "public_hash_checks": {
+        "app.py": true,
+        "run_demo.py": true,
+        "optical_agent/general_eval.py": true,
+        "optical_agent/adaptive_fixture.py": true,
+        "tests/test_general_eval.py": true,
+        "tests/test_general_context.py": true,
+        "tests/test_general_web.py": true,
+        "static/conversation.js": false,
+        "static/memory.js": true
+      },
+      "gif_matches": [
+        {
+          "path": "PUBLIC_PROJECT_ROOT\\assets\\demo.gif",
+          "sha_matches": true
+        }
+      ],
+      "docs_equal": true,
+      "mcp_top_keys": [
+        "app_version",
+        "mcp_version",
+        "transport",
+        "timestamp_utc",
+        "initialization",
+        "source",
+        "source_sha256",
+        "tools",
+        "code_sha256",
+        "checks",
+        "all_checks_passed",
+        "paid_api_requests",
+        "tool_calls",
+        "calls",
+        "direct",
+        "scope"
+      ],
+      "mcp_summary": {
+        "app_version": "0.6.0",
+        "mcp_version": "2.3.0",
+        "transport": "stdio",
+        "timestamp_utc": "2026-10-23T09:11:16.243843+00:00",
+        "initialization": "legacy_initialize",
+        "source": "LOCAL_DATA_ROOT\\general_v060\\demo\\astronaut.png",
+        "source_sha256": "88431cd9653ccd539741b555fb0a46b61558b301d4110412b5bc28b5e3ea6cb5",
+        "all_checks_passed": true,
+        "paid_api_requests": 0,
+        "tool_calls": 8,
+        "scope": "真实 MCP 协议及现有视觉工具一致性验证；不代表 LLM 调度或视觉精度提高。"
+      },
+      "mcp_checks": {
+        "checks": {
+          "original_quality_equal": true,
+          "candidate_quality_equal": true,
+          "correction_parameters_equal": true,
+          "original_boxes_equal": true,
+          "candidate_boxes_equal": true,
+          "configuration_equal": true,
+          "model_equal": true,
+          "cache_reused": true,
+          "original_file_preserved": true
+        }
+      },
+      "public_hash_checks_scope": "Historical public_cpu/final_frozen_verification.json; conversation.js mismatch is resolved by final_engineering.node_final_hashes."
+    },
+    "reuse_and_sice": {
+      "reused_count": 200,
+      "reuse_mismatches": [],
+      "sice_html_evidence": [
+        {
+          "path": "LOCAL_DATA_ROOT\\general_v060\\sice\\baidu_2.html",
+          "quota_text": false
+        },
+        {
+          "path": "LOCAL_DATA_ROOT\\general_v060\\sice\\baidu_3.html",
+          "quota_text": false
+        },
+        {
+          "path": "LOCAL_DATA_ROOT\\general_v060\\sice\\baidu_4.html",
+          "quota_text": false
+        },
+        {
+          "path": "LOCAL_DATA_ROOT\\general_v060\\sice\\downloads\\part1.access.html",
+          "quota_text": true
+        },
+        {
+          "path": "LOCAL_DATA_ROOT\\general_v060\\sice\\downloads\\part2.access.html",
+          "quota_text": true
+        }
+      ],
+      "sice_input_exists": false
+    },
+    "final_engineering": {
+      "node_final_hashes": {
+        "static/conversation.js": true,
+        "static/showcase.js": true,
+        "static/memory.js": true,
+        "tests/check_conversation_ui.cjs": true,
+        "tests/check_memory_ui.cjs": true,
+        "tests/check_langgraph_ui.cjs": true,
+        "tests/check_simplification_ui.cjs": true
+      },
+      "node_final_log_hash": true,
+      "runtime_core_equivalence": {
+        "normal": {
+          "goal_contract": true,
+          "selected_image_id": true,
+          "task_validation": true,
+          "task_status": true,
+          "vision_status": true,
+          "detections": true,
+          "target_count": true,
+          "computation_counts": true,
+          "model_request_attempts": true,
+          "request_attempts": true,
+          "tool_calls_equal": true
+        },
+        "dark": {
+          "goal_contract": true,
+          "selected_image_id": true,
+          "task_validation": true,
+          "task_status": true,
+          "vision_status": true,
+          "detections": true,
+          "target_count": true,
+          "computation_counts": true,
+          "model_request_attempts": true,
+          "request_attempts": true,
+          "tool_calls_equal": true
+        },
+        "lost": {
+          "goal_contract": true,
+          "selected_image_id": true,
+          "task_validation": true,
+          "task_status": true,
+          "vision_status": true,
+          "detections": true,
+          "target_count": true,
+          "computation_counts": true,
+          "model_request_attempts": true,
+          "request_attempts": true,
+          "tool_calls_equal": true
+        }
+      },
+      "mcp_code_mismatches": [],
+      "mcp_source_hash": true,
+      "mcp_calls_count": 8,
+      "mcp_tools": [
+        "assess_image_quality",
+        "detect_objects",
+        "generate_exposure_candidate"
+      ],
+      "mcp_direct_keys": [
+        "quality_original",
+        "quality_candidate",
+        "parameters",
+        "detections_original",
+        "detections_candidate",
+        "counts",
+        "model_sha256",
+        "configuration_sha256"
+      ],
+      "mcp_calls_keys": [
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ],
+        [
+          "tool",
+          "arguments",
+          "is_error",
+          "result"
+        ]
+      ],
+      "gif": {
+        "frames": 5,
+        "duration_ms": 20000,
+        "dimensions": [
+          860,
+          833
+        ]
+      },
+      "quick_http_true_checks": 23,
+      "checked_in_summary_matches": true
+    }
+  },
+  "audited_input_hashes": {
+    "PROJECT_ROOT/agent.py": "sha256:cfbf5468fbb6a8f1f23136ec395fc1a2ab34f86c3b408a83039a06168627af38",
+    "PROJECT_ROOT/agent_tools.py": "sha256:8a87e45e6c1c6260d7a38732ceafc587d78d19c80a16879babd3e1580570f1f9",
+    "PROJECT_ROOT/app.py": "sha256:0450854eaec8d4207421fb28f4944ab21f2b58b1ec8d60b52d3141abe544a801",
+    "PROJECT_ROOT/data.py": "sha256:064d89547ceb216258afc609cd4261bf9071cb05dfc5e2eb2ff7229450eddf3c",
+    "PROJECT_ROOT/detector.py": "sha256:5145e8513bc45370dcac1e3517f704af4d2d9830a660cd0236875ff0fd2f7a24",
+    "PROJECT_ROOT/docs/GENERAL_DATA.md": "sha256:24233d3c6b5fa4a0fde3cb0d3e02f6d2ba1984c25f9ecb668739714e1ab8f2d6",
+    "PROJECT_ROOT/docs/GENERAL_EVALUATION.md": "sha256:45239a7060480e93cabe7dfe356fbdf39cb1829559804aeb806dd86e41e681de",
+    "PROJECT_ROOT/docs/GENERAL_IMAGE_AGENT.md": "sha256:f1c6793638026c9000cd8e528b6ad90f9ce74e2b5180ddb8c3a413657b108103",
+    "PROJECT_ROOT/docs/results/general_v060_engineering.json": "sha256:57c71807e378d93c787eac397d601676a9ffd3ceeae5405c33fe684c7e6a75be",
+    "PROJECT_ROOT/docs/results/general_v060_summary.json": "sha256:6bfce7ab1a680297bf85b70c22878ef2b38f5584f54e79265f65f152e273f272",
+    "PROJECT_ROOT/launch.py": "sha256:18c2a655c6e818d24849e6d0becfb5cf93f66d731f7be5b2378d32e1f2674de4",
+    "PROJECT_ROOT/metrics.py": "sha256:75ddcdb2a108fbce9c331b44a85e2ec8cb0607d546f9ea2e48518d32747dae30",
+    "PROJECT_ROOT/optical_agent/__init__.py": "sha256:7080f58cb9c2fef8f8f0680c37a61bd4503726c43de73366087991604f131616",
+    "PROJECT_ROOT/optical_agent/adaptive_common.py": "sha256:51397d4fff47aa77519e34b57c1a17e9dc86298b6d5fef6320572c99a421e81f",
+    "PROJECT_ROOT/optical_agent/adaptive_eval.py": "sha256:1f11ed05e28452e8554ad5d3df75c590bbaf85b76298b614eb89620bca48c054",
+    "PROJECT_ROOT/optical_agent/adaptive_fixture.py": "sha256:0c43bf21c227ee028b79bdbffa9eeee385415c49fcc9517a17add6441250db76",
+    "PROJECT_ROOT/optical_agent/adaptive_goals.py": "sha256:012bf11f54b500260f6c624e96cd0269f9189086758c45e2441012ad6e59b72d",
+    "PROJECT_ROOT/optical_agent/adaptive_prompts.py": "sha256:fa9488d11481cdb3ed0933473f05d48f9b2dd8940e8a436e63466cd478a202c3",
+    "PROJECT_ROOT/optical_agent/adaptive_runtime.py": "sha256:599dba3a2302e28386758efe0d4c0db10c3114069ba27b735e8b79814ef9a760",
+    "PROJECT_ROOT/optical_agent/adaptive_tools.py": "sha256:745e2f607e3dc5fa8748b71751be3749199b55833528b114ab8cac31da3d4b3f",
+    "PROJECT_ROOT/optical_agent/benchmark.py": "sha256:125934853dd8afcb1daee4156c4229bcc36550c995a80190b12032d73678d694",
+    "PROJECT_ROOT/optical_agent/diagnostics.py": "sha256:4fd2f44323d832236ca29a987d1253673e9f5405401868b9eaa48c1f126e00d9",
+    "PROJECT_ROOT/optical_agent/eval_integrity.py": "sha256:e0d4e99d21e3857cdff895fa17a3177e0b21bf3652a7d6b13a9cff79228fbada",
+    "PROJECT_ROOT/optical_agent/experiments/__init__.py": "sha256:8aee76687854b3ee41f400552b5767440fc4ee21a3ccffd616085d526f848d7c",
+    "PROJECT_ROOT/optical_agent/experiments/__main__.py": "sha256:ec1ee84646884fd30d62973b1742316c36b22a689acd74aac819afa70e7c4192",
+    "PROJECT_ROOT/optical_agent/experiments/build_rag_questions.py": "sha256:01356c2146ed2a99c11e05807d95b5454da93660188dec04884d77ff406c6e97",
+    "PROJECT_ROOT/optical_agent/experiments/calibrate_detector.py": "sha256:29ef5630cfd6cb29b9b22b351762ff4dea3f297c2bd2587aa3ac7d6483ffed8b",
+    "PROJECT_ROOT/optical_agent/experiments/calibrate_quality.py": "sha256:14ad55744c605bba9e8604e0bcd35f797e042fc558ef2467646adf18a37a83b9",
+    "PROJECT_ROOT/optical_agent/experiments/demo_agent.py": "sha256:bbc6862a0fd78169f0f9f54df4f4bbc8e61b8d60759e510a3991040cbb048d5f",
+    "PROJECT_ROOT/optical_agent/experiments/demo_independent_eval.py": "sha256:80d10fa6ffbf046b7af4342fb26a3a6458cb7cc12521980ba0d11b032626280d",
+    "PROJECT_ROOT/optical_agent/experiments/demo_langgraph.py": "sha256:c34157e28b770dd5f8db8c47fd869e17ed3c22080a8b41184682734288f575bd",
+    "PROJECT_ROOT/optical_agent/experiments/demo_mcp.py": "sha256:e126f11795e5d69e44fbd6e145ff1d352843544ba09cb20de701643714685c40",
+    "PROJECT_ROOT/optical_agent/experiments/demo_memory.py": "sha256:62ca506d916aa2b87b357b9a290a686936b1a1766ae0acf9d534110914a4bcf9",
+    "PROJECT_ROOT/optical_agent/experiments/demo_task_validation.py": "sha256:abe63dfe6c5f23d133795d1bf116d91c95270d65ff502171c6eb15962070c90d",
+    "PROJECT_ROOT/optical_agent/experiments/diagnose_robot_training.py": "sha256:465bd00c0306747f8c89a095a3a0bf09764cd57ff691ca33a0a444f6f2c7579a",
+    "PROJECT_ROOT/optical_agent/experiments/download_underwater_data.py": "sha256:148183bf89c7356a25724812fc27ec68d85272fc4dad5b49a7b7b6728503a33f",
+    "PROJECT_ROOT/optical_agent/experiments/download_vision_data.py": "sha256:6dba50a47f1b117d44720884db13d1238f1925582ee3860b8aa823bba0c52b90",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_adaptive.py": "sha256:817198981a5f60493340287dca272988d9c4a050624b6821dc9edd4084502883",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_agent.py": "sha256:951128a04da947233237ac70a6499a0da2d6b2676bbda6fc83e9bdb87d0716ee",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_detector.py": "sha256:e9bdd80138ccaf4113d61872b983f6b1b88401e18f3f32024612de3f918a6e79",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_general_vision.py": "sha256:5d294f6bec9846078f1f2fbef48b934c801960a3de9c6948f301222d59219c2f",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_orchestration.py": "sha256:0efb3fd03e4cf3ce6d854ed55d0d3607a92a34b5b72b9a4eebad89e8e4756f25",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_quality_pairs.py": "sha256:3907f6daa37150f203ba59ebe82696805b3dfb7c280187fa7c1eaf188a78575b",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_rag.py": "sha256:f7896681ef45b5dd600524072fb1056ebee13204d1af9c89600c507bea74b3db",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_underwater_illumination.py": "sha256:0da45e0ee59085e04ce0c1736fab67288ce9170b0699ffdc44fd5de9d4745b76",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_vision_detectors.py": "sha256:34a56e309acac69f43ed11eb6846f68a8b870973d606b4a70beb5e20ce0dfe67",
+    "PROJECT_ROOT/optical_agent/experiments/evaluate_vision_exposure.py": "sha256:4108953311f2b03ed6087dc813c0d7edd25a40edf4c29e08d80ae2c9016c001f",
+    "PROJECT_ROOT/optical_agent/experiments/prepare_general_data.py": "sha256:6ae1cb72e36a51664244f040c12d69e1a4124b8cbbf16a028c07a803c4058552",
+    "PROJECT_ROOT/optical_agent/experiments/prepare_rag.py": "sha256:a9aa237a52a2d056d2e2a7ad247deeb3965775c3714b1754045616e79ff13228",
+    "PROJECT_ROOT/optical_agent/experiments/prepare_rag_corpus.py": "sha256:0d457121595fa3594e72243d6d3bca457f10672a10c87c42e359e621d98227b3",
+    "PROJECT_ROOT/optical_agent/experiments/prepare_vision_data.py": "sha256:9adb7347756d5fe9fa22323270f2cb7f01be876eca9cce21cef6bd96ed44f361",
+    "PROJECT_ROOT/optical_agent/experiments/publish_rag.py": "sha256:f61917f4a6fd90daffaac09760d54f82da0aa1bd9cdefe90da7a8f32f56dc811",
+    "PROJECT_ROOT/optical_agent/experiments/reconcile_vision_calibration.py": "sha256:7634091282d26a53207cca8ef35672f70cb7b906106fba204adc49cb3d6d2be4",
+    "PROJECT_ROOT/optical_agent/experiments/report_adaptive.py": "sha256:b8642de5b70ff299c3ccea85f9b34e62866493fd06942b4ecd2e605f8471f3f1",
+    "PROJECT_ROOT/optical_agent/experiments/report_vision.py": "sha256:adb2c1e71275d2b6b33138dd65e8fa05b4f31935c3d84d733d289a1093ae7059",
+    "PROJECT_ROOT/optical_agent/experiments/summarize_formal_eval.py": "sha256:9a809d86a3e7b3501ea2edd8cdd21e0fe481ac3bcde49b1c11e091c719e3053c",
+    "PROJECT_ROOT/optical_agent/experiments/train_detector.py": "sha256:c154c933c4c31586ea0abebeecfe2a87087211615cb2f5d60c1576380264ee37",
+    "PROJECT_ROOT/optical_agent/experiments/train_vision_detectors.py": "sha256:d69b1bbcaeb76abdde14629853ea1ed954453142ded178551c54d7f7f0d7661f",
+    "PROJECT_ROOT/optical_agent/experiments/verify_vision_web.py": "sha256:3226644c124f739ba407490d1433b22db28ba13196028599209cf8257dda3190",
+    "PROJECT_ROOT/optical_agent/formal_eval.py": "sha256:310034947f5a67b84c8be02f6098d4435719dde59ab69a70b7dfea8c204577ea",
+    "PROJECT_ROOT/optical_agent/general_catalog.py": "sha256:4ea012ca8f26e27580790885bea90c87a4ff8abfa324d0fc7c75c409898f3134",
+    "PROJECT_ROOT/optical_agent/general_demo.py": "sha256:63d4424b0f7ad4ef36f11338bddbb403527e229c04928321df13d1a49cdd38ba",
+    "PROJECT_ROOT/optical_agent/general_eval.py": "sha256:b5af2fa6a2cffe1d76a07cba03507d7565adf404488457932bea35343a3a4db2",
+    "PROJECT_ROOT/optical_agent/general_knowledge.py": "sha256:106218762031c25017f0418a74e095af446790964e48d2a00720f97c1fcd0eda",
+    "PROJECT_ROOT/optical_agent/general_vision.py": "sha256:1caeaaa160e8011d976e7c1e705060a3bd9a56fa5a555a6de09f237190f1a503",
+    "PROJECT_ROOT/optical_agent/image_input.py": "sha256:1a8d3387b02196c4d23d1a02f6da2af515c4b16449249cdf8ef25e2af1da1069",
+    "PROJECT_ROOT/optical_agent/independent_eval.py": "sha256:807efc143646f4f1af904929709e052580c0eb460d19a41abbdf1730728b9939",
+    "PROJECT_ROOT/optical_agent/langgraph_runtime.py": "sha256:de21835a06bed520d05441c07c0bd884b19506c76dbb0aaf020e1c3313bff5bd",
+    "PROJECT_ROOT/optical_agent/llm.py": "sha256:a4ccab72a77b5be21ad12cb30ad560d055f74931e1ed0554506a46dd7e66cfb8",
+    "PROJECT_ROOT/optical_agent/mcp_adapter.py": "sha256:eb767832e5d28964af160d9a54a24ef691c4edf174eb24549c545b2e3a1a10a4",
+    "PROJECT_ROOT/optical_agent/mcp_server.py": "sha256:eb8ba8dd11e18dfeebf23f44a3498d61e921961441044dea7ec8702feaf35987",
+    "PROJECT_ROOT/optical_agent/memory.py": "sha256:f51996c1f07987e6e15c10f04d81742b65d6e1d876b16bfe13d0127131b42e63",
+    "PROJECT_ROOT/optical_agent/paths.py": "sha256:789440f30faff19aceedd7990d9851d73d3192b654b74d27abb9159e4e6f3b1a",
+    "PROJECT_ROOT/optical_agent/rag.py": "sha256:1556c0491b098109201bde3bee72c2c1f91ed39b90b34b271b13edda6929ed23",
+    "PROJECT_ROOT/optical_agent/rag_delivery.py": "sha256:a9370988dd027f6c5615cc068ac9a56f218bdf490d1a5e76fce1dc4df40eedf0",
+    "PROJECT_ROOT/optical_agent/rag_engine.py": "sha256:ea0d779c4eb9de8cfeed06c2de33325dc236eeff9c9d78c26cc6ba1b47577dd5",
+    "PROJECT_ROOT/optical_agent/rag_eval.py": "sha256:87338cc4f8dd96a808dd7b540ff68e93ef8f4c105d3fd6b5f5ecfe46782b1a41",
+    "PROJECT_ROOT/optical_agent/reports.py": "sha256:ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55",
+    "PROJECT_ROOT/optical_agent/request_budget.py": "sha256:7f05a6685ebe1038fe3b0f5efcebfcb289943622046aebe07152c24858bd30a1",
+    "PROJECT_ROOT/optical_agent/runtime.py": "sha256:f8eca64f57f27d4714fcf33d2e83e4db4c6cf62427fa95d2f732b27409d3745c",
+    "PROJECT_ROOT/optical_agent/runtime_compare.py": "sha256:3fb0779d50cf35a6100cbc9c5f539a7b814abdc16217eb3da23b4a3de1e5689a",
+    "PROJECT_ROOT/optical_agent/state.py": "sha256:4025eb723a7506f624f6dc77a3afbc95545989dffe45f9270be87891061701d3",
+    "PROJECT_ROOT/optical_agent/tasks.py": "sha256:1f150fe1a701a6a7212f2882d1eb7e1f01aa478815c220958f1aabd50d17c2ce",
+    "PROJECT_ROOT/optical_agent/tools.py": "sha256:cc2be376bc0613b560c86e3dc06be867a80c3668762bab6a7e79a624dbd48e33",
+    "PROJECT_ROOT/optical_agent/ui_capabilities.py": "sha256:d36173ffa8a04ff5f8142c3bad4eb670ca0b5d247bd3153368db0b08ff0e70b6",
+    "PROJECT_ROOT/optical_agent/vision_data.py": "sha256:14e29fe5edf4aae0915639f97b6685137ebd40f4bd0e4d17c3e9dcec96ecf9fe",
+    "PROJECT_ROOT/optical_agent/vision_delivery.py": "sha256:71a0130a68229e8f510f7bb6af61e26948b7c8f47a5151467447fe99e73661ee",
+    "PROJECT_ROOT/optical_agent/vision_router.py": "sha256:21c85eb532ef6321f198d160920afd78c241651ae12679b6cad4bd6396f51481",
+    "PROJECT_ROOT/quality.py": "sha256:fe10ba0a31ae7edea47f15f0c8475ffa378d8e1e4244119f8b4dc779fe1f8d65",
+    "PROJECT_ROOT/README.md": "sha256:f027b1b0b9f89d227727ff42697155f6d12bba3f63b5a24046002029cc332408",
+    "PROJECT_ROOT/run_agent.py": "sha256:13920278e5a7adda67ab50b8419383b3a8336096ff4e6928a76ad5d8111fa1b5",
+    "PROJECT_ROOT/serve_mcp.py": "sha256:7a13e46ffd61523fbe7fc64cd37fd380c7db88a3d55a0854e60c3c121edad59c",
+    "PROJECT_ROOT/tests/test_general_eval.py": "sha256:8935fded4eb62bf381e8f7ceeb35d89a884cdee90ade94ffe87e65813cb0a0d1",
+    "PUBLIC_PROJECT_ROOT/assets/demo.gif": "sha256:69eedf00382421395f1848ebcca7125bc552a9497b5fe2c1f46d10d8a85b6a94",
+    "PUBLIC_PROJECT_ROOT/docs/GENERAL_EVALUATION.md": "sha256:45239a7060480e93cabe7dfe356fbdf39cb1829559804aeb806dd86e41e681de",
+    "PUBLIC_PROJECT_ROOT/docs/results/general_v060_engineering.json": "sha256:57c71807e378d93c787eac397d601676a9ffd3ceeae5405c33fe684c7e6a75be",
+    "PUBLIC_PROJECT_ROOT/static/conversation.js": "sha256:2c9c0668578f3369c9b2f860d3d2a5a5b62195d101373a1e95b416976c45ecbe",
+    "PUBLIC_PROJECT_ROOT/static/memory.js": "sha256:4ad535e84f516ae52b633c8b769f709b20f3467a49395c5afcd010acb60eecb5",
+    "PUBLIC_PROJECT_ROOT/static/showcase.js": "sha256:a0b781e0089b9990b31164af2f40208a674c491dbce3c7561142cb10cb41db5d",
+    "PUBLIC_PROJECT_ROOT/tests/check_conversation_ui.cjs": "sha256:ca95676520d986d18c5a55e3cc3fe87c66352a11fb6f7dc12078963c463577dd",
+    "PUBLIC_PROJECT_ROOT/tests/check_langgraph_ui.cjs": "sha256:ca13e5813850e3aea2703b1f7f087feadc732bd681a55a8b5d58d00893aa3c90",
+    "PUBLIC_PROJECT_ROOT/tests/check_memory_ui.cjs": "sha256:202723ca9f713a542e054cd02418ffbb4dddda560b3e71a8227ff59fa1836e65",
+    "PUBLIC_PROJECT_ROOT/tests/check_simplification_ui.cjs": "sha256:40ba0a99d00e9974ea90810a63ac6593a6a953151a9e34c31948326b49a5171d",
+    "LOCAL_DATA_ROOT/general_v060/aggregation_identity.json": "sha256:09cc8293b2667e3104820e9a4167860944afe80df9999bb9bec9bc25f3fbab65",
+    "LOCAL_DATA_ROOT/general_v060/before_aggregation_boundary_fix/calibration.json": "sha256:9485e953fc2de3aa1aaa66b03975c6e7a06762988af0877aa829493682073b4c",
+    "LOCAL_DATA_ROOT/general_v060/before_aggregation_boundary_fix/calibration_summary.json": "sha256:1f80dd1e39b0ec9e61d1dd590b1b1067e4938413175589f33c4e6013317193aa",
+    "LOCAL_DATA_ROOT/general_v060/before_aggregation_boundary_fix/development_summary.json": "sha256:f5deff2f181c84918edcb1869ea933d045c63c5d5b93ad8e0be7fdcd4cb9909f",
+    "LOCAL_DATA_ROOT/general_v060/before_aggregation_boundary_fix/evaluation_identity.json": "sha256:48486a1c3e653517b25cf7400a3aa4464e7f4fe6b3307839e106ad9363a4516f",
+    "LOCAL_DATA_ROOT/general_v060/before_aggregation_boundary_fix/exposure_policy.json": "sha256:eef8abee9583abcfcc1839e1fffc134042af007a2945d782c28eadfdaa66313e",
+    "LOCAL_DATA_ROOT/general_v060/calibration.json": "sha256:9485e953fc2de3aa1aaa66b03975c6e7a06762988af0877aa829493682073b4c",
+    "LOCAL_DATA_ROOT/general_v060/calibration_summary.json": "sha256:e497e3358435cbf4a6c09da736983c92978b9258abe8b0aa92d877ab218aa9b9",
+    "LOCAL_DATA_ROOT/general_v060/coco/annotations/instances_val2017.json": "sha256:e8c7f7908f1d7278341fae127d0da654f102f11bd7b21d8aeefa635b8c810b6f",
+    "LOCAL_DATA_ROOT/general_v060/coco/annotations/instances_val2017.source.json": "sha256:63db8a9983bc6172be62cd49f985923d3af6383e0ab3250f8d1d6a5e52310977",
+    "LOCAL_DATA_ROOT/general_v060/coco/sources.json": "sha256:c4e6d17a9c4da9e91bd8ae2a256c09f91a8d7c1a5cb164b79f4d6c81779e3fd2",
+    "LOCAL_DATA_ROOT/general_v060/data_summary.json": "sha256:1a8f1930f9e1cf056ce3b84fbef8d8e51ae30af1dab26b1a45334081f4460437",
+    "LOCAL_DATA_ROOT/general_v060/development_summary.json": "sha256:c96cfa9c0d2f4cc4db3731540da7dda7905fc68dbb9552de5a32ea8ab1726926",
+    "LOCAL_DATA_ROOT/general_v060/environment.json": "sha256:35f614c593a614497d1ea2eddc6e17cc5cfdce50802ba77dd3b9cb4cb2d9b7a1",
+    "LOCAL_DATA_ROOT/general_v060/evaluation_identity.json": "sha256:48486a1c3e653517b25cf7400a3aa4464e7f4fe6b3307839e106ad9363a4516f",
+    "LOCAL_DATA_ROOT/general_v060/exposure_policy.json": "sha256:eef8abee9583abcfcc1839e1fffc134042af007a2945d782c28eadfdaa66313e",
+    "LOCAL_DATA_ROOT/general_v060/final_summary.json": "sha256:3d557a8ef419f6234bfe702247e627e265a1cb8c57f32698d90f6f72a5b0ce44",
+    "LOCAL_DATA_ROOT/general_v060/first_pass_before_calibration_identity_guards/ARCHIVE_REASON.json": "sha256:64c3094b9f9cbf70628a47c20d78c66573ebe7463f99e85b7c45dc733b352253",
+    "LOCAL_DATA_ROOT/general_v060/freeze.json": "sha256:32d37066aa9df6d6463bb8fe478c0688f7a36daccbb9bd36e305e7e9510fe63d",
+    "LOCAL_DATA_ROOT/general_v060/manifest.json": "sha256:0c92f18b6e155d99c398b61e35d58352d1f8fda024fafcd1f843941b39cefc97",
+    "LOCAL_DATA_ROOT/general_v060/manifest.sha256.json": "sha256:12189e85edaa3976f99837fcdb80b6e760ea77051bfbbaf68e4e3e2f6f971fcc",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/104572.json": "sha256:cb954741a50eb1712f4b19784f67a4f9acbefe218945c10bf68ffebb65c475a2",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/117914.json": "sha256:6feb66b5e0c56e854751271e5722d3f2baefa205c1f955d9181c71b10a3a772e",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/128654.json": "sha256:30a9b6af3b6c7786d0f7f5ea237967aabedcc5714a602643c88721dffdabc9eb",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/139.json": "sha256:a9d72d6a5c4d8d2478704ffab1fbcf946f965403844c00a1aa67682ba2506fb3",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/23937.json": "sha256:d021b06dc2f16f81faebd114c43371b7d48d4088c471ac5d2e344137e23cd26d",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/gamma_only/285.json": "sha256:23f1415f0c5b4dd9c989f9b08922c5f2256d3016b78088ac65fd8d269001b544",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/local_bounded/139.json": "sha256:3dc3013293192bac4d84d4cc628e80d43fdd9b0f23473940b4852c155c8112c4",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/local_bounded/23937.json": "sha256:dc731a5ef135a35cd1fa23dcd388339bfb7dce6787145196137df3b8f4dbe0c4",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/local_bounded/285.json": "sha256:9142303a41c3e77c3418fed0ee2abb78f3acc4802ccbaf57f5e18af410b2879b",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/original/139.json": "sha256:f0fa83e7154920709269ecdf123a4513d2b399f65589bd9a8b83546a7d1a630c",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/original/23937.json": "sha256:55ffc9c595f9f94f1ee7f1b767e0ce05d9cfaa1e92c22e79c359e2d8acf23bc5",
+    "LOCAL_DATA_ROOT/general_v060/predictions/bright_14/original/285.json": "sha256:2e6ac9b8ad3e86865df5c02d72d2cf5ca2aa1879f2e7d86e30f58a25ca7f39c3",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/gamma_only/139.json": "sha256:d4f94720de4ea63fc5a1472b4cd1ba4ccaca2cb49947c28d7aa4407aa411c541",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/gamma_only/23937.json": "sha256:15e520b9d6338401d43ded74e0be47e03823ba0bdddf1b0299829edc03e97117",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/gamma_only/285.json": "sha256:0a303eaca5be4011fd645046aba686f6f8dbdcb04df9ced52913d694128776cc",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/local_bounded/139.json": "sha256:3fb285552e28aeae3b0a4f63fc57e08f75f3b7b27d1a7b63b93488cc510e462d",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/local_bounded/23937.json": "sha256:5778719866eef360d4291e920ef2f7e9830051782e2175245d994fbfcb0ef349",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/local_bounded/285.json": "sha256:b968a8847eec82aa8a4e04fbc454c11d2ec7c38841a785083bd35e3d02662c6e",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/original/139.json": "sha256:da19325c0521d46c9dea5c539f595bcfcf8f63feb21b6159f74c054064a665c6",
+    "LOCAL_DATA_ROOT/general_v060/predictions/dark_06/original/23937.json": "sha256:d3a7ec6d8a0d3be43bfdad43330ee037728524d40a5cf15b80ea926fc63e8840",
+    "LOCAL_DATA_ROOT/general_v060/public_summary.json": "sha256:6bfce7ab1a680297bf85b70c22878ef2b38f5584f54e79265f65f152e273f272",
+    "LOCAL_DATA_ROOT/general_v060/recording/gif-manifest.json": "sha256:f57b5a55e051d9d101697aa7cf021737f1ae1ca2c1e83b27d8b412c04b5e85a3",
+    "LOCAL_DATA_ROOT/general_v060/sice/acquisition.json": "sha256:70ab2ec906617164b1bf504a7f3a8fcc2d606cf7cdc6dabf3505004f480b5333",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/agent.py": "sha256:cfbf5468fbb6a8f1f23136ec395fc1a2ab34f86c3b408a83039a06168627af38",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/agent_tools.py": "sha256:8a87e45e6c1c6260d7a38732ceafc587d78d19c80a16879babd3e1580570f1f9",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/app.py": "sha256:0450854eaec8d4207421fb28f4944ab21f2b58b1ec8d60b52d3141abe544a801",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/data.py": "sha256:064d89547ceb216258afc609cd4261bf9071cb05dfc5e2eb2ff7229450eddf3c",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/detector.py": "sha256:5145e8513bc45370dcac1e3517f704af4d2d9830a660cd0236875ff0fd2f7a24",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/launch.py": "sha256:18c2a655c6e818d24849e6d0becfb5cf93f66d731f7be5b2378d32e1f2674de4",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/metrics.py": "sha256:75ddcdb2a108fbce9c331b44a85e2ec8cb0607d546f9ea2e48518d32747dae30",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/__init__.py": "sha256:7080f58cb9c2fef8f8f0680c37a61bd4503726c43de73366087991604f131616",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_common.py": "sha256:51397d4fff47aa77519e34b57c1a17e9dc86298b6d5fef6320572c99a421e81f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_eval.py": "sha256:1f11ed05e28452e8554ad5d3df75c590bbaf85b76298b614eb89620bca48c054",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_fixture.py": "sha256:0c43bf21c227ee028b79bdbffa9eeee385415c49fcc9517a17add6441250db76",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_goals.py": "sha256:012bf11f54b500260f6c624e96cd0269f9189086758c45e2441012ad6e59b72d",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_prompts.py": "sha256:fa9488d11481cdb3ed0933473f05d48f9b2dd8940e8a436e63466cd478a202c3",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_runtime.py": "sha256:599dba3a2302e28386758efe0d4c0db10c3114069ba27b735e8b79814ef9a760",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/adaptive_tools.py": "sha256:745e2f607e3dc5fa8748b71751be3749199b55833528b114ab8cac31da3d4b3f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/benchmark.py": "sha256:125934853dd8afcb1daee4156c4229bcc36550c995a80190b12032d73678d694",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/diagnostics.py": "sha256:4fd2f44323d832236ca29a987d1253673e9f5405401868b9eaa48c1f126e00d9",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/eval_integrity.py": "sha256:e0d4e99d21e3857cdff895fa17a3177e0b21bf3652a7d6b13a9cff79228fbada",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/__init__.py": "sha256:8aee76687854b3ee41f400552b5767440fc4ee21a3ccffd616085d526f848d7c",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/__main__.py": "sha256:ec1ee84646884fd30d62973b1742316c36b22a689acd74aac819afa70e7c4192",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/build_rag_questions.py": "sha256:01356c2146ed2a99c11e05807d95b5454da93660188dec04884d77ff406c6e97",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/calibrate_detector.py": "sha256:29ef5630cfd6cb29b9b22b351762ff4dea3f297c2bd2587aa3ac7d6483ffed8b",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/calibrate_quality.py": "sha256:14ad55744c605bba9e8604e0bcd35f797e042fc558ef2467646adf18a37a83b9",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_agent.py": "sha256:bbc6862a0fd78169f0f9f54df4f4bbc8e61b8d60759e510a3991040cbb048d5f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_independent_eval.py": "sha256:80d10fa6ffbf046b7af4342fb26a3a6458cb7cc12521980ba0d11b032626280d",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_langgraph.py": "sha256:c34157e28b770dd5f8db8c47fd869e17ed3c22080a8b41184682734288f575bd",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_mcp.py": "sha256:e126f11795e5d69e44fbd6e145ff1d352843544ba09cb20de701643714685c40",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_memory.py": "sha256:62ca506d916aa2b87b357b9a290a686936b1a1766ae0acf9d534110914a4bcf9",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/demo_task_validation.py": "sha256:abe63dfe6c5f23d133795d1bf116d91c95270d65ff502171c6eb15962070c90d",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/diagnose_robot_training.py": "sha256:465bd00c0306747f8c89a095a3a0bf09764cd57ff691ca33a0a444f6f2c7579a",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/download_underwater_data.py": "sha256:148183bf89c7356a25724812fc27ec68d85272fc4dad5b49a7b7b6728503a33f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/download_vision_data.py": "sha256:6dba50a47f1b117d44720884db13d1238f1925582ee3860b8aa823bba0c52b90",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_adaptive.py": "sha256:817198981a5f60493340287dca272988d9c4a050624b6821dc9edd4084502883",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_agent.py": "sha256:951128a04da947233237ac70a6499a0da2d6b2676bbda6fc83e9bdb87d0716ee",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_detector.py": "sha256:e9bdd80138ccaf4113d61872b983f6b1b88401e18f3f32024612de3f918a6e79",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_general_vision.py": "sha256:5d294f6bec9846078f1f2fbef48b934c801960a3de9c6948f301222d59219c2f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_orchestration.py": "sha256:0efb3fd03e4cf3ce6d854ed55d0d3607a92a34b5b72b9a4eebad89e8e4756f25",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_quality_pairs.py": "sha256:3907f6daa37150f203ba59ebe82696805b3dfb7c280187fa7c1eaf188a78575b",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_rag.py": "sha256:f7896681ef45b5dd600524072fb1056ebee13204d1af9c89600c507bea74b3db",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_underwater_illumination.py": "sha256:0da45e0ee59085e04ce0c1736fab67288ce9170b0699ffdc44fd5de9d4745b76",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_vision_detectors.py": "sha256:34a56e309acac69f43ed11eb6846f68a8b870973d606b4a70beb5e20ce0dfe67",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/evaluate_vision_exposure.py": "sha256:4108953311f2b03ed6087dc813c0d7edd25a40edf4c29e08d80ae2c9016c001f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/prepare_general_data.py": "sha256:6ae1cb72e36a51664244f040c12d69e1a4124b8cbbf16a028c07a803c4058552",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/prepare_rag.py": "sha256:a9aa237a52a2d056d2e2a7ad247deeb3965775c3714b1754045616e79ff13228",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/prepare_rag_corpus.py": "sha256:0d457121595fa3594e72243d6d3bca457f10672a10c87c42e359e621d98227b3",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/prepare_vision_data.py": "sha256:9adb7347756d5fe9fa22323270f2cb7f01be876eca9cce21cef6bd96ed44f361",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/publish_rag.py": "sha256:f61917f4a6fd90daffaac09760d54f82da0aa1bd9cdefe90da7a8f32f56dc811",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/reconcile_vision_calibration.py": "sha256:7634091282d26a53207cca8ef35672f70cb7b906106fba204adc49cb3d6d2be4",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/report_adaptive.py": "sha256:b8642de5b70ff299c3ccea85f9b34e62866493fd06942b4ecd2e605f8471f3f1",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/report_vision.py": "sha256:adb2c1e71275d2b6b33138dd65e8fa05b4f31935c3d84d733d289a1093ae7059",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/summarize_formal_eval.py": "sha256:9a809d86a3e7b3501ea2edd8cdd21e0fe481ac3bcde49b1c11e091c719e3053c",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/train_detector.py": "sha256:c154c933c4c31586ea0abebeecfe2a87087211615cb2f5d60c1576380264ee37",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/train_vision_detectors.py": "sha256:d69b1bbcaeb76abdde14629853ea1ed954453142ded178551c54d7f7f0d7661f",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/experiments/verify_vision_web.py": "sha256:3226644c124f739ba407490d1433b22db28ba13196028599209cf8257dda3190",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/formal_eval.py": "sha256:310034947f5a67b84c8be02f6098d4435719dde59ab69a70b7dfea8c204577ea",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/general_catalog.py": "sha256:4ea012ca8f26e27580790885bea90c87a4ff8abfa324d0fc7c75c409898f3134",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/general_demo.py": "sha256:63d4424b0f7ad4ef36f11338bddbb403527e229c04928321df13d1a49cdd38ba",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/general_eval.py": "sha256:b5af2fa6a2cffe1d76a07cba03507d7565adf404488457932bea35343a3a4db2",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/general_knowledge.py": "sha256:106218762031c25017f0418a74e095af446790964e48d2a00720f97c1fcd0eda",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/general_vision.py": "sha256:1caeaaa160e8011d976e7c1e705060a3bd9a56fa5a555a6de09f237190f1a503",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/image_input.py": "sha256:1a8d3387b02196c4d23d1a02f6da2af515c4b16449249cdf8ef25e2af1da1069",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/independent_eval.py": "sha256:807efc143646f4f1af904929709e052580c0eb460d19a41abbdf1730728b9939",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/langgraph_runtime.py": "sha256:de21835a06bed520d05441c07c0bd884b19506c76dbb0aaf020e1c3313bff5bd",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/llm.py": "sha256:a4ccab72a77b5be21ad12cb30ad560d055f74931e1ed0554506a46dd7e66cfb8",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/mcp_adapter.py": "sha256:eb767832e5d28964af160d9a54a24ef691c4edf174eb24549c545b2e3a1a10a4",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/mcp_server.py": "sha256:eb8ba8dd11e18dfeebf23f44a3498d61e921961441044dea7ec8702feaf35987",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/memory.py": "sha256:f51996c1f07987e6e15c10f04d81742b65d6e1d876b16bfe13d0127131b42e63",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/paths.py": "sha256:789440f30faff19aceedd7990d9851d73d3192b654b74d27abb9159e4e6f3b1a",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/rag.py": "sha256:1556c0491b098109201bde3bee72c2c1f91ed39b90b34b271b13edda6929ed23",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/rag_delivery.py": "sha256:a9370988dd027f6c5615cc068ac9a56f218bdf490d1a5e76fce1dc4df40eedf0",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/rag_engine.py": "sha256:ea0d779c4eb9de8cfeed06c2de33325dc236eeff9c9d78c26cc6ba1b47577dd5",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/rag_eval.py": "sha256:87338cc4f8dd96a808dd7b540ff68e93ef8f4c105d3fd6b5f5ecfe46782b1a41",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/reports.py": "sha256:ba6d06f794adff3fa711ce74690e57d5c3bbec3c29a9026517b2a442bf3f4f55",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/request_budget.py": "sha256:7f05a6685ebe1038fe3b0f5efcebfcb289943622046aebe07152c24858bd30a1",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/runtime.py": "sha256:f8eca64f57f27d4714fcf33d2e83e4db4c6cf62427fa95d2f732b27409d3745c",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/runtime_compare.py": "sha256:3fb0779d50cf35a6100cbc9c5f539a7b814abdc16217eb3da23b4a3de1e5689a",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/state.py": "sha256:4025eb723a7506f624f6dc77a3afbc95545989dffe45f9270be87891061701d3",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/tasks.py": "sha256:1f150fe1a701a6a7212f2882d1eb7e1f01aa478815c220958f1aabd50d17c2ce",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/tools.py": "sha256:cc2be376bc0613b560c86e3dc06be867a80c3668762bab6a7e79a624dbd48e33",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/ui_capabilities.py": "sha256:d36173ffa8a04ff5f8142c3bad4eb670ca0b5d247bd3153368db0b08ff0e70b6",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/vision_data.py": "sha256:14e29fe5edf4aae0915639f97b6685137ebd40f4bd0e4d17c3e9dcec96ecf9fe",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/vision_delivery.py": "sha256:71a0130a68229e8f510f7bb6af61e26948b7c8f47a5151467447fe99e73661ee",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/optical_agent/vision_router.py": "sha256:21c85eb532ef6321f198d160920afd78c241651ae12679b6cad4bd6396f51481",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/quality.py": "sha256:fe10ba0a31ae7edea47f15f0c8475ffa378d8e1e4244119f8b4dc779fe1f8d65",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/run_agent.py": "sha256:13920278e5a7adda67ab50b8419383b3a8336096ff4e6928a76ad5d8111fa1b5",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/serve_mcp.py": "sha256:7a13e46ffd61523fbe7fc64cd37fd380c7db88a3d55a0854e60c3c121edad59c",
+    "LOCAL_DATA_ROOT/general_v060/source_frozen_v3/verification.json": "sha256:d84ee86bb767d9adc7b446d32f7ce2f1f0dfc890f2d04c8cd6d9e9e7adb4fbce",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/optical_agent/experiments/evaluate_general_vision.py": "sha256:8044b60e618e7b262acee7a7e4f734c82cc0d0fb9942f4ee7e7a28fccd726491",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/optical_agent/general_catalog.py": "sha256:4ea012ca8f26e27580790885bea90c87a4ff8abfa324d0fc7c75c409898f3134",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/optical_agent/general_eval.py": "sha256:8ae21c816341597728215250237c2ee5a65102411516f617de9ae8d19f8f4461",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/optical_agent/general_vision.py": "sha256:1caeaaa160e8011d976e7c1e705060a3bd9a56fa5a555a6de09f237190f1a503",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/optical_agent/image_input.py": "sha256:1a8d3387b02196c4d23d1a02f6da2af515c4b16449249cdf8ef25e2af1da1069",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/quality.py": "sha256:fe10ba0a31ae7edea47f15f0c8475ffa378d8e1e4244119f8b4dc779fe1f8d65",
+    "LOCAL_DATA_ROOT/general_v060/source_runtime_v2/verification.json": "sha256:a4c27c583a40c8f95852898722989d2292d078523f29148eb128ef1eadd65e1c",
+    "LOCAL_DATA_ROOT/general_v060/test_summary.json": "sha256:5a8578d0aa3ebc0d867374cf1f6aff5af54acd533251ca6db1a2219175add704",
+    "LOCAL_DATA_ROOT/general_v060/tests/private-final.log": "sha256:9bf18123be21edfa8884238bf44983ae93f47e6f9ff247e2b35843c286913ae0",
+    "LOCAL_DATA_ROOT/general_v060/validation/clean_public/pytest.log": "sha256:522ec11be3d2cb59e93d97fe65c6bb708534cf43c0963d03cb0d1ed777b26023",
+    "LOCAL_DATA_ROOT/general_v060/validation/clean_public/quick_start_verification.json": "sha256:d9d670977e3635fa87e5226f0f7aca2483f51a3a5f4e8efb4fdadf0555d85bbb",
+    "LOCAL_DATA_ROOT/general_v060/validation/mcp_frozen.log": "sha256:cb7573ddb3012d2a24648f80fc8bce5f0911fdd7df376d6350cf0a2d9ffe264e",
+    "LOCAL_DATA_ROOT/general_v060/validation/node_final.log": "sha256:d4f7e55565548b54c97aa2fd7d943d7966c98c59a2d77cfc829a4fe21ebf63f7",
+    "LOCAL_DATA_ROOT/general_v060/validation/node_final_verification.json": "sha256:629ce83d550fa691a6af8143f56eee4498f1d22114ef5c0b7fa7e117a4ae74a2",
+    "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/final_frozen.log": "sha256:d8bfa61661334a2ac1f8dd71e66bd637daa0ff6f9df7e8132e83e9967cf56415",
+    "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/final_frozen_verification.json": "sha256:95d8b130a08eb4459b6e25dcc3d56b9219fa3f29eaacb7c0ef210d959d1363bd",
+    "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/official_eval.log": "sha256:c0970a620164d035f5aa490fe8aafe2774bb0a59341a6871871910b8cd121236",
+    "LOCAL_DATA_ROOT/general_v060/validation/public_cpu/pytest.log": "sha256:e27add864f9cf84bf44e297b47d92eb334c25701a32b2cb4fc4b4b8309b0f366",
+    "LOCAL_DATA_ROOT/general_v060/validation/runtime_visual/summary.json": "sha256:4f1636a91201ea085d0d23905531eddb84793d1d227a920066238cc69dc11c0f",
+    "LOCAL_DATA_ROOT/general_v060/validation/runtime_visual/workflow_calls.json": "sha256:b4856d7a4bdb1e3af0e229fb4e76bb2544444121057f085dc90f62246c6fea9d",
+    "LOCAL_DATA_ROOT/mcp/runs/demo_v060_frozen.json": "sha256:3cc358f91ebcf3447ee32f8b41ed645ce6809929c0d4f11fe56a3a03a6073136"
+  },
+  "prediction_corpus_digest": {
+    "algorithm": "SHA256 over sorted UTF-8 relative_path + NUL + file_SHA256_hex + LF entries",
+    "file_count": 5990,
+    "sha256": "72ccb8b70246943b47be975e6717564b386a6e61767088841dc56ef67461daf5",
+    "root": "LOCAL_DATA_ROOT\\general_v060",
+    "scope": "all 5990 current retained prediction cache files"
+  },
+  "report_md_sha256": "58ccc72e15b41dcc03490f15e157e7e63ef8e08ed813e3241e8c42e95cbe490d",
+  "publication_note": "Path-sanitized copy of a fresh same-family provisional model audit; full original remains local. PASS concerns retained experiment integrity, not deployment accuracy.",
+  "original_audit_sha256": {
+    "EXPERIMENT_AUDIT.md": "58ccc72e15b41dcc03490f15e157e7e63ef8e08ed813e3241e8c42e95cbe490d",
+    "EXPERIMENT_AUDIT.json": "2fa7a975d1707dbb661c78232201feb98cabe60ff86770df939a9be5d2d301bc"
+  }
+}

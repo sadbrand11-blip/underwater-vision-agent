@@ -1,6 +1,6 @@
 let sessionId=null, busy=false;
 const byId=id=>document.getElementById(id);
-function syncVisionScheduler(){const experimental=byId('vision-mode').value!=='legacy'||byId('runtime-engine').value==='langgraph';byId('agent-mode').querySelector('option[value="legacy"]').disabled=experimental;if(experimental)byId('agent-mode').value='adaptive';}
+function syncVisionScheduler(){const experimental=byId('vision-mode').value.startsWith('experiment_')||byId('runtime-engine').value==='langgraph';byId('agent-mode').querySelector('option[value="legacy"]').disabled=experimental;if(experimental)byId('agent-mode').value='adaptive';}
 byId('vision-mode').addEventListener('change',syncVisionScheduler);
 byId('runtime-engine').addEventListener('change',syncVisionScheduler);
 syncVisionScheduler();
@@ -82,7 +82,7 @@ byId('chat-form').onsubmit=async event=>{
  const visionLabels={reliable:'通过当前程序规则',unreliable:'不可靠',quality_failure:'质量失败',quality_unassessable:'质量不可评估'};
  turn.append(element('p',`视觉结论：${visionLabels[data.vision_status]||'尚无完整可靠性结论'}`,data.vision_status&&data.vision_status!=='reliable'?'error':'small'));
  if(typeof data.target_count==='number')turn.append(element('p',`本轮实际候选目标：${data.target_count} 个；候选数量不代表识别准确率。`,'small'));
- if(data.goal_contract)turn.append(element('p',`目标类别：${data.goal_contract.target_classes.join('、')||'本任务无需目标检测'} · 采用图片：${data.selected_image_id}`,'small'));
+ if(data.goal_contract){const goal=data.goal_contract,targets=goal.target_classes||[];const scope=['quality','correction'].includes(goal.task_type)?'本任务无需目标检测':targets.length>8?`全部支持类别（${targets.length}类，详见任务契约）`:targets.join('、')||'本任务无需目标检测';turn.append(element('p',`目标类别：${scope} · 采用图片：${data.selected_image_id}`,'small'));}
  if(data.vision_result?.reasons?.length)turn.append(element('p',data.vision_result.reasons.join('；'),'error'));
  appendTaskDetails(turn,data);
  appendAdaptiveDetails(turn,data);
@@ -96,8 +96,10 @@ byId('chat-form').onsubmit=async event=>{
    for(const item of memory.history_refs||[])section.append(element('p',`${item.memory_id} · ${item.summary}`));
    if(memory.saved_memory_id)section.append(element('p','本轮摘要：'+memory.saved_memory_id));
    const link=element('a','查看历史 / 修改偏好');link.href='/memory';section.append(link);turn.append(section);}
- if(data.vision_mode&&data.vision_mode!=='legacy'){turn.append(element('p','当前为 0.4.0 视觉实验配置，机器人不细分 AUV/ROV；保留测试误报偏多，仅用于实验观察。候选数量变化不等于识别准确率提高。','small'));for(const [name,model] of Object.entries(data.vision_models.branches||{}))turn.append(element('p',`${name==='robot'?'机器人（UIIS10K）':'设施六类（SODD）'}：${model.available?'可用':'模型缺失，不能解释为无目标'}；校准 ${model.calibration?model.calibration.status:'不足'}；版本 ${(model.model_sha256||'').slice(0,12)}`,'small'));}
- if(data.input_provenance&&data.input_provenance.kind==='simulated_exposure_perturbation')turn.append(element('p',`输入为模拟曝光扰动（${data.input_provenance.variant}），不是实际相机重拍。`,'small'));
+ if(data.vision_mode==='general_rgb_v1'){turn.append(element('p','普通照片 · COCO80类。检测分数不是正确概率；校准不足的类别保持候选。','small'));}
+ if(data.vision_mode&&data.vision_mode.startsWith('experiment_')){turn.append(element('p','当前为 0.4.0 视觉实验配置，机器人不细分 AUV/ROV；保留测试误报偏多，仅用于实验观察。候选数量变化不等于识别准确率提高。','small'));for(const [name,model] of Object.entries(data.vision_models.branches||{}))turn.append(element('p',`${name==='robot'?'机器人（UIIS10K）':'设施六类（SODD）'}：${model.available?'可用':'模型缺失，不能解释为无目标'}；校准 ${model.calibration?model.calibration.status:'不足'}；版本 ${(model.model_sha256||'').slice(0,12)}`,'small'));}
+ if(data.input_provenance&&data.input_provenance.kind==='procedural_exposure_fixture')turn.append(element('p','程序生成的曝光测试图，不是真实照片或检测精度样本。','small'));
+ if(data.input_provenance&&data.input_provenance.kind.startsWith('simulated_'))turn.append(element('p',`输入为模拟曝光扰动（${data.input_provenance.variant}），不是实际相机重拍。`,'small'));
  turn.append(element('p',`${data.execution_mode==='cloud'?'API请求':'调度'}尝试 ${data.request_attempts??data.model_calls} 次 · 成功模型响应 ${data.model_calls} 次 · 工具执行 ${data.tool_calls} 次 · 结果纠错 ${data.format_repairs||0} 次`,'small'));
  appendErrorDetails(turn,data);
  if(data.tool_calls===0)turn.append(element('p',data.evidence.length?'本轮没有执行图像工具，已展示结果来自当前会话缓存。':'本轮尚未执行图像工具，没有产生新的曝光或检测结果。','small'));
@@ -115,7 +117,7 @@ byId('chat-form').onsubmit=async event=>{
   turn.append(views);
   if(deferred.length){const other=detailPanel('其他候选、热图与结果图片',data);other.append(extra);
    const load=()=>{if(other.open)for(const [img,url] of deferred)if(!img.src)img.src=url;};other.addEventListener('toggle',load);load();turn.append(other);}
- if(data.citations.length){const section=element('details');section.append(element('summary','查看依据来源'));for(const citation of data.citations){const p=element('p');const a=element('a',`[${citation.citation_id}] ${citation.title}`);a.href=citation.source;a.target='_blank';a.rel='noopener noreferrer';p.append(a);if(citation.version_warning)p.append(element('p',citation.version_warning,'small'));section.append(p);}turn.append(section);}
+ if(data.citations.length){const section=element('details');section.append(element('summary','查看依据来源'));for(const citation of data.citations){const p=element('p');const a=element('a',`[${citation.citation_id}] ${citation.title}`);a.href=historicalSource(citation.source);a.target='_blank';a.rel='noopener noreferrer';p.append(a);if(citation.version_warning)p.append(element('p',citation.version_warning,'small'));section.append(p);}turn.append(section);}
  const trace=detailPanel('执行记录',data);trace.append(element('summary',`查看执行过程（请求尝试 ${data.request_attempts??data.model_calls} 次，成功响应 ${data.model_calls} 次，工具 ${data.tool_calls} 次）`));
  for(const item of data.trace){if(item.type==='task_understanding')trace.append(element('p',`任务理解：${item.contract.task_name}`));if(item.type==='tool')trace.append(element('p',`工具执行：${item.tool} · ${item.ok?'成功':'失败'}${item.cached?'（复用缓存）':''}`));if(item.type==='task_validation')trace.append(element('p',`完成校验：${item.passed?'通过':'未通过'}${item.missing.length?' · '+item.missing.map(x=>x.requirement).join('、'):''}`));}
   trace.open=!!(memory?.enabled&&memory.available&&memory.preferences?.display_detail==='expanded');
@@ -123,3 +125,9 @@ byId('chat-form').onsubmit=async event=>{
  byId('message').value='';}
  catch(error){turn.append(element('p',error.message,'error'));}finally{clearInterval(timer);busy=false;byId('send').disabled=false;byId('running').textContent='';}
 };
+
+// Presentation link only: frozen evidence, rankings and API values stay unchanged.
+function historicalSource(source){
+ return source.replace('https://github.com/sadbrand11-blip/optical-image-analysis-agent/blob/main/',
+  'https://github.com/sadbrand11-blip/optical-image-analysis-agent/blob/8d2d59212d011eb025e7a7dabe0a6e1c46e8508f/');
+}

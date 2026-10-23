@@ -92,6 +92,7 @@ def _detect(context, arguments):
             'detections': context.detections[image_id], 'status': 'candidate_only',
             'threshold': float(context.detector.threshold),
             'training_domain': getattr(context.detector, 'dataset', 'unknown'),
+            'model': context.detector.metadata() if hasattr(context.detector, 'metadata') else None,
             'calibration_warning': '分数及经验校准不是分布外可靠性保证；此工具只输出候选框'}
 
 

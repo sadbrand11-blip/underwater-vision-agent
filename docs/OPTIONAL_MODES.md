@@ -15,11 +15,21 @@ Install `transformers==4.32.1`, `tokenizers==0.13.2`, `safetensors==0.3.2` and t
 optional Torch dependencies. The local model is `BAAI/bge-small-zh-v1.5`, revision
 `7999e1d3359715c523056ef9478215996d62a620`. See the verified model source in
 `docs/11_RAG_OPTIMIZATION.md`. Public assets belong under
-`D:\CodexData\optical_agent\public\rag`, independent of historical frozen C0/C1.
+`D:\CodexData\optical_agent\rag\general_rgb_v1`, independent of historical frozen C0/C1. The local model stays under `rag/models`.
 Without the model or a valid index, the comparison UI reports unavailable.
 The supported default is TF-IDF; historical Hybrid acceptance does not apply to
 the sanitized public corpus. Do not run historical `publish_rag.py` against this
 public configuration.
+
+Prepare only the pinned model, then build the independent general corpus index:
+
+```powershell
+python -m optical_agent.experiments prepare_rag --assets model
+python -c "from optical_agent.general_knowledge import create_general_retriever; print(create_general_retriever(mode='embedding', build=True).metadata())"
+```
+
+Embedding and Hybrid share the same normalized vectors. No Recall/MRR acceptance
+is claimed for this new corpus. Missing or corrupt assets stay unavailable.
 
 ## LangGraph
 
@@ -34,4 +44,4 @@ Install `requirements-mcp.txt`, then use `python serve_mcp.py` as a stdio server
 The three tools are quality assessment, bounded candidate generation and object
 detection. MCP has its own image registry; it does not restore web sessions.
 Input images must be inside the configured data root. Missing detector weights
-remain an explicit error. See `docs/14_MCP_SERVER.md` for the protocol demo.
+remain an explicit error. See [current general-image MCP instructions](GENERAL_MCP.md) for the protocol demo. The old 0.5.3 description is archived.

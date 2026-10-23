@@ -19,8 +19,7 @@ from optical_agent.adaptive_goals import ALIASES, CLASSES, TASKS
 from optical_agent.diagnostics import redact
 from optical_agent.reports import EXPOSURE, STATUS
 
-from optical_agent.public_config import PUBLIC_ROOT
-MEMORY_PATH = PUBLIC_ROOT / 'memory' / 'memory.sqlite3'
+MEMORY_PATH = Path(r'D:\CodexData\optical_agent\memory\memory.sqlite3')
 DEFAULTS = {'enabled': True, 'target_classes': [], 'display_detail': 'compact'}
 SUPPORTED = (*CLASSES, 'underwater_robot')
 CLASS_NAMES = {'propeller': '螺旋桨', 'pipe_type2': '第二类管道', 'red_fin': '红色鳍片',
@@ -68,10 +67,17 @@ def validate_preferences(value):
 
 
 class MemoryStore:
-    def __init__(self, path=MEMORY_PATH, *, limit=200):
+    def __init__(self, path=MEMORY_PATH, *, limit=200, profile_id=None):
         self.path, self.limit = Path(path), limit
+        self.profile_id = profile_id
         if type(limit) is not int or not 1 <= limit <= 200:
             raise ValueError('历史条数上限为1至200')
+
+    def validate(self, value):
+        return validate_preferences(value)
+
+    def initial_preferences(self):
+        return copy.deepcopy(DEFAULTS)
 
     @contextmanager
     def connection(self):
@@ -88,7 +94,8 @@ class MemoryStore:
             with conn:
                 conn.execute('CREATE TABLE IF NOT EXISTS preferences (id INTEGER PRIMARY KEY CHECK(id=1), payload TEXT NOT NULL)')
                 conn.execute('CREATE TABLE IF NOT EXISTS history (memory_id TEXT PRIMARY KEY, identity TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL, payload TEXT NOT NULL)')
-                conn.execute('INSERT OR IGNORE INTO preferences VALUES (1, ?)', (canonical(DEFAULTS),))
+                if conn.execute('SELECT 1 FROM preferences WHERE id=1').fetchone() is None:
+                    conn.execute('INSERT INTO preferences VALUES (1, ?)', (canonical(self.initial_preferences()),))
                 conn.execute('PRAGMA user_version=1')
             yield conn
         except (sqlite3.Error, OSError, ValueError, TypeError, KeyError) as exc:
@@ -101,10 +108,12 @@ class MemoryStore:
     def snapshot(self, *, include_history=True, only_when_enabled=False):
         with self.connection() as conn:
             conn.execute('BEGIN')
-            prefs = validate_preferences(json.loads(conn.execute('SELECT payload FROM preferences WHERE id=1').fetchone()[0]))
+            prefs = self.validate(json.loads(conn.execute('SELECT payload FROM preferences WHERE id=1').fetchone()[0]))
             rows = ([self.decode(row) for row in conn.execute(
                 'SELECT * FROM history ORDER BY created_at DESC, rowid DESC LIMIT ?', (self.limit,))]
                 if include_history and (not only_when_enabled or prefs['enabled']) else [])
+            if self.profile_id == 'general_rgb_v1':
+                rows = [row for row in rows if row['versions'].get('profile_id') == self.profile_id]
             return {'preferences': prefs, 'history': rows}
 
     @staticmethod
@@ -118,7 +127,7 @@ class MemoryStore:
         return self.snapshot(include_history=False)['preferences']
 
     def set_preferences(self, value):
-        prefs = validate_preferences(value)
+        prefs = self.validate(value)
         with self.connection() as conn, conn:
             conn.execute('UPDATE preferences SET payload=? WHERE id=1', (canonical(prefs),))
         return prefs
@@ -151,6 +160,61 @@ class MemoryStore:
             cursor = conn.execute('DELETE FROM history' if memory_id is None else 'DELETE FROM history WHERE memory_id=?',
                                   () if memory_id is None else (memory_id,))
             return cursor.rowcount
+
+
+class GeneralMemoryStore(MemoryStore):
+    """Separate database; only a display preference may be copied read-only."""
+    def __init__(self, path=None, *, limit=200, legacy_path=MEMORY_PATH):
+        self.legacy_path = Path(legacy_path) if legacy_path is not None else None
+        self.migration_notice = ('普通照片使用独立记忆；旧水下类别与分析历史保持归档，不用于当前规划。'
+                                 '首次创建时仅尝试沿用旧库的简洁/展开显示偏好。')
+        super().__init__(path or MEMORY_PATH.parent / 'general_rgb_v1.sqlite3', limit=limit,
+                         profile_id='general_rgb_v1')
+
+    def initial_preferences(self):
+        prefs = copy.deepcopy(DEFAULTS)
+        if self.legacy_path is None or not self.legacy_path.is_file():
+            return prefs
+        conn = None
+        try:
+            # URI mode=ro is important: no schema update, WAL or write in old DB.
+            conn = sqlite3.connect(self.legacy_path.resolve().as_uri() + '?mode=ro', uri=True, timeout=1)
+            row = conn.execute('SELECT payload FROM preferences WHERE id=1').fetchone()
+            display = json.loads(row[0]).get('display_detail') if row else None
+            if display in {'compact', 'expanded'}:
+                prefs['display_detail'] = display
+        except (sqlite3.Error, ValueError, TypeError, KeyError):
+            pass
+        finally:
+            if conn is not None:
+                conn.close()
+        return prefs
+
+    def validate(self, value):
+        from optical_agent.general_catalog import COCO_CLASSES, GENERAL_ALIASES
+        supported = tuple(COCO_CLASSES)
+        if (not isinstance(value, dict) or set(value) != set(DEFAULTS)
+                or type(value['enabled']) is not bool
+                or not isinstance(value['display_detail'], str)
+                or value['display_detail'] not in {'compact', 'expanded'}):
+            raise ValueError('偏好仅包含enabled、target_classes、display_detail；显示为compact或expanded')
+        values = value['target_classes']
+        if not isinstance(values, list) or len(values) > len(supported) or any(not isinstance(x, str) for x in values):
+            raise ValueError('默认类别必须为COCO支持类别列表；空列表表示全部类别')
+        targets = set()
+        for item in values:
+            normalized = item.strip().lower()
+            mapped = GENERAL_ALIASES.get(normalized, (normalized,))
+            if any(x not in supported for x in mapped):
+                raise ValueError('默认类别含COCO列表外目标，旧水下类别不能迁入通用记忆')
+            targets.update(mapped)
+        return {'enabled': value['enabled'], 'target_classes': [x for x in supported if x in targets],
+                'display_detail': value['display_detail']}
+
+    def save(self, payload):
+        if payload.get('versions', {}).get('profile_id') != self.profile_id:
+            raise ValueError('记忆配置不匹配，不能将旧水下分析写入通用命名空间')
+        return super().save(payload)
 
 
 def rank_history(query, rows, limit=3):
@@ -186,12 +250,18 @@ def versions_for(session, agent_mode):
     rag = getattr(session, 'rag_metadata', None)
     if rag is None and hasattr(session.context.retriever, 'metadata'):
         rag = session.context.retriever.metadata()
-    return json.loads(canonical({'models': models, 'model_identity_verified': verified,
+    result = {'models': models, 'model_identity_verified': verified,
             'visual_config_hash': digest({'quality': asdict(agent.quality_config), 'exposure': asdict(agent.exposure_profile)}),
             'algorithm_hash': digest(algorithms), 'agent_mode': agent_mode,
             'vision_mode': getattr(session, 'vision_mode', 'legacy'),
             'knowledge_identity_verified': session.context.retriever is None or bool((rag or {}).get('corpus_hash')),
-            'knowledge_version': {k: (rag or {}).get(k) for k in ('mode', 'corpus_hash', 'model_revision')}}))
+            'knowledge_version': {k: (rag or {}).get(k) for k in ('mode', 'corpus_hash', 'model_revision')}}
+    if getattr(detector, 'profile_id', None) == 'general_rgb_v1':
+        from optical_agent.general_catalog import ONTOLOGY_VERSION
+        result.update(profile_id='general_rgb_v1', ontology_version=getattr(detector, 'ontology_version', ONTOLOGY_VERSION),
+                      preprocessing_version=getattr(detector, 'preprocessing_version', 'exif_rgb_uint8_v1'),
+                      calibration_identity=digest({'models': models, 'status': getattr(detector, 'calibration_status', None)}))
+    return json.loads(canonical(result))
 
 
 def quality_summary(q):
@@ -211,7 +281,12 @@ def result_identity(value):
 def make_summary(session, result, versions):
     contract = result['task_contract']
     kind = contract['task_type']
-    classes = [] if kind in {'quality', 'correction'} else contract.get('target_classes') or list(CLASSES)
+    general = getattr(session.context.detector, 'profile_id', None) == 'general_rgb_v1'
+    supported = tuple(getattr(session.context.detector, 'classes', ('background', *CLASSES)))[1:]
+    classes = [] if kind in {'quality', 'correction'} else contract.get('target_classes') or list(supported if general else CLASSES)
+    names = CLASS_NAMES
+    if general:
+        from optical_agent.general_catalog import CLASS_NAMES as names
     qualities, corrections, counts = {}, {}, {}
     for evidence in result.get('evidence', []):
         data, item_kind = evidence['data'], evidence['type']
@@ -235,7 +310,11 @@ def make_summary(session, result, versions):
              'selected_image_role': selected, 'selected_pixels_sha256': image_hash(images[selected]),
              'visual_status': result.get('vision_status'), 'reasons': report.get('reasons', []),
              'selected_candidate_count': result.get('target_count', counts.get(selected))}
-    parts = [TASKS.get(kind, kind), '关注类别：' + ('、'.join(CLASS_NAMES.get(x, x) for x in classes) if classes else '本任务不检测目标')]
+    category_text = '、'.join(names.get(x, x) for x in classes) if classes else '本任务不检测目标'
+    if general and len(classes) > 12:
+        category_text = ('全部支持的80类' if tuple(classes) == supported
+                         else '、'.join(names.get(x, x) for x in classes[:12]) + f'等{len(classes)}类')
+    parts = [TASKS.get(kind, kind), '关注类别：' + category_text]
     for image_id, q in qualities.items():
         parts.append(f'{image_id}曝光={EXPOSURE.get(q.get("exposure_state"), q.get("exposure_state"))}，质量通过={q.get("quality_pass")}')
     if corrections:
@@ -263,6 +342,8 @@ class MemoryTurn:
                         'rule': MEMORY_RULE}
         if store is None:
             return
+        if getattr(store, 'profile_id', None) == 'general_rgb_v1':
+            self.context.update(namespace=store.profile_id, migration_notice=store.migration_notice)
         try:
             snapshot = store.snapshot(only_when_enabled=True)
             self.context['preferences'] = snapshot['preferences']

@@ -18,7 +18,8 @@ GRAPH_PYTHON = Path(r'D:\CodexData\optical_agent\langgraph\venv\Scripts\python.e
 
 def ready():
     try:
-        with urllib.request.urlopen(BASE_URL + "/health", timeout=1) as response:
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        with opener.open(BASE_URL + "/health", timeout=1) as response:
             info = json.load(response)
             return (response.status == 200 and info.get('app_version') == __version__
                     and ('--langgraph' not in sys.argv or info.get('langgraph_available') is True))
@@ -47,7 +48,8 @@ def main():
                 break
             time.sleep(1)
     if not ready():
-        raise SystemExit("Could not start the analysis page. Check work/ui_logs/server.err.log")
+        raise SystemExit("Could not start the analysis page. Check " + str(log_dir / 'server.err.log')
+                         + ". If port 7860 is occupied by another version, close that project service first.")
     webbrowser.open(URL)
     print("Analysis page opened: " + URL)
 

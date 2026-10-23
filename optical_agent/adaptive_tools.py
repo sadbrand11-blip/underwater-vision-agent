@@ -54,7 +54,11 @@ class AdaptiveState:
         self.detector_identity = self.detector_fingerprint()
 
     def detector_fingerprint(self):
-        identity = (id(self.detector), self.detector.threshold, repr(self.detector.calibration))
+        identity = (id(self.detector), self.detector.threshold, repr(self.detector.calibration),
+                    getattr(self.detector, 'model_sha256', None), getattr(self.detector, 'profile_id', 'legacy'),
+                    getattr(self.detector, 'ontology_version', None), getattr(self.detector, 'preprocessing_version', None),
+                    repr(getattr(self.detector, 'exposure_policy', None)),
+                    repr(getattr(self.detector, 'calibration_status', None)))
         branches = getattr(self.detector, 'branches', None)
         if branches is None:
             return identity
@@ -89,7 +93,12 @@ class AdaptiveState:
 
     def snapshot(self):
         # Drop large tile lists, not measured scalar values; pixels never enter model requests.
-        return {'image_ids': ['original', *self.candidates], 'last_candidate': self.last_candidate,
+        profile = ({'profile_id': self.detector.profile_id,
+                    'ontology_version': getattr(self.detector, 'ontology_version', None),
+                    'exposure_policy': getattr(self.detector, 'exposure_policy', None),
+                    'supported_classes': list(self.detector.classes[1:])}
+                   if getattr(self.detector, 'profile_id', None) == 'general_rgb_v1' else {})
+        return {**profile, 'image_ids': ['original', *self.candidates], 'last_candidate': self.last_candidate,
                 'selected_image_id': self.selected_image, 'goal': self.goal.as_dict() if self.goal else None,
                 'plan': self.plan, 'revisions': self.revisions,
                 'observations': compact(self.observations), 'citation_ids': list(self.citations)}
@@ -244,8 +253,12 @@ def _report(state, candidate=None):
     raw_score = sum(x.get('estimated_box_precision', x['score']) for x in raw if x['score'] >= state.detector.threshold)
     candidate_score = sum(x.get('estimated_box_precision', x['score']) for x in corrected if x['score'] >= state.detector.threshold)
     report['candidate_image_id'] = candidate
-    report['evidence_scope'] = 'original_and_bounded_candidate'
-    report['effect_degraded'] = (state.qualities[candidate]['quality_pass'] is not True or candidate_score + .02 < raw_score)
+    if getattr(state.detector, 'profile_id', None) == 'general_rgb_v1':
+        report['effect_degraded'] = (state.qualities[candidate]['quality_pass'] is not True
+            or (state.candidates[candidate]['parameters'].get('applied') is True and report['selected_image'] == 'original'))
+    else:
+        report['evidence_scope'] = 'original_and_bounded_candidate'
+        report['effect_degraded'] = (state.qualities[candidate]['quality_pass'] is not True or candidate_score + .02 < raw_score)
     report['evidence_warning'] = '分数或候选数量变化不能证明准确率改善。可靠性仅适用于固定目标类别和当前内部规则。'
     return report
 
@@ -376,7 +389,10 @@ def validate_finish(state, selection):
         if goal.require_reliability:
             need('quality:original')
             if q and q['quality_pass'] is True and not state.active_candidates and goal.image_id == 'original':
-                if goal.correction_policy == 'always' or (goal.correction_policy == 'if_needed' and q['exposure_state'] != 'normal'):
+                keep_original = (getattr(state.detector, 'profile_id', None) == 'general_rgb_v1'
+                    and getattr(state.detector, 'exposure_policy', {}).get('status') == 'development_selected'
+                    and getattr(state.detector, 'exposure_policy', {}).get('selected_method') == 'original')
+                if goal.correction_policy == 'always' or (goal.correction_policy == 'if_needed' and q['exposure_state'] != 'normal' and not keep_original):
                     missing.append('本轮条件需要生成并评估至少一种候选')
             comparisons = [state.observations[x] for x in ids if state.observations[x]['type'] == 'comparison']
             reports = [r for o in comparisons for r in o['data']['reports']]

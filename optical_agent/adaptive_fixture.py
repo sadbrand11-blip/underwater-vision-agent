@@ -5,12 +5,51 @@ import re
 from optical_agent.adaptive_goals import ALIASES, CLASSES
 
 
-def scripted_goal(message, pending=None):
+def general_targets(message):
+    """Conservative offline template parser, not arbitrary-language understanding."""
+    from optical_agent.general_catalog import GENERAL_ALIASES, COCO_CLASSES
+    # Inspect every explicit target clause, including comma-separated lists.
+    # Stopping at the first comma would silently drop an unsupported second target.
+    phrases = []
+    for match in re.finditer(r'(?:识别|检测|寻找|找出)(.*?)(?=说明|判断|校正|评估|检查|比较|解释|分析|识别|检测|寻找|找出|$)', message):
+        phrases.append(match.group(1))
+    described = re.search(r'分析(?:这张|那张|当前)?(?:图像|图片|照片|图|画面)(?:中|里)(?:的)?(.+)', message)
+    if described:
+        phrases.append(described.group(1))
+    if not phrases:
+        return [], None
+    phrase = '、'.join(phrases).strip()
+    if any(phrase.startswith(x) for x in ('有没有改善', '是否改善', '效果', '改善', '结果', '分数', '置信度')):
+        return [], None
+    inventory = {**GENERAL_ALIASES, **{name:(name,) for name in COCO_CLASSES}}
+    hits = []
+    for alias, names in inventory.items():
+        pattern = (r'(?<![a-z0-9_])'+re.escape(alias)+r'(?![a-z0-9_])') if alias.isascii() else re.escape(alias)
+        for found in re.finditer(pattern, phrase, flags=re.I):
+            hits.append((found.start(), found.end(), names))
+    occupied = set(); chosen = []
+    for start,end,names in sorted(hits, key=lambda h:(-(h[1]-h[0]),h[0])):
+        if not occupied.intersection(range(start,end)):
+            occupied.update(range(start,end)); chosen.append((start,names))
+    remaining = ''.join(' ' if i in occupied else c for i,c in enumerate(phrase))
+    remaining = re.sub(r'校正后的|这张|那张|当前|图像|图片|画面|照片|原图|图中|中的|里面|所有|全部|一下|有没有|是否有|是否存在|目标|物体|对象|类别|的|中|里|吗|呢|请|和|与|及|然后|并且|并|再|只|仅|同时|、', '', remaining)
+    remaining = re.sub(r'\b(?:and|or|a|an|the|only)\b', '', remaining, flags=re.I)
+    remaining = re.sub(r'[\s，。；,;!?！？：:]+', '', remaining)
+    targets = list(dict.fromkeys(name for _,names in sorted(chosen) for name in names))
+    if remaining:
+        return targets, remaining
+    return targets, None
+
+
+def scripted_goal(message, pending=None, profile_id=None):
     if pending:
         message = pending['original_message'] + '；' + message
     targets = []
     inventory = {**ALIASES, **{name:(name,) for name in (*CLASSES,'underwater_robot')},
                  '航行器':('underwater_robot',),'红鳍片':('red_fin',),'网具':('net',)}
+    if profile_id == 'general_rgb_v1':
+        from optical_agent.general_catalog import GENERAL_ALIASES, COCO_CLASSES
+        inventory = {**GENERAL_ALIASES, **{name:(name,) for name in COCO_CLASSES}}
     for alias, names in inventory.items():
         found = (re.search(r'(?<![a-z0-9_])'+re.escape(alias.lower())+r'(?![a-z0-9_])',message.lower())
                  if alias.isascii() else alias in message)
@@ -19,7 +58,7 @@ def scripted_goal(message, pending=None):
     targets = list(dict.fromkeys(targets))
     ref = 'corrected' if any(x in message for x in ('校正后的', '校正图')) else 'current' if '刚才' in message else 'original'
     kind, policy, reliable, question = 'analysis', 'if_needed', True, ''
-    if any(x in message for x in ('鱼', '珊瑚')):
+    if profile_id != 'general_rgb_v1' and any(x in message for x in ('鱼', '珊瑚')):
         kind = 'unsupported'
     elif '只检查' in message or '只评估' in message:
         kind, policy, reliable = 'quality', 'never', False
@@ -35,6 +74,15 @@ def scripted_goal(message, pending=None):
         kind, policy, reliable = 'detection', 'never', False
     if '先校正' in message and kind == 'analysis':
         policy, ref = 'always', 'original'
+    if profile_id == 'general_rgb_v1':
+        if kind in {'quality', 'correction'}:
+            targets = []
+        else:
+            targets, unknown = general_targets(message)
+            if unknown:
+                kind, targets = 'unsupported', [unknown]
+            elif not any(word in message for word in ('检查','评估','分析','识别','检测','校正','比较','解释','依据')):
+                kind, question = 'clarify', '离线规则演示支持页面示例任务；自由中文问题请切换云端模式。'
     return {'task_type': kind, 'image_reference': ref, 'target_classes': targets,
             'correction_policy': policy, 'require_reliability': reliable, 'question': question}
 
@@ -48,7 +96,7 @@ class AdaptiveScriptedClient:
         state = json.loads(system.split('\nSTATE=', 1)[1]) if '\nSTATE=' in system else json.loads(messages[1]['content'])
         phase = state['phase']
         if phase == 'goal_understanding':
-            content = scripted_goal(state['user_message'], state['pending'])
+            content = scripted_goal(state['user_message'], state['pending'], state.get('profile_id'))
             if state.get('memory_scope_enabled'):
                 full = (state['pending']['original_message'] + '；' if state.get('pending') else '') + state['user_message']
                 all_classes = any(x in full for x in ('全部类别', '所有类别', '全部目标', '所有目标'))
@@ -85,6 +133,9 @@ class AdaptiveScriptedClient:
                 return self.action('assess_reliability', image_id='original')
             return self.with_knowledge(goal, observations, ['quality:original', rid], 'original')
         needs = goal['correction_policy'] == 'always' or (goal['correction_policy'] == 'if_needed' and q['exposure_state'] != 'normal')
+        if (goal['correction_policy'] == 'if_needed'
+                and (state.get('exposure_policy') or {}).get('selected_method') == 'original'):
+            needs = False
         if needs:
             candidate = 'candidate_gamma'
             if 'correction:' + candidate not in ids:
@@ -113,7 +164,10 @@ class AdaptiveScriptedClient:
     def with_knowledge(self, goal, observations, ids, selected):
         matches = [m for o in observations.values() if o['type'] == 'knowledge' for m in o['data']['matches']]
         if goal['requires_citations'] and not matches:
-            return self.action('retrieve_knowledge', query='曝光信息丢失与目标拒识原因')
+            query = '曝光信息丢失与目标拒识原因'
+            if not set(goal['target_classes']).issubset({*CLASSES, 'underwater_robot'}):
+                query = '检测分数不是正确概率，增强后框变多不能证明准确率提高'
+            return self.action('retrieve_knowledge', query=query)
         return self.finish(selected, ids, [m['citation_id'] for m in matches] if goal['requires_citations'] else [])
 
     @staticmethod

@@ -86,7 +86,7 @@ def parse_contract(content, context, start_image_id):
     image_id = start_image_id if ref == 'current' else ('corrected' if ref == 'corrected' else 'original')
     disposition = 'ready'
     if kind == 'unsupported':
-        disposition, question = 'unsupported', CAPABILITY
+        disposition, question = 'unsupported', capability(context)
     elif kind == 'clarify':
         disposition = 'needs_clarification'
         question = question.strip() or '请说明要检查曝光、校正、检测目标，还是比较前后结果，以及要处理哪张图。'
@@ -132,11 +132,30 @@ def validate_completion(contract, context, selection):
     return {'passed': not missing, 'missing': missing}
 
 
-def scripted_intent(message):
+def capability(context):
+    if getattr(getattr(context, 'detector', None), 'profile_id', None) == 'general_rgb_v1':
+        return '当前支持普通8位JPEG、PNG图片的曝光评估、有界校正、COCO 80类常见物体候选检测和证据比较；管道、二维码等列表外目标和专用领域识别尚不支持。'
+    return CAPABILITY
+
+
+def intent_system(context):
+    if getattr(getattr(context, 'detector', None), 'profile_id', None) != 'general_rgb_v1':
+        return INTENT_SYSTEM
+    from optical_agent.general_catalog import GENERAL_ALIASES
+    classes = tuple(context.detector.classes)[1:]
+    text = INTENT_SYSTEM.replace('本地水下图像 Agent', '本地普通自然图像 Agent')
+    text = text.replace('支持 SODD 六类：propeller（螺旋桨）、pipe / pipe_type2（管道）、red_fin（红色鳍片）、net（渔网）、qr_codes（二维码）。若指定鱼、珊瑚等不支持类别或其他操作，选 unsupported。',
+                        '支持类别仅为当前COCO列表；管道、二维码、鱼及列表外类别或其他操作选unsupported。不能用相近类别代替未知目标。')
+    return text + '\nGENERAL_PROFILE=general_rgb_v1\n当前类别=' + json.dumps(classes, ensure_ascii=False) + '\n中文别名=' + json.dumps(GENERAL_ALIASES, ensure_ascii=False)
+
+
+def scripted_intent(message, profile_id=None):
     """Offline demonstration fixture. Never used to claim LLM intent accuracy."""
     ref = ('corrected' if any(x in message for x in ('校正后的', '校正图', '增强后的', '增强图'))
            else 'original' if '原图' in message else 'current' if any(x in message for x in ('刚才', '那张')) else 'unspecified')
-    if any(x in message for x in ('鱼', '珊瑚', '海龟', '训练模型', '下载数据')):
+    unsupported = (('管道', '二维码', '螺旋桨', '水下机器人', '鱼', '珊瑚', '海龟', '训练模型', '下载数据')
+                   if profile_id == 'general_rgb_v1' else ('鱼', '珊瑚', '海龟', '训练模型', '下载数据'))
+    if any(x in message for x in unsupported):
         kind = 'unsupported'
     elif any(x in message for x in ('如果', '否则', '好不好', '处理一下', '还有什么')) or not message.strip():
         kind = 'clarify'

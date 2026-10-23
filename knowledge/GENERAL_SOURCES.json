@@ -1,0 +1,5 @@
+[
+  {"id":"general-capabilities-v1","title":"普通自然图像 Agent 0.6.0 当前能力","path":"knowledge/GENERAL_CAPABILITIES.md","url":"https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/GENERAL_CAPABILITIES.md","verified_at":"2026-10-23","source_type":"project_capabilities","vision_modes":["general_rgb_v1"],"verification_level":"project_files"},
+  {"id":"general-exposure-v1","title":"普通照片曝光、校正与可靠性工程规则","path":"knowledge/GENERAL_EXPOSURE.md","url":"https://github.com/sadbrand11-blip/underwater-vision-agent/blob/main/knowledge/GENERAL_EXPOSURE.md","verified_at":"2026-10-23","source_type":"project_policy","vision_modes":["general_rgb_v1"],"verification_level":"project_files"},
+  {"id":"general-coco-model-v1","title":"COCO 官方通用检测器、类别与校准边界","path":"knowledge/GENERAL_COCO_MODEL.md","url":"https://docs.pytorch.org/vision/0.17/models/generated/torchvision.models.detection.fasterrcnn_mobilenet_v3_large_320_fpn.html","verified_at":"2026-10-23","source_type":"official_model_documentation","vision_modes":["general_rgb_v1"],"verification_level":"official_documentation"}
+]
